@@ -1,0 +1,28 @@
+Things found on
+<https://wiki.debian.org/HowToPackageForDebian#Check_points_for_any_package>
+but not included here yet::
+
+   bfbtester -x 10 -a debian/*/bin debian/*/usr/bin debian/*/sbin debian/*/usr/sbin debian/*/usr/games
+   find -iname *.py -print0 | xargs --no-run-if-empty --null grep 'environ *\[.HOME.\]'
+   find \( -iname \*.png -o -iname \*.gif -o -iname \*.jpg -o -iname \*.jpeg \) -print0 | xargs --no-run-if-empty --null grep -iE 'inkscape|gimp'
+   find ! \( -iname \*.icns -o -iname \*.bmp -o -iname \*.ico -o -iname \*.png -o -iname \*.gif -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.mo -o -iname \*.gz -o -iname \*.zip -o -iname \*.pdf -o -iname \*.bz2 -o -iname \*.tar -o -iname \*.odt -o -iname \*.docx -o -iname \*.torrent -o -iname \*.pyc -o -iname \*.pyo -o -iname \*.o -o -iname \*.wav -o -iname \*.ttf -o -iname \*.ogg -o -iname \*.oga -o -iname \*.ogv -o -iname \*.xcf -o -iname \*.so -o -iname \*.so.\* -o -iname \*.gmo -o -iname \*.debug -o -iname \*.tga \) -print0 | xargs --no-run-if-empty --null isutf8
+   find ! -type d | xargs file  | grep ': *ELF ' | sed 's/: +*.*//' | xargs --no-run-if-empty eu-elflint --quiet --gnu-ld --strict
+   find -type f -iname \*.uu -print0 | xargs --no-run-if-empty --null uudecode -o /dev/null
+   grep -r 'PATH' .
+   grep -r 'x86_64-linux-gnu' .
+   grep -rC4 'system *(' .
+   grep -rC4 'popen *(' .
+   grep -ri 'fixme' .
+   grep -ri 'todo' .
+   grep -ri 'hack' .
+   find -type f | sim_text -ipTt 75 | tac | column -t
+   echo TODO: jslint puppet-lint acheck linkchecker ssl-cert-check
+
+Some (all?) wildcards should be case-insensitive.
+
+Wildcards is not always an adequate mechanisms for detecting file types. Think
+of Python or Perl scripts without extensions, or ELF binaries.
+
+A mechanisms for filtering output is needed.
+
+.. vim:ts=3 sw=3 et ft=rst

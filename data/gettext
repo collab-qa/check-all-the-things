@@ -1,0 +1,17 @@
+[msgfmt-check]
+match = *.po *.pot
+command = msgfmt --check --check-compatibility --check-accelerators --output-file=/dev/null {file}
+
+[gettext-lint-checker]
+match = *.po *.pot
+command = POFileChecker {files}
+
+[gettext-lint-spell]
+match = *.po *.pot
+command = POFileChecker {files}
+
+[i18nspector]
+match = *.po *.pot *.mo *.gmo
+command = i18nspector {files}
+
+# vim:ft=dosini

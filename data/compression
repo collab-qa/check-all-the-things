@@ -1,0 +1,29 @@
+[gzip-test]
+match = *.gz *.tgz
+command = gzip --test {files}
+
+[bzip2-test]
+match = *.bz2 *.tbz
+command = bzip2 --test {files}
+
+[xz-test]
+match = *.xz *.txz
+command = xz --test {files}
+
+[lzma-test]
+match = *.lzma
+command = lzma --test {files}
+
+[lzo-test]
+match = *.lzo
+command = lzop --test {files}
+
+[lzip-test]
+match = *.lzip
+command = lzip --test {files}
+
+[unzip-test]
+match = *.zip *.jar *.pk3 *.wz
+command = unzip -t {files}
+
+# vim:ft=dosini

@@ -1,0 +1,9 @@
+[paypal-logo]
+match = *paypal*.png *paypal*.gif
+command = ls {files} && false
+
+[flattr-logo]
+match = *flattr*.png *flattr*.gif
+command = ls {files} && false
+
+# vim:ft=dosini

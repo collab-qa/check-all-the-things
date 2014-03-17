@@ -1,0 +1,5 @@
+[xmllint]
+match = *.xml
+command = xmllint --noout --nonet {files}
+
+# vim:ft=dosini

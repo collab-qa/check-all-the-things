@@ -1,0 +1,5 @@
+[lacheck]
+match = *.tex
+command = lacheck {files}
+
+# vim:ft=dosini

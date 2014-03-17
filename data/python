@@ -1,0 +1,13 @@
+[pyflakes]
+command = pyflakes .
+
+[pep8]
+command = pep8 .
+
+[site-packages]
+command = grep -rw site-packages .
+
+[pythonpath]
+command = grep -rw PYTHONPATH
+
+# vim:ft=dosini

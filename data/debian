@@ -1,0 +1,30 @@
+[cme-check-dpkg]
+match = ./debian/control
+command = cme check dpkg
+
+[cme-check-dpkg-control]
+match = ./debian/control
+command = cme check dpkg-control
+
+[cme-check-dpkg-copyright]
+match = ./debian/copyright
+command = cme check dpkg-copyright
+
+[uscan]
+match = ./debian/watch
+command = uscan --verbose --report-status
+
+[duck]
+match = ./debian/control
+command = duck
+restrictions = network-access
+
+[lintian]
+match = *.changes *.deb *.dsc
+command = lintian {files}
+
+[lintian4python]
+match = *.changes *.deb *.dsc
+command = lintian4py {files}
+
+# vim:ft=dosini

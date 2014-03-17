@@ -1,0 +1,7 @@
+[ogginfo]
+command = ogginfo -q {files}
+
+[oggz-validate]
+command = oggz-validate
+
+# vim:ft=dosini

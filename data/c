@@ -1,0 +1,10 @@
+[cppcheck]
+command = cppcheck -j{njobs} --quiet -f .
+
+[include-what-you-use]
+match =
+ *.c *.cc *.cxx *.cpp
+ *.h *.hh *.hxx *.hpp
+command = include-what-you-use {file}
+
+# vim:ft=dosini

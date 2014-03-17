@@ -1,0 +1,5 @@
+[desktop-file-validate]
+match = *.desktop
+command = desktop-file-validate {file}
+
+# vim:ft=dosini

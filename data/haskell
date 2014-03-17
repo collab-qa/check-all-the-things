@@ -1,0 +1,4 @@
+[hlint]
+command = hlint .
+
+# vim:ft=dosini

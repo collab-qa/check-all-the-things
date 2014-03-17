@@ -1,0 +1,5 @@
+[jpeginfo]
+match = *.jpg *.jpeg
+command = jpeginfo --check --quiet {files}
+
+# vim:ft=dosini

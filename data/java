@@ -1,0 +1,4 @@
+[jlint]
+command = jlint.sh
+
+# vim:ft=dosini

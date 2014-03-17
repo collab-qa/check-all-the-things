@@ -1,0 +1,9 @@
+[blhc]
+match = *.build
+command = blhc --all {files}
+
+[build-log-warnings]
+match = *.build
+command = grep -H -i warn {files}
+
+# vim:ft=dosini

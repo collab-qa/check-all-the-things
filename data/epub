@@ -1,0 +1,5 @@
+[epubcheck]
+match = *.epub
+command = epubcheck -quiet {file}
+
+# vim:ft=dosini

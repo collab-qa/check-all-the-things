@@ -1,0 +1,5 @@
+[php-syntax-check]
+match = *.php*
+command = php -l -f {file}
+
+# vim:ft=dosini

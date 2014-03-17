@@ -1,0 +1,9 @@
+[fontlint]
+match = *.ttf *.otf *.sfd *.pfa *.pfb *.bdf *.pk *.ttc *.pcf
+command = fontlint {file}
+
+[ftvalid]
+match = *.ttf *.otf
+command = ftvalid {file}
+
+# vim:ft=dosini

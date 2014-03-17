@@ -1,0 +1,4 @@
+[tmp]
+command = grep -r '/tmp/' .
+
+# vim:ft=dosini

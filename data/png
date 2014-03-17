@@ -1,0 +1,5 @@
+[pngcheck]
+match = *.png
+command = pngcheck -q {files}
+
+# vim:ft=dosini
