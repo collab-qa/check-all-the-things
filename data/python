@@ -8,6 +8,6 @@ command = pep8 .
 command = grep -rw site-packages .
 
 [pythonpath]
-command = grep -rw PYTHONPATH
+command = grep -rw PYTHONPATH .
 
 # vim:ft=dosini
