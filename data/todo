@@ -1,5 +1,0 @@
-[bfbtester]
-restrictions = code-execution
-command = TODO
-
-# vim:ft=dosini
