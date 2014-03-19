@@ -4,6 +4,6 @@ command = ogginfo -q {files}
 
 [oggz-validate]
 match = *.ogg *.oga *.ogv
-command = oggz-validate
+command = oggz-validate {files}
 
 # vim:ft=dosini
