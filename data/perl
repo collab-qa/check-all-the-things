@@ -1,6 +1,6 @@
 [perl-syntax-check]
 match = *.pl *.pm
-match = perl -wc {file}
+command = perl -wc {file}
 
 [perl-b-lint]
 match = *.pl *.pm
