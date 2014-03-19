@@ -1,0 +1,82 @@
+#!/usr/bin/python3
+
+import collections
+import configparser
+import glob
+import os
+import shlex
+
+rootdir = os.path.dirname(__file__)
+datadir = os.path.join(rootdir, 'data')
+
+class Check(object):
+    def __init__(self):
+        self.match = None
+        self.cmd = None
+        self.cmd_nargs = None
+        self.prereq = None
+        self.restrictions = []
+
+    def set_match(self, value):
+        self.match = value.split()
+
+    def set_command(self, value):
+        self.cmd = cmd = value
+        d = collections.defaultdict(str)
+        cmd.format(**d)
+        nargs = 1 * ('file' in d) + 2 * ('files' in d)
+        if nargs >= 3:
+            raise RuntimeError('invalid command specifiction: ' + cmd)
+        self.cmd_nargs = nargs
+
+    def set_prereq(self, value):
+        self.prereq = value
+
+    def set_restrictions(self, value):
+        self.restrictions = value.split()
+
+    def get_sh_cmd(self):
+        kwargs = {
+            'files': '{} +',
+            'file': '{} \\;',
+            'njobs': 1,
+        }
+        cmd = self.cmd.format(**kwargs)
+        if self.cmd_nargs > 0:
+            fcmd = ['find -type f']
+            if self.match is not None:
+                if len(self.match) == 1:
+                    [wildcard] = self.match
+                    fcmd += ['-name', shlex.quote(wildcard)]
+                else:
+                    for wildcard in self.match:
+                        fcmd += ['-o', '-name', shlex.quote(wildcard)]
+                    fcmd[1] = '\\('
+                    fcmd += ['\\)']
+            fcmd += ['-exec', cmd]
+            cmd = ' '.join(fcmd)
+        return cmd
+
+def parse_section(section):
+    check = Check()
+    for key, value in section.items():
+        getattr(check, 'set_' + key)(value)
+    return check
+
+def main():
+    for path in glob.glob(os.path.join(datadir, '*')):
+        cp = configparser.ConfigParser(interpolation=None)
+        cp.read(path, encoding='UTF-8')
+        checks = {}
+        for name in cp.sections():
+            if name in checks:
+                raise RuntimeError('duplicate check name: ' + name)
+            section = cp[name]
+            checks[name] = parse_section(section)
+        for name, check in sorted(checks.items()):
+            print(check.get_sh_cmd())
+
+if __name__ == '__main__':
+    main()
+
+# vim:ts=4 sw=4 et
