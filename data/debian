@@ -12,7 +12,7 @@ command = cme check dpkg-copyright
 
 [uscan]
 match = ./debian/watch
-command = uscan --verbose --report-status
+command = uscan --report-status
 
 [duck]
 match = ./debian/control
