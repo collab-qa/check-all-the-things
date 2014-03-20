@@ -6,6 +6,7 @@ import glob
 import os
 import shlex
 import subprocess as ipc
+import sys
 
 rootdir = os.path.dirname(__file__)
 datadir = os.path.join(rootdir, 'data')
@@ -111,6 +112,7 @@ def main():
             else:
                 cmd = check.get_sh_cmd()
                 print('$', cmd)
+                sys.stdout.flush()
                 ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
                 print()
     if skipped:
