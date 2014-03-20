@@ -1,5 +1,6 @@
 [licensecheck]
 command = licensecheck --check=. --recursive --copyright .
+# TODO: is --check=. reasonable?
 
 [suspicious-source]
 command = suspicious-source
