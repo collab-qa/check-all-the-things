@@ -1,8 +1,5 @@
 [jpylyzer]
 match = *.jp2 *.j2k *.jpf *.jpx *.jpm *.mj2
-prereq =
- which jpylyzer
- which xmllint
 command = jpylyzer --wrapper {files}
 # TODO: convert to human-readable form
 
