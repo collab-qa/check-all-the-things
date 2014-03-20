@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
+import argparse
 import collections
 import configparser
 import glob
+import multiprocessing
 import os
 import shlex
 import subprocess as ipc
@@ -48,11 +50,11 @@ class Check(object):
     def set_restrictions(self, value):
         self.restrictions = value.split()
 
-    def get_sh_cmd(self):
+    def get_sh_cmd(self, njobs=1):
         kwargs = {
             'files': '{} +',
             'file': '{} \\;',
-            'njobs': 1,
+            'njobs': njobs,
         }
         cmd = self.cmd.format(**kwargs)
         if self.cmd_nargs > 0:
@@ -93,6 +95,11 @@ def parse_section(section):
     return check
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--jobs', '-j', metavar='<N>', type=int, nargs='?', default=1)
+    options = ap.parse_args()
+    if options.jobs is None:
+        options.jobs = multiprocessing.cpu_count()
     skipped = []
     for path in glob.glob(os.path.join(datadir, '*')):
         cp = configparser.ConfigParser(interpolation=None)
@@ -110,7 +117,7 @@ def main():
                 skipped += [(name, str(exc))]
                 exc = None
             else:
-                cmd = check.get_sh_cmd()
+                cmd = check.get_sh_cmd(njobs=options.jobs)
                 print('$', cmd)
                 sys.stdout.flush()
                 ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
