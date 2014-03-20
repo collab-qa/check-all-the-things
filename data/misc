@@ -5,7 +5,8 @@ command = licensecheck --check=. --recursive --copyright .
 command = suspicious-source
 
 [codespell]
-command = codespell --quiet-level=3
+command = codespell --disable-colors --quiet-level=3
+# TODO: remove --disable-colors once <http://bugs.debian.org/742207> is fixed
 
 [fdupes]
 command = fdupes -r .
