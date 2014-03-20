@@ -5,9 +5,21 @@ import configparser
 import glob
 import os
 import shlex
+import subprocess as ipc
 
 rootdir = os.path.dirname(__file__)
 datadir = os.path.join(rootdir, 'data')
+
+def which(cmd):
+    PATH = os.environ.get('PATH', '')
+    PATH = PATH.split(os.pathsep)
+    for dir in PATH:
+        path = os.path.join(dir, cmd)
+        if os.access(path, os.X_OK):
+            return path
+
+class UnmetPrereq(Exception):
+    pass
 
 class Check(object):
     def __init__(self):
@@ -57,6 +69,22 @@ class Check(object):
             cmd = ' '.join(fcmd)
         return cmd
 
+    def meet_prereq(self):
+        if self.prereq is None:
+            cmd = shlex.split(self.cmd)[0]
+            if not which(cmd):
+                raise UnmetPrereq('command not found: ' + cmd)
+        else:
+            try:
+                with open(os.devnull, 'wb') as dev_null:
+                    ipc.check_call(
+                        ['sh', '-e', '-c', self.prereq],
+                        stdout=dev_null,
+                        stderr=dev_null,
+                    )
+            except ipc.CalledProcessError:
+                raise UnmetPrereq('command failed: ' + self.prereq)
+
 def parse_section(section):
     check = Check()
     for key, value in section.items():
@@ -64,6 +92,7 @@ def parse_section(section):
     return check
 
 def main():
+    skipped = []
     for path in glob.glob(os.path.join(datadir, '*')):
         cp = configparser.ConfigParser(interpolation=None)
         cp.read(path, encoding='UTF-8')
@@ -74,7 +103,20 @@ def main():
             section = cp[name]
             checks[name] = parse_section(section)
         for name, check in sorted(checks.items()):
-            print(check.get_sh_cmd())
+            try:
+                check.meet_prereq()
+            except UnmetPrereq as exc:
+                skipped += [(name, str(exc))]
+                exc = None
+            else:
+                cmd = check.get_sh_cmd()
+                print('$', cmd)
+                ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+                print()
+    if skipped:
+        print('Skipped checks:')
+    for name, reason in skipped:
+        print('- {name} ({reason})'.format(name=name, reason=reason))
 
 if __name__ == '__main__':
     main()
