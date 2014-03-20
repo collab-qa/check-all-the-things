@@ -4,6 +4,6 @@ command = sh -n {files}
 
 [checkbashisms]
 match = *.sh
-command = checkbashisms
+command = checkbashisms {files}
 
 # vim:ft=dosini
