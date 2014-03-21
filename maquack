@@ -101,27 +101,27 @@ def main():
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
     skipped = []
+    checks = {}
     for path in glob.glob(os.path.join(datadir, '*')):
         cp = configparser.ConfigParser(interpolation=None)
         cp.read(path, encoding='UTF-8')
-        checks = {}
         for name in cp.sections():
             if name in checks:
                 raise RuntimeError('duplicate check name: ' + name)
             section = cp[name]
             checks[name] = parse_section(section)
-        for name, check in sorted(checks.items()):
-            try:
-                check.meet_prereq()
-            except UnmetPrereq as exc:
-                skipped += [(name, str(exc))]
-                exc = None
-            else:
-                cmd = check.get_sh_cmd(njobs=options.jobs)
-                print('$', cmd)
-                sys.stdout.flush()
-                ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
-                print()
+    for name, check in sorted(checks.items()):
+        try:
+            check.meet_prereq()
+        except UnmetPrereq as exc:
+            skipped += [(name, str(exc))]
+            exc = None
+        else:
+            cmd = check.get_sh_cmd(njobs=options.jobs)
+            print('$', cmd)
+            sys.stdout.flush()
+            ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+            print()
     if skipped:
         print('Skipped checks:')
     for name, reason in skipped:
