@@ -94,13 +94,7 @@ def parse_section(section):
         getattr(check, 'set_' + key)(value)
     return check
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--jobs', '-j', metavar='<N>', type=int, nargs='?', default=1)
-    options = ap.parse_args()
-    if options.jobs is None:
-        options.jobs = multiprocessing.cpu_count()
-    skipped = []
+def parse_conf():
     checks = {}
     for path in glob.glob(os.path.join(datadir, '*')):
         cp = configparser.ConfigParser(interpolation=None)
@@ -110,6 +104,16 @@ def main():
                 raise RuntimeError('duplicate check name: ' + name)
             section = cp[name]
             checks[name] = parse_section(section)
+    return checks
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--jobs', '-j', metavar='<N>', type=int, nargs='?', default=1)
+    options = ap.parse_args()
+    if options.jobs is None:
+        options.jobs = multiprocessing.cpu_count()
+    skipped = []
+    checks = parse_conf()
     for name, check in sorted(checks.items()):
         try:
             check.meet_prereq()
