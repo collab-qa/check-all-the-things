@@ -33,7 +33,8 @@ import stat
 import subprocess as ipc
 import sys
 
-rootdir = os.path.dirname(__file__)
+this = os.path.realpath(__file__)
+rootdir = os.path.dirname(this)
 datadir = os.path.join(rootdir, 'data')
 
 def which(cmd):
