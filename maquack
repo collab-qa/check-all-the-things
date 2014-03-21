@@ -3,10 +3,13 @@
 import argparse
 import collections
 import configparser
+import fnmatch
 import glob
 import multiprocessing
 import os
+import re
 import shlex
+import stat
 import subprocess as ipc
 import sys
 
@@ -27,6 +30,7 @@ class UnmetPrereq(Exception):
 class Check(object):
     def __init__(self):
         self.match = None
+        self._match_fn = id
         self.cmd = None
         self.cmd_nargs = None
         self.prereq = None
@@ -34,6 +38,13 @@ class Check(object):
 
     def set_match(self, value):
         self.match = value.split()
+        regexp = '|'.join(
+            fnmatch.translate(s)
+            for s in self.match
+        )
+        regexp = r'\A(?:{re})\Z'.format(re=regexp)
+        regexp = re.compile(regexp)
+        self._match_fn = regexp.match
 
     def set_command(self, value):
         self.cmd = cmd = value
@@ -88,6 +99,9 @@ class Check(object):
             except ipc.CalledProcessError:
                 raise UnmetPrereq('command failed: ' + self.prereq)
 
+    def is_file_matching(self, path):
+        return self._match_fn(path)
+
 def parse_section(section):
     check = Check()
     for key, value in section.items():
@@ -114,7 +128,22 @@ def main():
         options.jobs = multiprocessing.cpu_count()
     skipped = []
     checks = parse_conf()
+    matching_checks = set()
+    for root, dirs, files in os.walk('.'):
+        for file in files:
+            path = os.path.join(root, file)
+            st = os.lstat(path)
+            if not stat.S_ISREG(st.st_mode):
+                continue
+            for name, check in checks.items():
+                if name in matching_checks:
+                    continue
+                if check.is_file_matching(path):
+                    matching_checks.add(name)
     for name, check in sorted(checks.items()):
+        if not name in matching_checks:
+            skipped += [(name, 'no matching files')]
+            continue
         try:
             check.meet_prereq()
         except UnmetPrereq as exc:
