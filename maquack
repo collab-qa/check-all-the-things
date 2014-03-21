@@ -124,7 +124,7 @@ def main():
             cmd = check.get_sh_cmd(njobs=options.jobs)
             print('$', cmd)
             sys.stdout.flush()
-            ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+            ipc.call(cmd, shell=True, stderr=sys.stdout)
             print()
     if skipped:
         print('Skipped checks:')
