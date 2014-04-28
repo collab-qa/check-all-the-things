@@ -1,0 +1,3 @@
+[gofmt]
+match = *.go
+command = gofmt -l {files}
