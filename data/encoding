@@ -1,0 +1,3 @@
+[uu-test]
+match = *.uue *.uu *.enc
+command = uudecode -o /dev/null
