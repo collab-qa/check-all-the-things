@@ -6,4 +6,8 @@ command = blhc --all {files}
 match = *.build
 command = grep -H -i warn {files}
 
+[build-log-errors]
+match = *.build
+command = grep -H -i error {files} ; grep -H -w E {files}
+
 # vim:ft=dosini
