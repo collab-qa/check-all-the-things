@@ -12,4 +12,12 @@ command = codespell --disable-colors --quiet-level=3
 [fdupes]
 command = fdupes -q -r .
 
+[bitmap-multilayer]
+match = *.png *.gif *.jpg *.jpeg
+command = grep -iF gimp {files}
+
+[bitmap-vector]
+match = *.png *.gif *.jpg *.jpeg
+command = grep -iF inkscape {files}
+
 # vim:ft=dosini
