@@ -64,7 +64,7 @@ class Check(object):
             for s in self.match
         )
         regexp = r'\A(?:{re})\Z'.format(re=regexp)
-        regexp = re.compile(regexp)
+        regexp = re.compile(regexp, flags=re.IGNORECASE)
         self._match_fn = regexp.match
 
     def set_command(self, value):
@@ -94,10 +94,10 @@ class Check(object):
             if self.match is not None:
                 if len(self.match) == 1:
                     [wildcard] = self.match
-                    fcmd += ['-name', shlex.quote(wildcard)]
+                    fcmd += ['-iname', shlex.quote(wildcard)]
                 else:
                     for wildcard in self.match:
-                        fcmd += ['-o', '-name', shlex.quote(wildcard)]
+                        fcmd += ['-o', '-iname', shlex.quote(wildcard)]
                     fcmd[1] = '\\('
                     fcmd += ['\\)']
             fcmd += ['-exec', cmd]
