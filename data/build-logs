@@ -4,7 +4,7 @@ command = blhc --all {files}
 
 [build-log-warnings]
 match = *.build
-command = grep -H -i warn {files}
+command = grep -H -i warn {files} ; grep -H -w W {files}
 
 [build-log-errors]
 match = *.build
