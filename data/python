@@ -10,4 +10,8 @@ command = grep -rw site-packages .
 [pythonpath]
 command = grep -rw PYTHONPATH .
 
+[environ-home]
+match = *.py
+command = grep 'environ *\[.HOME.\]' {files}
+
 # vim:ft=dosini

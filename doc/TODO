@@ -2,7 +2,6 @@ Things found on
 <https://wiki.debian.org/HowToPackageForDebian#Check_points_for_any_package>
 but not included here yet::
 
-   find -iname *.py -print0 | xargs --no-run-if-empty --null grep 'environ *\[.HOME.\]'
    find ! \( -iname \*.icns -o -iname \*.bmp -o -iname \*.ico -o -iname \*.png -o -iname \*.gif -o -iname \*.jpg -o -iname \*.jpeg -o -iname \*.mo -o -iname \*.gz -o -iname \*.zip -o -iname \*.pdf -o -iname \*.bz2 -o -iname \*.tar -o -iname \*.odt -o -iname \*.docx -o -iname \*.torrent -o -iname \*.pyc -o -iname \*.pyo -o -iname \*.o -o -iname \*.wav -o -iname \*.ttf -o -iname \*.ogg -o -iname \*.oga -o -iname \*.ogv -o -iname \*.xcf -o -iname \*.so -o -iname \*.so.\* -o -iname \*.gmo -o -iname \*.debug -o -iname \*.tga \) -print0 | xargs --no-run-if-empty --null isutf8
    find ! -type d | xargs file  | grep ': *ELF ' | sed 's/: +*.*//' | xargs --no-run-if-empty eu-elflint --quiet --gnu-ld --strict
    grep -r 'PATH' .
