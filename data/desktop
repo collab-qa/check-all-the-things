@@ -1,4 +1,5 @@
 [desktop-file-validate]
+apt = desktop-file-utils
 match = *.desktop
 command = desktop-file-validate {file}
 

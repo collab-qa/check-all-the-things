@@ -1,4 +1,5 @@
 [epubcheck]
+apt = epubcheck
 match = *.epub
 command = epubcheck -quiet {file}
 # TODO: egrep -v '^(Check finished with warnings or errors| *)$'

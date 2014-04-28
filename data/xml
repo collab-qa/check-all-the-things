@@ -1,4 +1,5 @@
 [xmllint]
+apt = libxml2-utils
 match = *.xml
 command = xmllint --noout --nonet {files}
 

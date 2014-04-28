@@ -1,3 +1,4 @@
 [uu-test]
+apt = sharutils
 match = *.uue *.uu *.enc
 command = uudecode -o /dev/null

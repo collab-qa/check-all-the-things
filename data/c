@@ -1,7 +1,9 @@
 [cppcheck]
+apt = cppcheck
 command = cppcheck -j{njobs} --quiet -f .
 
 [include-what-you-use]
+apt = iwyu
 match =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp

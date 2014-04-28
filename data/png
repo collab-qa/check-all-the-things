@@ -1,4 +1,5 @@
 [pngcheck]
+apt = pngcheck
 match = *.png
 command = pngcheck -q {files}
 

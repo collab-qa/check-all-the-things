@@ -1,7 +1,9 @@
 [pyflakes]
+apt = pyflakes
 command = pyflakes .
 
 [pep8]
+apt = pep8
 command = pep8 --ignore W191 .
 
 [site-packages]

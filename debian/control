@@ -13,6 +13,8 @@ Architecture: all
 Depends:
  python3,
  ${misc:Depends}
+Recommends:
+ ${catt:Recommends}
 Description: check all of the things!
  This package will help you check all of the things.
  .

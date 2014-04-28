@@ -1,8 +1,10 @@
 [hokey-lint]
+apt = hopenpgp-tools
 match = *.pgp *.gpg
 command = cat {files} | hokey lint
 
 [hokey-lint-asc]
+apt = hopenpgp-tools
 match = *.asc
 command = cat {files} | hot dearmor | hokey lint
 

@@ -1,3 +1,4 @@
 [gofmt]
+apt = golang-go
 match = *.go
 command = gofmt -l {files}

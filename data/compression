@@ -3,26 +3,32 @@ match = *.gz *.tgz
 command = gzip --test {files}
 
 [bzip2-test]
+apt = bzip2
 match = *.bz2 *.tbz
 command = bzip2 --test {files}
 
 [xz-test]
+apt = xz-utils
 match = *.xz *.txz
 command = xz --test {files}
 
 [lzma-test]
+apt = xz-utils
 match = *.lzma
 command = lzma --test {files}
 
 [lzo-test]
+apt = lzop
 match = *.lzo
 command = lzop --test {files}
 
 [lzip-test]
+apt = lzip
 match = *.lzip
 command = lzip --test {files}
 
 [unzip-test]
+apt = unzip
 match = *.zip *.jar *.pk3 *.wz
 command = unzip -q -t {files}
 # TODO: grep -v '^No errors detected in compressed data of '

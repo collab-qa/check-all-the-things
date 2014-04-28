@@ -1,4 +1,5 @@
 [lacheck]
+apt = lacheck
 match = *.tex
 command = lacheck {files}
 

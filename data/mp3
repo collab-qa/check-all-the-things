@@ -1,12 +1,15 @@
 [mp3check]
+apt = mp3check
 match = *.mp3
 command = mp3check --error-check --anomaly-check {files}
 
 [checkmp3]
+apt = checkmp3
 match = *.mp3
 command = checkmp3 {files}
 
 [mp3val]
+apt = mp3val
 match = *.mp3
 command = mp3val {files}
 

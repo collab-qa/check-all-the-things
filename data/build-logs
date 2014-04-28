@@ -1,4 +1,5 @@
 [blhc]
+apt = blhc
 match = ../*.build
 command = blhc --all {files}
 

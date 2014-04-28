@@ -3,14 +3,17 @@ match = *.sh
 command = sh -n {file}
 
 [checkbashisms]
+apt = devscripts
 match = *.sh
 command = checkbashisms {files}
 
 [shellcheck]
+apt = shellcheck
 match = *.sh
 command = shellcheck {files}
 
 [bashate]
+apt = python3-bashate | python-bashate
 command = bashate
 
 # TODO: wget | sudo (ba|z|)sh

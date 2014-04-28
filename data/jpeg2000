@@ -1,4 +1,5 @@
 [jpylyzer]
+apt = python-jpylyzer
 match = *.jp2 *.j2k *.jpf *.jpx *.jpm *.mj2
 command = jpylyzer --wrapper {files}
 # TODO: convert to human-readable form

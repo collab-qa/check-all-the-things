@@ -1,4 +1,5 @@
 [jlint]
+apt = jlint
 command = jlint.sh
 # TODO: 2>&1 | fgrep -v 'Verification completed: 0 reported messages.'
 

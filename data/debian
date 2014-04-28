@@ -1,22 +1,27 @@
 [cme-check-dpkg]
+apt = libconfig-model-perl, libconfig-model-dpkg-perl
 match = ./debian/control ./debian/copyright
 command = cme check dpkg
 
 [uscan]
+apt = devscripts
 match = ./debian/watch
 command = uscan --report-status
 restrictions = network-access
 
 [duck]
+apt = duck
 match = ./debian/control
 command = duck
 restrictions = network-access
 
 [lintian]
+apt = lintian
 match = ../*.changes ../*.deb ../*.dsc
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto {files}
 
 [lintian4python]
+apt = lintian4python
 match = ../*.changes ../*.deb ../*.dsc
 command = lintian4py {files}
 
