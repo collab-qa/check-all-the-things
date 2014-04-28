@@ -8,7 +8,7 @@ command = POFileChecker {files}
 
 [gettext-lint-spell]
 match = *.po *.pot
-command = POFileChecker {files}
+command = POFileSpell {files}
 
 [i18nspector]
 match = *.po *.pot *.mo *.gmo
