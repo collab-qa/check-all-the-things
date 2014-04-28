@@ -2,7 +2,7 @@
 command = pyflakes .
 
 [pep8]
-command = pep8 .
+command = pep8 --ignore W191 .
 
 [site-packages]
 command = grep -rw site-packages .
