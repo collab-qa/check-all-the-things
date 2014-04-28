@@ -1,0 +1,3 @@
+[bfbtester]
+match = debian/*/bin debian/*/usr/bin debian/*/sbin debian/*/usr/sbin debian/*/usr/games
+command = bfbtester -x{njobs} -a {files}
