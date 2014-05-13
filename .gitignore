@@ -1,0 +1,4 @@
+debian/check-all-the-things.debhelper.log
+debian/check-all-the-things.substvars
+debian/check-all-the-things/
+debian/files
