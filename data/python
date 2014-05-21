@@ -14,4 +14,8 @@ command = grep -rw PYTHONPATH .
 match = *.py
 command = grep 'environ *\[.HOME.\]' {files}
 
+[yaml-load]
+match = *.py
+command = grep -F 'yaml.load' {files}
+
 # vim:ft=dosini
