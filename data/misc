@@ -19,4 +19,6 @@ command = grep -iF gimp {files}
 match = *.png *.gif *.jpg *.jpeg
 command = grep -iF inkscape {files}
 
+# TODO: similarity-tester sim_text
+
 # vim:ft=dosini

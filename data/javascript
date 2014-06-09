@@ -1,0 +1,5 @@
+# TODO: https://github.com/rdio/jsfmt
+# TODO: https://github.com/mozilla/scanjs
+# TODO: http://www.jslint.com/
+# TODO: closure-linter
+# TODO: shell metacharacter injection: child_process.exec()

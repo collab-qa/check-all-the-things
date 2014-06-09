@@ -1,4 +1,6 @@
 [hlint]
 command = hlint .
 
+# TODO: shell metacharacter injection: createProcess shell system runCommand runInteractiveCommand from System.Process/System.Cmd
+
 # vim:ft=dosini

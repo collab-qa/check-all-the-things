@@ -7,4 +7,18 @@ match =
  *.h *.hh *.hxx *.hpp
 command = include-what-you-use {file}
 
+# TODO: pscan
+# TODO: adlint
+# TODO: sparse
+# TODO: splint
+# TODO: frama-c
+# TODO: scan-build
+# TODO: flawfinder
+# TODO: http://saturn.stanford.edu/
+# TODO: https://scan.coverity.com/
+# TODO: https://github.com/facebook/flint
+# TODO: https://css.csail.mit.edu/stack/
+# TODO: https://github.com/kframework/c-semantics
+# TODO: shell metacharacter injection: g_spawn_command_line* system popen
+
 # vim:ft=dosini

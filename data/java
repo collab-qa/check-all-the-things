@@ -1,4 +1,9 @@
 [jlint]
 command = jlint.sh
 
+# TODO: checkstyle
+# TODO: findbugs
+# TODO: pmd
+# TODO: shell metacharacter injection: Runtime.getRuntime().exec()
+
 # vim:ft=dosini

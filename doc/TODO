@@ -6,13 +6,9 @@ but not included here yet::
    find ! -type d | xargs file  | grep ': *ELF ' | sed 's/: +*.*//' | xargs --no-run-if-empty eu-elflint --quiet --gnu-ld --strict
    grep -r 'PATH' .
    grep -r 'x86_64-linux-gnu' .
-   grep -rC4 'system *(' .
-   grep -rC4 'popen *(' .
    grep -ri 'fixme' .
    grep -ri 'todo' .
    grep -ri 'hack' .
-   find -type f | sim_text -ipTt 75 | tac | column -t
-   echo TODO: jslint puppet-lint acheck linkchecker ssl-cert-check
 
 Some (all?) wildcards should be case-insensitive.
 

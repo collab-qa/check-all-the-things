@@ -14,4 +14,6 @@ command = POFileSpell {files}
 match = *.po *.pot *.mo *.gmo
 command = i18nspector {files}
 
+# TODO: acheck
+
 # vim:ft=dosini

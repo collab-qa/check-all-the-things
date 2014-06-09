@@ -26,4 +26,6 @@ command = lzip --test {files}
 match = *.zip *.jar *.pk3 *.wz
 command = unzip -q -t {files}
 
+# TODO: 7zip
+
 # vim:ft=dosini

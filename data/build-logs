@@ -10,4 +10,6 @@ command = grep -H -i warn {files} ; grep -H -w W {files}
 match = *.build
 command = grep -H -i error {files} ; grep -H -w E {files}
 
+# TODO: bls http://qa.debian.org/bls/
+
 # vim:ft=dosini

@@ -2,4 +2,6 @@
 match = *.jpg *.jpeg
 command = jpeginfo --check --quiet {files}
 
+TODO: identify -verbose {file} | grep -i copyright && echo {file}
+
 # vim:ft=dosini

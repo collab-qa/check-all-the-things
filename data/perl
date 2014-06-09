@@ -13,4 +13,7 @@ command = perlcritic -1 .
 [perllib]
 command = grep -rw PERLLIB .
 
+# TODO: pkg-perl-tools dpt-packagecheck
+# TODO: shell metacharacter injection: backticks system open open2 open3
+
 # vim:ft=dosini

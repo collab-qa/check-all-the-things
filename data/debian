@@ -28,4 +28,40 @@ command = lintian --info --display-info --display-experimental --pedantic --show
 match = *.changes *.deb *.dsc
 command = lintian4py {files}
 
+# TODO: i18n
+# TODO: screenshot
+# TODO: dedup
+# TODO: debsecan
+# TODO: mentors
+# TODO: comaint
+# TODO: depneedsmaint
+# TODO: not lownmu
+# TODO: bugs going up?
+# TODO: removed
+# TODO: autoremoval
+# TODO: transitions
+# TODO: override disparity
+# TODO: bugs
+# TODO: RC bugs
+# TODO: bugs in derivs
+# TODO: help in bts
+# TODO: wnpp
+# TODO: patches in bts
+# TODO: patches in derivs
+# TODO: merge nmu
+# TODO: release goals
+# TODO: watch avail/broken
+# TODO: upstream info missing
+# TODO: debtags
+# TODO: debcheck
+# TODO: piuparts
+# TODO: adequate
+# TODO: reproducible build
+# TODO: triple debuild
+# TODO: buildd failure
+# TODO: ports build failure
+# TODO: clang build failure
+# TODO: grep-excuses -w
+# TODO: autopkgtest/sadt
+
 # vim:ft=dosini

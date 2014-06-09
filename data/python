@@ -18,4 +18,11 @@ command = grep 'environ *\[.HOME.\]' {files}
 match = *.py
 command = grep -F 'yaml.load' {files}
 
+# TODO: pylint
+# TODO: frosted #739116
+# TODO: pychecker
+# TODO: twistedchecker
+# TODO: https://gcc-python-plugin.readthedocs.org/en/latest/cpychecker.html
+# TODO: shell metacharacter injection: subprocess shell=True os.system os.popen popen2
+
 # vim:ft=dosini
