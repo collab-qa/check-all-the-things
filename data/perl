@@ -1,11 +1,13 @@
 [perl-syntax-check]
 match = *.pl *.pm
 command = perl -wc {file}
+# TODO: grep -v ' syntax OK$'
 
 [perl-b-lint]
 match = *.pl *.pm
 prereq = perl -MO=Lint /dev/null
 command = perl -MO=Lint {file}
+# TODO: grep -v ' syntax OK$'
 
 [perlcritic]
 command = perlcritic -1 .

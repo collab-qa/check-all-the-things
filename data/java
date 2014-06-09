@@ -1,5 +1,6 @@
 [jlint]
 command = jlint.sh
+# TODO: 2>&1 | fgrep -v 'Verification completed: 0 reported messages.'
 
 # TODO: checkstyle
 # TODO: findbugs
