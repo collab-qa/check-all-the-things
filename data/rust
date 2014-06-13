@@ -1,0 +1,3 @@
+[unsafe]
+match = *.rs
+command = grep unsafe {files}
