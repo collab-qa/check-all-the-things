@@ -2,14 +2,6 @@
 match = ./debian/control
 command = cme check dpkg
 
-[cme-check-dpkg-control]
-match = ./debian/control
-command = cme check dpkg-control
-
-[cme-check-dpkg-copyright]
-match = ./debian/copyright
-command = cme check dpkg-copyright
-
 [uscan]
 match = ./debian/watch
 command = uscan --report-status
