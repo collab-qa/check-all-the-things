@@ -7,6 +7,7 @@ match = *.sh
 command = checkbashisms {files}
 
 # TODO: bash8 #748383
+# TODO: shellcheck #751199
 # TODO: wget | sudo (ba|z|)sh
 
 # vim:ft=dosini
