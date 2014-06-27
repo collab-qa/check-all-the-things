@@ -1,0 +1,3 @@
+[opusinfo]
+match = *.opus
+command = opusinfo -q {files}
