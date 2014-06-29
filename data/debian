@@ -1,5 +1,5 @@
 [cme-check-dpkg]
-match = ./debian/control
+match = ./debian/control ./debian/copyright
 command = cme check dpkg
 
 [uscan]
