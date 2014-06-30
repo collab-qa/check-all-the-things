@@ -21,6 +21,7 @@ match = *.changes *.deb *.dsc
 command = lintian4py {files}
 
 # TODO: i18n
+# TODO: vcswatch
 # TODO: screenshot
 # TODO: dedup
 # TODO: debsecan
