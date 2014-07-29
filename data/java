@@ -4,6 +4,7 @@ command = jlint.sh
 # TODO: checkstyle
 # TODO: findbugs
 # TODO: pmd
+# TODO: https://code.google.com/p/error-prone/
 # TODO: japi-compliance-checker
 # TODO: shell metacharacter injection: Runtime.getRuntime().exec()
 
