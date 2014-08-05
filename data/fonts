@@ -6,4 +6,6 @@ command = fontlint {file}
 match = *.ttf *.otf
 command = ftvalid {file}
 
+# TODO: fonts in main should not have embedding restriction bits: 0 != fontforge.open(f).os2_fstype
+
 # vim:ft=dosini
