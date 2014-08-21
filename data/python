@@ -22,6 +22,7 @@ command = grep -F 'yaml.load' {files}
 # TODO: frosted #739116
 # TODO: pychecker
 # TODO: twistedchecker
+# TODO: pymetrics
 # TODO: https://gcc-python-plugin.readthedocs.org/en/latest/cpychecker.html
 # TODO: shell metacharacter injection: subprocess shell=True os.system os.popen popen2
 

@@ -14,6 +14,7 @@ command = include-what-you-use {file}
 # TODO: frama-c
 # TODO: scan-build
 # TODO: flawfinder
+# TODO: pmccabe
 # TODO: http://oclint.org/
 # TODO: http://saturn.stanford.edu/
 # TODO: https://scan.coverity.com/
