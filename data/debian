@@ -13,11 +13,11 @@ command = duck
 restrictions = network-access
 
 [lintian]
-match = *.changes *.deb *.dsc
+match = ../*.changes ../*.deb ../*.dsc
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto {files}
 
 [lintian4python]
-match = *.changes *.deb *.dsc
+match = ../*.changes ../*.deb ../*.dsc
 command = lintian4py {files}
 
 # TODO: i18n
