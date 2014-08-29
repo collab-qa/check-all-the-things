@@ -20,5 +20,7 @@ match = *.png *.gif *.jpg *.jpeg
 command = grep -iF inkscape {files}
 
 # TODO: similarity-tester sim_text
+# TODO: http://jwilk.net/software/mwic
+# TODO: https://bitbucket.org/jwilk/spellintian
 
 # vim:ft=dosini
