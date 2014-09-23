@@ -1,2 +1,9 @@
-# TODO: hopenpgp-tools hokey lint
+[hokey-lint]
+match = *.pgp *.gpg
+command = cat {files} | hokey lint
+
+[hokey-lint-asc]
+match = *.asc
+command = cat {files} | hot dearmor | hokey lint
+
 # TODO: private keys
