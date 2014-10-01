@@ -36,6 +36,8 @@ import sys
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
 datadir = os.path.join(rootdir, 'data')
+if not os.path.isdir(datadir):
+	datadir = os.path.join(os.path.dirname(rootdir), 'share', 'check-all-the-things', 'data')
 
 def which(cmd):
     PATH = os.environ.get('PATH', '')
