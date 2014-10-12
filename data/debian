@@ -56,5 +56,6 @@ command = lintian4py {files}
 # TODO: clang build failure
 # TODO: grep-excuses -w
 # TODO: autopkgtest/sadt
+# TODO: pkg-perl-tools lintian
 
 # vim:ft=dosini
