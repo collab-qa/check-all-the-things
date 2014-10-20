@@ -23,6 +23,7 @@ command = grep -F 'yaml.load' {files}
 # TODO: pychecker
 # TODO: twistedchecker
 # TODO: pymetrics
+# TODO: https://github.com/stackforge/bandit
 # TODO: https://github.com/landscapeio/prospector
 # TODO: https://gcc-python-plugin.readthedocs.org/en/latest/cpychecker.html
 # TODO: shell metacharacter injection: subprocess shell=True os.system os.popen popen2
