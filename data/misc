@@ -19,6 +19,9 @@ command = grep -iF gimp {files}
 match = *.png *.gif *.jpg *.jpeg
 command = grep -iF inkscape {files}
 
+[cpuinfo]
+command = grep -rF /proc/cpuinfo .
+
 # TODO: similarity-tester sim_text
 # TODO: http://jwilk.net/software/mwic
 # TODO: https://bitbucket.org/jwilk/spellintian
