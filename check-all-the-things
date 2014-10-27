@@ -176,7 +176,11 @@ def main():
             cmd = check.get_sh_cmd(njobs=options.jobs)
             print('$', cmd)
             sys.stdout.flush()
-            ipc.call(cmd, shell=True, stderr=sys.stdout)
+            try:
+                ipc.call(cmd, shell=True, stderr=sys.stdout)
+            except KeyboardInterrupt:
+                skipped += [(name, 'user interrupted')]
+                print()
             print()
     if skipped:
         print('Skipped checks:')
