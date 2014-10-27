@@ -1,6 +1,6 @@
 [sh-syntax-check]
 match = *.sh
-command = sh -n {files}
+command = sh -n {file}
 
 [checkbashisms]
 match = *.sh
