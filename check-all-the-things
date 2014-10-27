@@ -32,6 +32,8 @@ import shlex
 import stat
 import subprocess as ipc
 import sys
+from textwrap import TextWrapper
+from shutil import get_terminal_size
 
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
@@ -143,13 +145,17 @@ def parse_conf():
             checks[name] = parse_section(section)
     return checks
 
+def skip(skipped, name, reason):
+    if reason not in skipped: skipped[reason] = []
+    skipped[reason].append(name)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--jobs', '-j', metavar='<N>', type=int, nargs='?', default=1)
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
-    skipped = []
+    skipped = {}
     checks = parse_conf()
     matching_checks = set()
     for root, dirs, files in os.walk('.'):
@@ -165,12 +171,12 @@ def main():
                     matching_checks.add(name)
     for name, check in sorted(checks.items()):
         if not name in matching_checks:
-            skipped += [(name, 'no matching files')]
+            skip(skipped, name, 'no matching files')
             continue
         try:
             check.meet_prereq()
         except UnmetPrereq as exc:
-            skipped += [(name, str(exc))]
+            skip(skipped, name, str(exc))
             exc = None
         else:
             cmd = check.get_sh_cmd(njobs=options.jobs)
@@ -179,13 +185,19 @@ def main():
             try:
                 ipc.call(cmd, shell=True, stderr=sys.stdout)
             except KeyboardInterrupt:
-                skipped += [(name, 'user interrupted')]
+                skip(skipped, name, 'user interrupted')
                 print()
             print()
     if skipped:
         print('Skipped checks:')
-    for name, reason in skipped:
-        print('- {name} ({reason})'.format(name=name, reason=reason))
+        out = TextWrapper()
+        out.width = get_terminal_size().columns
+        out.break_long_words = False
+        out.break_on_hyphens = False
+        for reason in sorted(skipped):
+            out.initial_indent = '- {reason}: '.format(reason=reason)
+            out.subsequent_indent = ' ' * len(out.initial_indent)
+            print(out.fill(' '.join(skipped[reason])))
 
 if __name__ == '__main__':
     main()
