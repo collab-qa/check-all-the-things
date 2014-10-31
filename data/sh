@@ -10,7 +10,9 @@ command = checkbashisms {files}
 match = *.sh
 command = shellcheck {files}
 
-# TODO: python2-bashate/python3-bashate
+[bashate]
+command = bashate
+
 # TODO: wget | sudo (ba|z|)sh
 
 # vim:ft=dosini
