@@ -58,6 +58,7 @@ class Check(object):
         self._match_fn = id
         self.cmd = None
         self.cmd_nargs = None
+        self.flags = set()
         self.prereq = None
         self.restrictions = []
 
@@ -79,6 +80,9 @@ class Check(object):
         if nargs >= 3:
             raise RuntimeError('invalid command specifiction: ' + cmd)
         self.cmd_nargs = nargs
+
+    def set_flags(self, value):
+        self.flags = set(value.split())
 
     def set_prereq(self, value):
         self.prereq = value
@@ -126,6 +130,9 @@ class Check(object):
 
     def is_file_matching(self, path):
         return self._match_fn(path)
+
+    def is_flag_set(self, value):
+        return value in self.flags
 
 def parse_section(section):
     check = Check()
