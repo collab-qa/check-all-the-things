@@ -159,6 +159,7 @@ def skip(skipped, name, reason):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--jobs', '-j', metavar='<N>', type=int, nargs='?', default=1)
+    ap.add_argument('--all', '-a', help="also perform checks with unintended side effects", action='store_true')
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
@@ -179,6 +180,9 @@ def main():
     for name, check in sorted(checks.items()):
         if not name in matching_checks:
             skip(skipped, name, 'no matching files')
+            continue
+        if check.is_flag_set('dangerous') and not options.all:
+            skip(skipped, name, 'dangerous check')
             continue
         try:
             check.meet_prereq()
