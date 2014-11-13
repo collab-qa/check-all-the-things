@@ -1,13 +1,13 @@
 [blhc]
-match = *.build
+match = ../*.build
 command = blhc --all {files}
 
 [build-log-warnings]
-match = *.build
+match = ../*.build
 command = grep -H -i warn {files} ; grep -H -w W {files}
 
 [build-log-errors]
-match = *.build
+match = ../*.build
 command = grep -H -i error {files} ; grep -H -w E {files}
 
 # TODO: bls http://qa.debian.org/bls/
