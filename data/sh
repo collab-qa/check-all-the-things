@@ -14,7 +14,7 @@ command = shellcheck {files}
 
 [bashate]
 apt = python3-bashate | python-bashate
-command = bashate
+command = bashate --ignore E002
 
 # TODO: wget | sudo (ba|z|)sh
 
