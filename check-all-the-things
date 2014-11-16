@@ -35,6 +35,11 @@ import sys
 from textwrap import TextWrapper
 from shutil import get_terminal_size
 
+try:
+	import apt_pkg
+except ImportError:
+	apt_pkg = None
+
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
 datadir = os.path.join(rootdir, 'data')
@@ -54,6 +59,7 @@ class UnmetPrereq(Exception):
 
 class Check(object):
     def __init__(self):
+        self.apt = None
         self.match = None
         self._match_fn = id
         self.cmd = None
@@ -61,6 +67,10 @@ class Check(object):
         self.flags = set()
         self.prereq = None
         self.restrictions = []
+
+    def set_apt(self, value):
+        if apt_pkg:
+            self.apt = apt_pkg.parse_depends(value)
 
     def set_match(self, value):
         self.match = value.split()
