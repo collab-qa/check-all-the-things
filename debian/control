@@ -1,6 +1,6 @@
 Source: check-all-the-things
 Maintainer: Paul Wise <pabs@debian.org>
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Section: devel
 Priority: optional
 Build-Depends:
