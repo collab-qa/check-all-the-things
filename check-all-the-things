@@ -36,15 +36,17 @@ from textwrap import TextWrapper
 from shutil import get_terminal_size
 
 try:
-	import apt_pkg
+    import apt_pkg
 except ImportError:
-	apt_pkg = None
+    apt_pkg = None
 
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
 datadir = os.path.join(rootdir, 'data')
 if not os.path.isdir(datadir):
-	datadir = os.path.join(os.path.dirname(rootdir), 'share', 'check-all-the-things', 'data')
+    datadir = os.path.join(os.path.dirname(rootdir), 'share',
+                           'check-all-the-things', 'data')
+
 
 def which(cmd):
     PATH = os.environ.get('PATH', '')
@@ -54,8 +56,10 @@ def which(cmd):
         if os.access(path, os.X_OK):
             return path
 
+
 class UnmetPrereq(Exception):
     pass
+
 
 class Check(object):
     def __init__(self):
@@ -144,11 +148,13 @@ class Check(object):
     def is_flag_set(self, value):
         return value in self.flags
 
+
 def parse_section(section):
     check = Check()
     for key, value in section.items():
         getattr(check, 'set_' + key)(value)
     return check
+
 
 def parse_conf():
     checks = {}
@@ -162,14 +168,20 @@ def parse_conf():
             checks[name] = parse_section(section)
     return checks
 
+
 def skip(skipped, name, reason):
-    if reason not in skipped: skipped[reason] = []
+    if reason not in skipped:
+        skipped[reason] = []
     skipped[reason].append(name)
+
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--jobs', '-j', metavar='<N>', type=int, nargs='?', default=1)
-    ap.add_argument('--all', '-a', help="also perform checks with unintended side effects", action='store_true')
+    ap.add_argument('--jobs', '-j', metavar='<N>', type=int, nargs='?',
+                    default=1)
+    ap.add_argument('--all', '-a',
+                    help="also perform checks with unintended side effects",
+                    action='store_true')
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
@@ -188,7 +200,7 @@ def main():
                 if check.is_file_matching(path):
                     matching_checks.add(name)
     for name, check in sorted(checks.items()):
-        if not name in matching_checks:
+        if name not in matching_checks:
             skip(skipped, name, 'no matching files')
             continue
         if check.is_flag_set('dangerous') and not options.all:
