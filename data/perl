@@ -25,6 +25,7 @@ command = perlcritic -1 .
 command = grep -rw PERLLIB .
 
 # TODO: pkg-perl-tools dpt-packagecheck
+# TODO: perltidy
 # TODO: libperl-metrics-simple-perl
 # TODO: shell metacharacter injection: backticks system open open2 open3
 

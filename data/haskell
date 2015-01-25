@@ -3,5 +3,6 @@ apt = hlint
 command = hlint .
 
 # TODO: shell metacharacter injection: createProcess shell system runCommand runInteractiveCommand from System.Process/System.Cmd
+# TODO: https://hackage.haskell.org/package/stylish-haskell
 
 # vim:ft=dosini

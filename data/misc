@@ -26,9 +26,11 @@ command = grep -iF inkscape {files}
 [cpuinfo]
 command = grep -rF /proc/cpuinfo .
 
+# TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
 # TODO: svn --trust-server-cert
+# TODO: bogomips
 # TODO: similarity-tester sim_text
 # TODO: http://jwilk.net/software/mwic
 # TODO: https://bitbucket.org/jwilk/spellintian
