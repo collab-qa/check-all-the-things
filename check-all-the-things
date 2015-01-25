@@ -70,7 +70,6 @@ class Check(object):
         self.cmd_nargs = None
         self.flags = set()
         self.prereq = None
-        self.restrictions = []
 
     def set_apt(self, value):
         if apt_pkg:
@@ -100,9 +99,6 @@ class Check(object):
 
     def set_prereq(self, value):
         self.prereq = value
-
-    def set_restrictions(self, value):
-        self.restrictions = value.split()
 
     def get_sh_cmd(self, njobs=1):
         kwargs = {

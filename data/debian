@@ -7,13 +7,13 @@ command = cme check dpkg
 apt = devscripts
 match = ./debian/watch
 command = uscan --report-status
-restrictions = network-access
+flags = network
 
 [duck]
 apt = duck
 match = ./debian/control
 command = duck
-restrictions = network-access
+flags = network
 
 [lintian]
 apt = lintian
