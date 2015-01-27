@@ -1,12 +1,6 @@
 [jpylyzer]
 apt = python-jpylyzer
 match = *.jp2 *.j2k *.jpf *.jpx *.jpm *.mj2
-command = jpylyzer --wrapper {files}
-# TODO: convert to human-readable form
-# xmllint --format - |
-# egrep 'fileName|isValid' |
-# tr -d \\n |
-# sed 's_</isValidJP2>_&\n_g;s_ *<fileName>__g;s_</fileName> *__g;s_</\?isValidJP2>_ _g;s_False_is an invalid JPEG2000 file_g' |
-# sed '/True *$/d'
+command = jpylyzer --wrapper {files} | xmllint --format - | egrep 'fileName|isValid' | tr -d \\n | sed 's_</isValidJP2>_&\n_g;s_ *<fileName>__g;s_</fileName> *__g;s_</\?isValidJP2>_ _g;s_False_is an invalid JPEG2000 file_g' | sed '/True *$/d'
 
 # vim:ft=dosini

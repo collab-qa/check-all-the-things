@@ -30,8 +30,7 @@ command = lzip --test {files}
 [unzip-test]
 apt = unzip
 match = *.zip *.jar *.pk3 *.wz
-command = unzip -q -t {files}
-# TODO: grep -v '^No errors detected in compressed data of '
+command = unzip -q -t {files} | grep -v '^No errors detected in compressed data of '
 
 # TODO: 7zip
 

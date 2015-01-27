@@ -1,8 +1,7 @@
 [ogginfo]
 apt = vorbis-tools
 match = *.ogg *.oga *.ogv
-command = ogginfo -q {files}
-# TODO: grep -v '^Processing file ' | cat -s
+command = ogginfo -q {files} | grep -v '^Processing file ' | cat -s
 
 [oggz-validate]
 apt = oggz-tools

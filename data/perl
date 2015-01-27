@@ -3,9 +3,8 @@
 [perl-syntax-check]
 apt = perl
 match = *.pl *.pm
-command = perl -wc {file}
+command = perl -wc {file} | grep -v ' syntax OK$'
 flags = dangerous
-# TODO: grep -v ' syntax OK$'
 
 # Dangerous because it executes code in use statements
 # and BEGIN, UNITCHECK and CHECK blocks
@@ -13,9 +12,8 @@ flags = dangerous
 apt = perl, libb-lint-perl
 match = *.pl *.pm
 prereq = perl -MO=Lint /dev/null
-command = perl -MO=Lint {file}
+command = perl -MO=Lint {file} | grep -v ' syntax OK$'
 flags = dangerous
-# TODO: grep -v ' syntax OK$'
 
 [perlcritic]
 apt = libperl-critic-perl

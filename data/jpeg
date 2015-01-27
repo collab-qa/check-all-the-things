@@ -1,8 +1,7 @@
 [jpeginfo]
 apt = jpeginfo
 match = *.jpg *.jpeg
-command = jpeginfo --check --quiet {files}
-# TODO: fgrep -v '[OK]'
+command = jpeginfo --check --quiet {files} | fgrep -v '[OK]'
 
 # TODO: identify -verbose {file} | grep -i copyright && echo {file}
 
