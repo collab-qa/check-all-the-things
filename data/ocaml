@@ -1,1 +1,6 @@
+[ocaml-lintian]
+apt = dh-ocaml, ocaml-nox
+match = *.cma
+command = ocaml-lintian {files}
+
 # TODO: shell metacharacter injection: system open_process open_process_in open_process_out open_process_full
