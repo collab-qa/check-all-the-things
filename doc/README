@@ -10,7 +10,7 @@ Every tool that is available should be run, check all the things!
 
 ### Decisions are up to the humans
 
-Humans are cabable of making decisions but they are bad at finding
+Humans are capable of making decisions but they are bad at finding
 the information that might help with making decisions. Provide the
 humans with as much information as possible to help them make the
 decisions. Some tools will produce output that is not useful so
@@ -23,6 +23,6 @@ to human-readable information.
 When a tool can recursively search a tree and automatically decide
 what to check, let it. For tools that are less intelligent, pass
 single filenames with {file} or multiple filenames with {files}.
-If an tool gains new capabilities that are provided by a hacky
+If a tool gains new capabilities that are provided by a hacky
 check via grep, drop the hacky check via grep. The {njobs} parameter
 can be used when a tool knows how to check things in parallel.
