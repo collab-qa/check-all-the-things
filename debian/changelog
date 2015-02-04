@@ -1,5 +1,5 @@
-check-all-the-things (0) UNRELEASED; urgency=medium
+check-all-the-things (2015.02.04) experimental; urgency=medium
 
   * Initial release.
 
- -- Paul Wise <pabs@debian.org>  Tue, 13 May 2014 13:42:59 +0800
+ -- Paul Wise <pabs@debian.org>  Wed, 04 Feb 2015 12:23:55 +0800
