@@ -26,3 +26,32 @@ single filenames with {file} or multiple filenames with {files}.
 If a tool gains new capabilities that are provided by a hacky
 check via grep, drop the hacky check via grep. The {njobs} parameter
 can be used when a tool knows how to check things in parallel.
+
+## How to contribute
+
+If you have access to collab-maint, please commit trivial things such
+as typos, TODO entries or support for new checkers.
+
+https://anonscm.debian.org/cgit/collab-maint/check-all-the-things.git
+
+When adding support for new checkers, please ensure that you add the
+'dangerous' flag for checks that execute package code.
+
+When adding support for new checkers, please ensure that you use {file}
+for checkers that take only one argument and that you use {files} for
+checkers that take more than one argument.
+
+When adding TODO entries for packages not in Debian, also either add
+the ITP bug number or a URL to upstream.
+
+For more involved changes to the code you might want to file a bug to
+discuss the changes with people who are interested.
+
+Please sign all of your commits and tags with OpenPGP:
+
+http://mikegerwitz.com/papers/git-horror-story
+
+Tags should be created using this command and the tag annotation should
+be the release notes for this version, usually stuff from debian/changelog.
+
+git tag -a -s check-all-the-things-$(date -u --rfc-3339=date | tr - .)
