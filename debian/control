@@ -18,6 +18,12 @@ Recommends:
 Description: check all of the things!
  This package will help you check all of the things.
  .
+ This package is aimed at checking things that are
+ related to packaging and software development.
+ .
+ To find out what kind of things it checks, take a
+ look at the package recommends and data directory.
+ .
  WARNING: since it checks so many things the output
  can be very verbose so don't use it if you don't
  have time to go through the output to find problems.
