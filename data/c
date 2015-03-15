@@ -13,13 +13,19 @@ command = include-what-you-use {file}
 apt = flawfinder
 command = flawfinder -Q -c .
 
+[pmccabe]
+apt = pmccabe
+match = 
+ *.c *.cc *.cxx *.cpp
+ *.h *.hh *.hxx *.hpp
+command = pmccabe {files} | sort -nr
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
 # TODO: splint
 # TODO: frama-c
 # TODO: scan-build
-# TODO: pmccabe
 # TODO: http://oclint.org/
 # TODO: http://saturn.stanford.edu/
 # TODO: https://scan.coverity.com/
