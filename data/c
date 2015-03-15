@@ -9,13 +9,16 @@ match =
  *.h *.hh *.hxx *.hpp
 command = include-what-you-use {file}
 
+[flawfinder]
+apt = flawfinder
+command = flawfinder -Q -c .
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
 # TODO: splint
 # TODO: frama-c
 # TODO: scan-build
-# TODO: flawfinder
 # TODO: pmccabe
 # TODO: http://oclint.org/
 # TODO: http://saturn.stanford.edu/
