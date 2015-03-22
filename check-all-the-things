@@ -33,7 +33,25 @@ import stat
 import subprocess as ipc
 import sys
 from textwrap import TextWrapper
-from shutil import get_terminal_size
+
+try:
+    from shutil import get_terminal_size
+    def get_columns():
+        return get_terminal_size().columns
+except ImportError:
+    from fcntl import ioctl
+    from termios import TIOCGWINSZ
+    from struct import unpack
+    def get_columns():
+        try:
+            buf = ioctl(sys.stdout.fileno(), TIOCGWINSZ, ' '*4)
+            return unpack('hh', buf)[1]
+        except IOError:
+            return 80
+
+if not hasattr(shlex, 'quote'):
+    import pipes
+    shlex.quote = pipes.quote
 
 try:
     import apt_pkg
@@ -220,7 +238,7 @@ def main():
     if skipped:
         print('Skipped checks:')
         out = TextWrapper()
-        out.width = get_terminal_size().columns
+        out.width = get_columns()
         out.break_long_words = False
         out.break_on_hyphens = False
         for reason in sorted(skipped):
