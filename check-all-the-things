@@ -109,7 +109,7 @@ class Check(object):
         cmd.format(**d)
         nargs = 1 * ('file' in d) + 2 * ('files' in d)
         if nargs >= 3:
-            raise RuntimeError('invalid command specifiction: ' + cmd)
+            raise RuntimeError('invalid command specification: ' + cmd)
         self.cmd_nargs = nargs
 
     def set_flags(self, value):
