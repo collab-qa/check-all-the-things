@@ -56,7 +56,7 @@ not-match =
  *.pdf *.odt *.docx *.doc
  *.torrent
  *.pyc *.pyo *.o *.so *.so.* *.debug
- *.wav *.ogg *.oga *.ogv
+ *.wav *.ogg *.oga *.ogv *.mid
  *.ttf *.otf *.fon
 command = isutf8 {files}
 
