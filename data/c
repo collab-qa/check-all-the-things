@@ -20,6 +20,16 @@ match =
  *.h *.hh *.hxx *.hpp
 command = pmccabe {files} | sort -nr
 
+[clang-modernize]
+apt = clang-modernize-3.7 | clang-modernize-3.6 | clang-modernize-3.5 | clang-modernize-3.4
+match =
+ *.cc *.cxx *.cpp
+ *.hh *.hxx *.hpp
+comment =
+ Please consider modernizing your C++ code with clang-modernize:
+ http://clang.llvm.org/extra/clang-modernize.html
+command = echo clang-modernize {files}
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
