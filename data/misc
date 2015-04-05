@@ -29,6 +29,12 @@ command = grep -iF inkscape {files}
 comment = Parsing /proc/cpuinfo is not portable at all, use /sys instead.
 command = grep -rF /proc/cpuinfo .
 
+[readme-install]
+comment = Users of binary packages do not need install instructions.
+match = *README*
+not-match = README.md README.install
+command = grep --ignore-case --fixed-strings --with-filename install {files}
+
 [empty]
 command = find -empty
 
