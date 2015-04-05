@@ -29,6 +29,9 @@ command = grep -iF inkscape {files}
 comment = Parsing /proc/cpuinfo is not portable at all, use /sys instead.
 command = grep -rF /proc/cpuinfo .
 
+[empty]
+command = find -empty
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
