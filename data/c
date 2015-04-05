@@ -1,6 +1,7 @@
 [cppcheck]
 apt = cppcheck
 command = cppcheck -j{njobs} --quiet -f . | grep -vF 'cppcheck: error: could not find or open any of the paths given.'
+# TODO: drop the filter when #769757 gets fixed
 
 [include-what-you-use]
 apt = iwyu
