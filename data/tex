@@ -3,6 +3,11 @@ apt = lacheck
 match = *.tex
 command = lacheck {files}
 
+[lintex]
+apt = lintex
+match = *.aux *.bbl *.blg *.dvi *.idx *.ilg *.ind *.lof *.log  *.lot  *.nav *.out *.pdf *.ps *.snm *.thm *.toc *.toc.old *.synctex.gz *.xyc
+command = lintex -r -o -p
+
 # TODO: chktex
 
 # vim:ft=dosini
