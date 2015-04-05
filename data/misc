@@ -16,14 +16,17 @@ apt = fdupes
 command = fdupes -q -r .
 
 [bitmap-multilayer]
+comment = Check with upstream where the GIMP XCF source files are.
 match = *.png *.gif *.jpg *.jpeg
 command = grep -iF gimp {files}
 
 [bitmap-vector]
+comment = Check with upstream where the Inkscape SVG source files are.
 match = *.png *.gif *.jpg *.jpeg
 command = grep -iF inkscape {files}
 
 [cpuinfo]
+comment = Parsing /proc/cpuinfo is not portable at all, use /sys instead.
 command = grep -rF /proc/cpuinfo .
 
 # TODO: EC2_SECRET_KEY

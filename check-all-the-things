@@ -84,6 +84,7 @@ class Check(object):
         self.apt = None
         self.match = None
         self._match_fn = id
+        self.comment = None
         self.cmd = None
         self.cmd_nargs = None
         self.flags = set()
@@ -102,6 +103,9 @@ class Check(object):
         regexp = r'\A(?:{re})\Z'.format(re=regexp)
         regexp = re.compile(regexp, flags=re.IGNORECASE)
         self._match_fn = regexp.match
+
+    def set_comment(self, value):
+        self.comment = value.strip()
 
     def set_command(self, value):
         self.cmd = cmd = value
@@ -227,6 +231,9 @@ def main():
             exc = None
         else:
             cmd = check.get_sh_cmd(njobs=options.jobs)
+            comment = check.comment
+            if comment:
+                print(*('# ' + line for line in comment.split('\n')), sep='\n')
             print('$', cmd)
             sys.stdout.flush()
             try:
