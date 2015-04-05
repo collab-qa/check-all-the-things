@@ -62,5 +62,7 @@ command = lintian4py {files}
 # TODO: grep-excuses -w
 # TODO: autopkgtest/sadt
 # TODO: pkg-perl-tools lintian
+# TODO: license-reconcile
+# TODO: apt Apt::Get::AllowUnauthenticated=true and --force-yes
 
 # vim:ft=dosini

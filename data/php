@@ -6,6 +6,7 @@ command = php -l -f {file}
 # TODO: php-codesniffer
 # TODO: pdepend
 # TODO: phpmd
+# TODO: https://github.com/wayfair/hussar
 # TODO: shell metacharacter injection: backticks exec system passthru shell_exec popen proc_open
 
 # vim:ft=dosini

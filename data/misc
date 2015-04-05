@@ -34,8 +34,10 @@ command = grep -rF /proc/cpuinfo .
 # TODO: wget --no-check-certificate
 # TODO: svn --trust-server-cert
 # TODO: bogomips
+# TODO: diction
 # TODO: similarity-tester sim_text
 # TODO: http://jwilk.net/software/mwic
 # TODO: https://bitbucket.org/jwilk/spellintian
+# TODO: https://www.cs.umd.edu/~nspring/software/style-check-readme.html
 
 # vim:ft=dosini

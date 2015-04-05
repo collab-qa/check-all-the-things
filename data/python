@@ -25,7 +25,10 @@ command = grep -F 'yaml.load' {files}
 # TODO: pychecker
 # TODO: twistedchecker
 # TODO: pymetrics
+# TODO: prospector #781165
 # TODO: pyroma #734121
+# TODO: pylama #779449
+# TODO: python-debtcollector
 # TODO: https://github.com/stackforge/bandit
 # TODO: https://github.com/landscapeio/prospector
 # TODO: https://gcc-python-plugin.readthedocs.org/en/latest/cpychecker.html

@@ -3,4 +3,6 @@ apt = epubcheck
 match = *.epub
 command = epubcheck -quiet {file} | egrep -v '^(Check finished with warnings or errors| *)$'
 
+# TODO: flightcrew
+
 # vim:ft=dosini

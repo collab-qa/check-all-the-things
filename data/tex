@@ -3,4 +3,6 @@ apt = lacheck
 match = *.tex
 command = lacheck {files}
 
+# TODO: chktex
+
 # vim:ft=dosini

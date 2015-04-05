@@ -1,3 +1,6 @@
+# TODO: vcs-lint #677792 http://jmtd.net/software/vcs-lint/ https://lists.debian.org/20150310102557.GA32220@chew.redmars.org
+# TODO: git tags not pushed to all remotes
+#	for remote in $(git remote) ; do comm -23 <(git tag | sort) <(git ls-remote --tags $remote | sed -n '/{}$/d; s:.*refs/tags/::p' | sort) ; done
 # TODO: git commit/tag signing http://mikegerwitz.com/papers/git-horror-story
 # TODO: git/etc fsck
 # TODO: mr status

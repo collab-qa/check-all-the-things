@@ -25,7 +25,9 @@ command = pmccabe {files} | sort -nr
 # TODO: sparse
 # TODO: splint
 # TODO: frama-c
+# TODO: deheader
 # TODO: scan-build
+# TODO: complexity #781946
 # TODO: http://oclint.org/
 # TODO: http://saturn.stanford.edu/
 # TODO: https://scan.coverity.com/
