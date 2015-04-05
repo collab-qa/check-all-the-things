@@ -170,6 +170,7 @@ class Check(object):
 def parse_section(section):
     check = Check()
     for key, value in section.items():
+        key = key.replace('-', '_')
         getattr(check, 'set_' + key)(value)
     return check
 
