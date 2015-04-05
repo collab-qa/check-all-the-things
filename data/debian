@@ -1,5 +1,5 @@
 [cme-check-dpkg]
-apt = libconfig-model-perl, libconfig-model-dpkg-perl
+apt = cme | libconfig-model-perl (<< 2.063), libconfig-model-dpkg-perl
 match = ./debian/control ./debian/copyright
 command = cme check dpkg
 
