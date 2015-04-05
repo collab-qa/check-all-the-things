@@ -6,9 +6,6 @@ but not included here yet::
    find ! -type d | xargs file  | grep ': *ELF ' | sed 's/: +*.*//' | xargs --no-run-if-empty eu-elflint --quiet --gnu-ld --strict
    grep -r 'PATH' .
    grep -r 'x86_64-linux-gnu' .
-   grep -ri 'fixme' .
-   grep -ri 'todo' .
-   grep -ri 'hack' .
 
 Add syntax checkers from the syntastic vim plugin:
 

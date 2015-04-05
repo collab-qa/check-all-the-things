@@ -32,6 +32,9 @@ command = grep -rF /proc/cpuinfo .
 [empty]
 command = find -empty
 
+[todo]
+command = grep -riE 'fixme|todo|hack|xxx' .
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
