@@ -11,7 +11,7 @@ flags = network
 
 [duck]
 apt = duck
-match = ./debian/control
+match = ./debian/control ./debian/upstream ./debian/upstream-metadata.yaml ./debian/upstream/metadata ./debian/copyright
 command = duck
 flags = network
 
