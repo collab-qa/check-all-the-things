@@ -41,6 +41,19 @@ command = find -empty
 [todo]
 command = grep -riE 'fixme|todo|hack|xxx' .
 
+# TODO: replace not-match with recursive option (#780197)
+[isutf8]
+not-match =
+ *.icns *.bmp *.ico *.png *.gif *.jpg *.jpeg *.tga *.xcf
+ *.mo *.gmo
+ *.gz *.bz2 *.xz *.lz *.zip *.tar
+ *.pdf *.odt *.docx *.doc
+ *.torrent
+ *.pyc *.pyo *.o *.so *.so.* *.debug
+ *.wav *.ogg *.oga *.ogv
+ *.ttf *.otf *.fon
+command = isutf8 {files}
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
