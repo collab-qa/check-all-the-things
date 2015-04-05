@@ -2,6 +2,10 @@
 apt = pyflakes
 command = pyflakes .
 
+[pyflakes3]
+apt = pyflakes
+command = pyflakes3 .
+
 [pep8]
 apt = pep8
 command = pep8 --ignore W191 .
