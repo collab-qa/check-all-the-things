@@ -84,6 +84,8 @@ class Check(object):
         self.apt = None
         self.match = None
         self._match_fn = id
+        self.not_match = None
+        self._not_match_fn = None
         self.comment = None
         self.cmd = None
         self.cmd_nargs = None
@@ -103,6 +105,16 @@ class Check(object):
         regexp = r'\A(?:{re})\Z'.format(re=regexp)
         regexp = re.compile(regexp, flags=re.IGNORECASE)
         self._match_fn = regexp.match
+
+    def set_not_match(self, value):
+        self.not_match = value.split()
+        regexp = '|'.join(
+            fnmatch.translate(s)
+            for s in self.not_match
+        )
+        regexp = r'\A(?:{re})\Z'.format(re=regexp)
+        regexp = re.compile(regexp, flags=re.IGNORECASE)
+        self._not_match_fn = regexp.match
 
     def set_comment(self, value):
         self.comment = value.strip()
@@ -140,6 +152,19 @@ class Check(object):
                         fcmd += ['-o', '-iname', shlex.quote(wildcard)]
                     fcmd[1] = '\\('
                     fcmd += ['\\)']
+            if self.not_match is not None:
+                if self.match:
+                    fcmd += ['-a']
+                fcmd += ['!']
+                if len(self.not_match) == 1:
+                    [wildcard] = self.not_match
+                    fcmd += ['-iname', shlex.quote(wildcard)]
+                else:
+                    end = len(fcmd)
+                    for wildcard in self.not_match:
+                        fcmd += ['-o', '-iname', shlex.quote(wildcard)]
+                    fcmd[end] = '\\('
+                    fcmd += ['\\)']
             fcmd += ['-exec', cmd]
             cmd = ' '.join(fcmd)
         return cmd
@@ -161,6 +186,8 @@ class Check(object):
                 raise UnmetPrereq('command failed: ' + self.prereq)
 
     def is_file_matching(self, path):
+        if self._not_match_fn and self._not_match_fn(path):
+            return False
         return self._match_fn(path)
 
     def is_flag_set(self, value):
