@@ -7,6 +7,12 @@ apt = cabal-install
 match = *.cabal
 command = cabal check
 
+[ghc-mod-lint]
+apt = ghc-mod
+match = *.hs
+not-match = HLint.hs Setup.hs
+command = ghc-mod lint {file}
+
 # TODO: shell metacharacter injection: createProcess shell system runCommand runInteractiveCommand from System.Process/System.Cmd
 # TODO: https://hackage.haskell.org/package/stylish-haskell
 
