@@ -8,4 +8,5 @@ apt = hopenpgp-tools
 match = *.asc
 command = cat {files} | hot dearmor | hokey lint
 
-# TODO: private keys
+[pgp-private-key]
+command = grep --recursive --perl-regexp --files-with-matches '(?s)-----BEGIN PGP PRIVATE KEY BLOCK-----.*-----END PGP PRIVATE KEY BLOCK-----' .

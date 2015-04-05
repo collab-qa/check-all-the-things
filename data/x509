@@ -1,2 +1,7 @@
-# TODO: private keys
+[rsa-private-key]
+command = grep --recursive --perl-regexp --files-with-matches '(?s)-----BEGIN RSA PRIVATE KEY-----.*-----END RSA PRIVATE KEY-----' .
+
+[dsa-private-key]
+command = grep --recursive --perl-regexp --files-with-matches '(?s)-----BEGIN DSA PRIVATE KEY-----.*-----END DSA PRIVATE KEY-----' .
+
 # TODO: ssl-cert-check
