@@ -21,7 +21,7 @@ match = *.py
 command = grep -F 'yaml.load' {files}
 
 # TODO: pylint
-# TODO: frosted #739116
+# TODO: frosted
 # TODO: pychecker
 # TODO: twistedchecker
 # TODO: pymetrics
