@@ -35,6 +35,12 @@ match = *README*
 not-match = README.md README.install
 command = grep --ignore-case --fixed-strings --with-filename install {files}
 
+# TODO: not yet possible (#776559)
+#[autoupdate]
+#apt = autoconf, diffutils, diffstat
+#match = configure.ac configure.in
+#command = autoupdate --check
+
 [empty]
 command = find -empty
 
