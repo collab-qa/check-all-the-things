@@ -3,6 +3,12 @@ apt = cppcheck
 command = cppcheck -j{njobs} --quiet -f . | grep -vF 'cppcheck: error: could not find or open any of the paths given.'
 # TODO: drop the filter when #769757 gets fixed
 
+[deheader]
+apt = deheader
+match = *.c *.cc *.cpp
+comment = Check if your C/C++ code contains any unnecessary headers.
+command = echo deheader {files}
+
 [include-what-you-use]
 apt = iwyu
 match =
@@ -36,7 +42,6 @@ command = echo clang-modernize {files}
 # TODO: sparse
 # TODO: splint
 # TODO: frama-c
-# TODO: deheader
 # TODO: scan-build
 # TODO: complexity #781946
 # TODO: http://oclint.org/
