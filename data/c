@@ -5,7 +5,7 @@ command = cppcheck -j{njobs} --quiet -f . | grep -vF 'cppcheck: error: could not
 
 [deheader]
 apt = deheader
-match = *.c *.cc *.cpp
+match = *.c *.cc *.cxx *.cpp
 comment = Check if your C/C++ code contains any unnecessary headers.
 command = echo deheader {files}
 
