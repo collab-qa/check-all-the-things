@@ -79,6 +79,11 @@ comment = https://code.google.com/p/nsiqcppstyle/
 flags = todo
 comment = https://github.com/myint/cppclean/
 
+[complexity]
+apt = complexity
+files = *.c
+command = complexity {files}
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
@@ -87,7 +92,6 @@ comment = https://github.com/myint/cppclean/
 # TODO: frama-c
 # TODO: scan-build
 # TODO: abi-compliance-checker
-# TODO: complexity #781946
 # TODO: http://oclint.org/
 # TODO: http://saturn.stanford.edu/
 # TODO: https://scan.coverity.com/
