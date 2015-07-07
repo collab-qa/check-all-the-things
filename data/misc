@@ -49,6 +49,7 @@ command = grep -riE 'fixme|todo|hack|xxx' .
 
 # TODO: replace not-match with recursive option (#780197)
 [isutf8]
+apt = moreutils
 not-match =
  *.icns *.bmp *.ico *.png *.gif *.jpg *.jpeg *.tga *.xcf
  *.mo *.gmo
