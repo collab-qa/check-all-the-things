@@ -51,9 +51,10 @@ command = grep -riE 'fixme|todo|hack|xxx' .
 [isutf8]
 apt = moreutils
 not-match =
+ *.blend
  *.icns *.bmp *.ico *.png *.gif *.jpg *.jpeg *.tga *.xcf
  *.mo *.gmo
- *.gz *.bz2 *.xz *.lz *.zip *.tar
+ *.gz *.bz2 *.xz *.lz *.zip *.tar *.deb
  *.pdf *.odt *.docx *.doc
  *.torrent
  *.pyc *.pyo *.o *.so *.so.* *.debug
