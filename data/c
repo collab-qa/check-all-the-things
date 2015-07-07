@@ -37,6 +37,13 @@ comment =
  http://clang.llvm.org/extra/clang-modernize.html
 command = echo clang-modernize {files}
 
+[-m64-m32]
+match =
+ *.c *.cc *.cxx *.cpp
+ *.h *.hh *.hxx *.hpp
+comment = You should almost never use -m64 and -m32 when compiling.
+command = grep -rE -- '-m64|-m32' .
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
