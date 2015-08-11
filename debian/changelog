@@ -1,3 +1,28 @@
+check-all-the-things (2015.08.11) experimental; urgency=medium
+
+  * New release.
+    - Add comments for tests that need an explanation
+    - Drop checkmp3/lintian4python tests, removed from Debian
+    - Fix dependencies for cme-check-dpkg test
+    - Fix dependencies for suspicious-source test
+    - Add flawfinder - C/C++ static analyser for security
+    - Add pmccabe - complexity analysis for C/C++
+    - Add pyflakes3 - Python 3 static analyser for logic errors
+    - Add lintex - finds TeX-related garbage files
+    - Add ghc-mod lint - Haskell linting
+    - Add isutf8 - ensure text files are UTF-8 encoded
+    - Add deheader - tool for reducing C/C++ header inclusion
+    - Add checks for X.509, OpenSSH and OpenPGP private keys
+    - Add check for empty files and directories
+    - Add check for TODO-related keywords
+    - Add check for install-related keywords in README
+    - Add check for -m32/-m64 compiler options
+    - Suggest using clang-modernize to update C++ code
+    - Suggest building go:generate files from source
+    - Compatibility with Python 3.2 from wheezy
+
+ -- Paul Wise <pabs@debian.org>  Tue, 11 Aug 2015 12:26:26 +0200
+
 check-all-the-things (2015.02.04) experimental; urgency=medium
 
   * Initial release.
