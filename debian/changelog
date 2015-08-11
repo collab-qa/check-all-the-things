@@ -1,3 +1,10 @@
+check-all-the-things (2015.08.11.1) experimental; urgency=medium
+
+  * New release.
+    - Actually fix dependencies for suspicious-source test
+
+ -- Paul Wise <pabs@debian.org>  Tue, 11 Aug 2015 12:40:00 +0200
+
 check-all-the-things (2015.08.11) experimental; urgency=medium
 
   * New release.
