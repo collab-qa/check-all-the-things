@@ -20,10 +20,12 @@ apt = lintian
 match = ../*.changes ../*.deb ../*.dsc
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto {files}
 
-[lintian4python]
-apt = lintian4python
-match = ../*.changes ../*.deb ../*.dsc
-command = lintian4py {files}
+# TODO: re-enable if the package is ever revived
+# TODO: see #768988 and #778796
+#[lintian4python]
+#apt = lintian4python
+#match = ../*.changes ../*.deb ../*.dsc
+#command = lintian4py {files}
 
 # TODO: i18n
 # TODO: vcswatch
