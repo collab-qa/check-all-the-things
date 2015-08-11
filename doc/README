@@ -54,4 +54,4 @@ http://mikegerwitz.com/papers/git-horror-story
 Tags should be created using this command and the tag annotation should
 be the release notes for this version, usually stuff from debian/changelog.
 
-git tag -a -s check-all-the-things-$(date -u --rfc-3339=date | tr - .)
+git tag -a -s check-all-the-things-$(date -u --iso-8601 | tr - .)
