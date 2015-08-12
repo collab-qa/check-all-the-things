@@ -11,7 +11,7 @@ command = ftvalid {file}
 [ftlint]
 apt = freetype2-demos
 match = *.ttf *.otf
-command = ftlint 16 {files} | grep -v '^: OK\.'
+command = ftlint 16 {files} | grep -v ': OK\.$'
 
 # TODO: fonts in main should not have embedding restriction bits: 0 != fontforge.open(f).os2_fstype
 
