@@ -7,6 +7,10 @@ command = licensecheck --check=. --recursive --copyright .
 apt = devscripts, python3-magic | python-magic
 command = suspicious-source
 
+[licensecheck-generated-files]
+apt = devscripts
+command = licensecheck --check=. --recursive --copyright . | grep -F 'GENERATED FILE'
+
 [codespell]
 apt = codespell
 command = codespell --quiet-level=3
