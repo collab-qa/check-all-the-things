@@ -27,6 +27,13 @@ command = lintian --info --display-info --display-experimental --pedantic --show
 #match = ../*.changes ../*.deb ../*.dsc
 #command = lintian4py {files}
 
+[upstream-metadata]
+command = 
+ test -d ./debian &&
+ ! grep -s -q native debian/source/format &&
+ ! test -e debian/upstream/metadata &&
+ echo 'Please add some upstream metadata: https://wiki.debian.org/UpstreamMetadata'
+
 # TODO: i18n
 # TODO: vcswatch
 # TODO: screenshot
