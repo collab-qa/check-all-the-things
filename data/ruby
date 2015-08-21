@@ -1,4 +1,5 @@
 # TODO: roodi
+# TODO: ruby-lint
 # TODO: rubocup #745423
 # TODO: disabling SSL: verify_mode = OpenSSL::SSL::VERIFY_NONE
 # TODO: shell metacharacter injection: exec system backticks IO.popen Open3.popen3 Open4.popen4
