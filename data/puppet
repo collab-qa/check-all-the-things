@@ -1,1 +1,7 @@
-# TODO: puppet-lint
+[puppet-lint]
+apt = puppet-lint
+match = *.pp
+command = puppet-lint {files}
+comment = check puppet manifests for style guide conformity
+
+# vim:ft=dosini
