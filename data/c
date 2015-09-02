@@ -28,7 +28,7 @@ match =
 command = pmccabe {files} | sort -nr
 
 [clang-modernize]
-apt = clang-modernize-3.7 | clang-modernize-3.6 | clang-modernize-3.5 | clang-modernize-3.4
+apt = clang-modernize-3.8 | clang-modernize-3.7 | clang-modernize-3.6 | clang-modernize-3.5 | clang-modernize-3.4
 match =
  *.cc *.cxx *.cpp
  *.hh *.hxx *.hpp
