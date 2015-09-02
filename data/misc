@@ -17,7 +17,7 @@ command = codespell --quiet-level=3
 
 [fdupes]
 apt = fdupes
-command = fdupes -q -r .
+command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer)|_(darcs|FOSSIL_)|CVS)(/|$)' | cat -s
 
 [bitmap-multilayer]
 comment = Check with upstream where the GIMP XCF source files are.
