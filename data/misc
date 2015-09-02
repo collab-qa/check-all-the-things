@@ -53,6 +53,8 @@ command = grep -riE 'fixme|todo|hack|xxx' .
 
 [isutf8]
 apt = moreutils
+# TODO: replace prune with --ignore option
+prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 # TODO: replace not-match with recursive option (#780197)
 not-match =
  *.blend
