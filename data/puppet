@@ -2,13 +2,11 @@
 apt = puppet-lint
 match = *.pp
 command = puppet-lint {files}
-comment = check puppet manifests for style guide conformity using puppet-lint
 
 [puppet]
 apt = puppet
 match = *.pp
 command = puppet parser validate {files}
-comment = check puppet manifests for style guide conformity using puppet parser
 
 # TODO: erb files?
 # erb -x -T '-' {files} | ruby -c
