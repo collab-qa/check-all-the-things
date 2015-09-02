@@ -86,6 +86,8 @@ class Check(object):
         self._match_fn = id
         self.not_match = None
         self._not_match_fn = None
+        self.prune = None
+        self._prune_fn = None
         self.comment = None
         self.cmd = None
         self.cmd_nargs = None
@@ -116,6 +118,16 @@ class Check(object):
         regexp = re.compile(regexp, flags=re.IGNORECASE)
         self._not_match_fn = regexp.match
 
+    def set_prune(self, value):
+        self.prune = value.split()
+        regexp = '|'.join(
+            fnmatch.translate(s)
+            for s in self.prune
+        )
+        regexp = r'\A(?:{re})\Z'.format(re=regexp)
+        regexp = re.compile(regexp, flags=re.IGNORECASE)
+        self._prune_fn = regexp.match
+
     def set_comment(self, value):
         self.comment = value.strip()
 
@@ -142,15 +154,29 @@ class Check(object):
         }
         cmd = self.cmd.format(**kwargs)
         if self.cmd_nargs > 0:
-            fcmd = ['find -type f']
+            fcmd = ['find']
+            if self.prune is not None:
+                fcmd += ['-type', 'd']
+                if len(self.not_match) == 1:
+                    [wildcard] = self.not_match
+                    fcmd += ['-iname', shlex.quote(wildcard)]
+                else:
+                    end = len(fcmd)
+                    for wildcard in self.prune:
+                        fcmd += ['-o', '-iname', shlex.quote(wildcard)]
+                    fcmd[end] = '\\('
+                    fcmd += ['\\)']
+                fcmd += ['-prune', '-o']
+            fcmd += ['-type', 'f']
             if self.match is not None:
                 if len(self.match) == 1:
                     [wildcard] = self.match
                     fcmd += ['-iname', shlex.quote(wildcard)]
                 else:
+                    end = len(fcmd)
                     for wildcard in self.match:
                         fcmd += ['-o', '-iname', shlex.quote(wildcard)]
-                    fcmd[1] = '\\('
+                    fcmd[end] = '\\('
                     fcmd += ['\\)']
             if self.not_match is not None:
                 if self.match:
@@ -189,6 +215,9 @@ class Check(object):
         if self._not_match_fn and self._not_match_fn(path):
             return False
         return self._match_fn(path)
+
+    def is_dir_pruned(self, path):
+        return self._prune_fn(path) if self._prune_fn else False
 
     def is_flag_set(self, value):
         return value in self.flags
@@ -245,6 +274,12 @@ def main():
                     continue
                 if check.is_file_matching(path):
                     matching_checks.add(name)
+        i = 0
+        for dir in dirs:
+            for name, check in checks.items():
+                if check.is_dir_pruned(path):
+                    del dirs[i]
+            i += 1
     for name, check in sorted(checks.items()):
         if name not in matching_checks:
             skip(skipped, name, 'no matching files')
