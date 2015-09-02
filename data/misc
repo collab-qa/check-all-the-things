@@ -51,9 +51,9 @@ command = find -empty
 [todo]
 command = grep -riE 'fixme|todo|hack|xxx' .
 
-# TODO: replace not-match with recursive option (#780197)
 [isutf8]
 apt = moreutils
+# TODO: replace not-match with recursive option (#780197)
 not-match =
  *.blend
  *.icns *.bmp *.ico *.png *.gif *.jpg *.jpeg *.tga *.xcf
