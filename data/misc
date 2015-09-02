@@ -46,7 +46,7 @@ command = grep --ignore-case --fixed-strings --with-filename install {files}
 #command = autoupdate --check
 
 [empty]
-command = find -empty
+command = find -name .git -prune -o -name .svn -prune -o -name .bzr -prune -o -name CVS -prune -o -name .hg -prune -o -name _darcs -prune -o -name _FOSSIL_ -prune -o -name .sgdrawer -prune -o -empty -print
 
 [todo]
 command = grep -riE 'fixme|todo|hack|xxx' .
