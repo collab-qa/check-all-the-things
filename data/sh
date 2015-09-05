@@ -9,7 +9,7 @@ command = checkbashisms {files}
 
 [shellcheck]
 apt = shellcheck
-match = *.sh
+match = *.sh *.bash *.zsh
 command = shellcheck {files}
 
 [bashate]
