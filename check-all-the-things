@@ -254,7 +254,8 @@ def skip(skipped, name, reason):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--jobs', '-j', metavar='<N>', type=int, nargs='?',
+    ap.add_argument('--jobs', '-j', metavar='N', type=int, nargs='?',
+                    help="passed to tools that can parallelize their checks",
                     default=1)
     ap.add_argument('--all', '-a',
                     help="also perform checks with unintended side effects",
