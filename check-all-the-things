@@ -159,8 +159,8 @@ class Check(object):
             fcmd = ['find']
             if self.prune is not None:
                 fcmd += ['-type', 'd']
-                if len(self.not_match) == 1:
-                    [wildcard] = self.not_match
+                if len(self.prune) == 1:
+                    [wildcard] = self.prune
                     fcmd += ['-iname', shlex.quote(wildcard)]
                 else:
                     end = len(fcmd)
