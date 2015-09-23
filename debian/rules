@@ -9,7 +9,7 @@ P = check-all-the-things
 override_dh_gencontrol:
 	dh_gencontrol -- -Vcatt:Recommends="$$(sed -n 's/$$/, /;s/^ *apt *= *//p' data/* | tr -d \\n)"
 
-override_dh_build:
+override_dh_auto_build:
 	help2man \
 		--version-string=$(VERSION) \
 		--no-info \
