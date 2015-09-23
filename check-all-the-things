@@ -253,7 +253,15 @@ def skip(skipped, name, reason):
 
 
 def main():
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(
+        description='This program is aimed at checking things related to '
+            'packaging and software development.  It automates statical '
+            'analysis of code, QA checks, syntax checking, for a very large '
+            'set of files.',
+        epilog="WARNING: since it checks so many things the output can be "
+            "very verbose so don't use it if you don't have time to go "
+            "through the output to find problems."
+    )
     ap.add_argument('--jobs', '-j', metavar='N', type=int, nargs='?',
                     help="passed to tools that can parallelize their checks",
                     default=1)
