@@ -1,6 +1,18 @@
 #!/usr/bin/make -f
+
+VERSION ?= $(shell dpkg-parsechangelog --show-field Version)
+P = check-all-the-things
+
 %:
 	dh $@ --parallel
 
 override_dh_gencontrol:
 	dh_gencontrol -- -Vcatt:Recommends="$$(sed -n 's/$$/, /;s/^ *apt *= *//p' data/* | tr -d \\n)"
+
+override_dh_build:
+	help2man \
+		--version-string=$(VERSION) \
+		--no-info \
+		--name="Check all of the things!" \
+		./$P \
+		> $P.1
