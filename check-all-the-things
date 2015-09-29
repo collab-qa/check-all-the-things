@@ -250,6 +250,7 @@ def skip(skipped, name, reason):
     if reason not in skipped:
         skipped[reason] = []
     skipped[reason].append(name)
+    return True
 
 
 def main():
@@ -292,11 +293,12 @@ def main():
                     del dirs[i]
             i += 1
     for name, check in sorted(checks.items()):
+        next = False
         if name not in matching_checks:
-            skip(skipped, name, 'no matching files')
-            continue
+            next |= skip(skipped, name, 'no matching files')
         if check.is_flag_set('dangerous') and not options.all:
-            skip(skipped, name, 'dangerous check')
+            next |= skip(skipped, name, 'dangerous check')
+        if next:
             continue
         try:
             check.meet_prereq()
