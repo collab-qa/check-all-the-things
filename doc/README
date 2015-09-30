@@ -50,7 +50,7 @@ the ITP bug number or a URL to upstream in the comment field.
 For more involved changes to the code you might want to file a bug to
 discuss the changes with people who are interested.
 
-Please sign all of your commits and tags with OpenPGP:
+Please sign all of your commits, tags and pushes with OpenPGP:
 
 http://mikegerwitz.com/papers/git-horror-story
 
