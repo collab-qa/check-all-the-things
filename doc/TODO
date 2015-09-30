@@ -23,8 +23,6 @@ A mechanisms for filtering output is needed.
 
 Only inform about a skipped check if there were actually matching files.
 
-Mechanisms for specifying which tools are not to be run.
-
 A mechanism to specify the amount/pedanticness of the output.
 
 .. vim:ts=3 sw=3 et ft=rst

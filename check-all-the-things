@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 # Copyright 2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright 2015 Paul Wise <pabs@debian.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -95,6 +96,7 @@ class Check(object):
         self.cmd_nargs = None
         self.flags = set()
         self.prereq = None
+        self.disabled = set()
 
     def set_apt(self, value):
         if apt_pkg:
@@ -225,6 +227,88 @@ class Check(object):
         return value in self.flags
 
 
+def process(self, choices):
+    action = self.change
+    args = set()
+    for choice in choices:
+        arg = None
+        if choice.startswith('='):
+            action = self.change
+        elif choice.startswith('+'):
+            action = self.enable
+        elif choice.startswith('-'):
+            action = self.disable
+        else:
+            arg = choice
+        if arg is None:
+            args = set()
+            arg = choice[1:]
+        if arg:
+            arg = set([arg])
+        else:
+            arg = set()
+        args.update(arg)
+        action(args)
+
+class CheckSelectionAction(argparse.Action):
+
+    def __init__(self, option_strings, dest, checks={}, prepend_values=[], *args, **kwargs):
+        self.checks = checks
+        self.prepend_values = prepend_values
+        super().__init__(option_strings=option_strings, dest=dest, *args, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        for value in self.prepend_values + values:
+            process(self, value.split())
+
+    def change(self, checks):
+        for name, check in self.checks.items():
+            if name in checks:
+                self.checks[name].disabled = []
+            else:
+                self.checks[name].disabled.add('cmdline disabled check')
+
+    def enable(self, checks):
+        for name in checks:
+            self.checks[name].disabled = []
+
+    def disable(self, checks):
+        for name in checks:
+            self.checks[name].disabled.add('cmdline disabled check')
+
+class FlagSelectionAction(argparse.Action):
+
+    def __init__(self, option_strings, dest, checks={}, flags=set(), prepend_values=[], *args, **kwargs):
+        self.checks = checks
+        self.flags = flags
+        self.prepend_values = prepend_values
+        super().__init__(option_strings=option_strings, dest=dest, *args, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        for value in self.prepend_values + values:
+            process(self, value.split())
+
+    def change(self, flags):
+        self.flags.__init__(flags)
+        for name, check in self.checks.items():
+            if check.flags.isdisjoint(flags):
+                self.checks[name].disabled.add('cmdline disabled flag')
+            else:
+                self.checks[name].disabled = []
+
+    def enable(self, flags):
+        self.flags.add(flags)
+        for name, check in self.checks.items():
+            if not check.flags.isdisjoint(flags):
+                self.checks[name].disabled = []
+
+    def disable(self, flags):
+        self.flags.difference_update(flags)
+        for name, check in self.checks.items():
+            if not check.flags.isdisjoint(flags):
+                self.checks[name].disabled.add('cmdline disabled flag')
+
+
 def parse_section(section):
     check = Check()
     for key, value in section.items():
@@ -235,6 +319,7 @@ def parse_section(section):
 
 def parse_conf():
     checks = {}
+    flags = set()
     for path in glob.glob(os.path.join(datadir, '*')):
         cp = configparser.ConfigParser(interpolation=None)
         cp.read(path, encoding='UTF-8')
@@ -243,17 +328,31 @@ def parse_conf():
                 raise RuntimeError('duplicate check name: ' + name)
             section = cp[name]
             checks[name] = parse_section(section)
-    return checks
+            flags.update(checks[name].flags)
+    return (checks, flags)
 
 
 def skip(skipped, name, reason):
     if reason not in skipped:
-        skipped[reason] = []
-    skipped[reason].append(name)
+        skipped[reason] = set()
+    skipped[reason].add(name)
     return True
 
 
 def main():
+    (checks, flags) = parse_conf()
+    skipped = {}
+
+    disable_flags = {
+        'dangerous': 'dangerous check',
+    }
+
+    flags.difference_update(disable_flags.keys())
+    for name, check in checks.items():
+        for flag, reason in disable_flags.items():
+            if check.is_flag_set(flag):
+                check.disabled.add(reason)
+
     ap = argparse.ArgumentParser(
         description='This program is aimed at checking things related to '
             'packaging and software development.  It automates statical '
@@ -266,14 +365,18 @@ def main():
     ap.add_argument('--jobs', '-j', metavar='N', type=int, nargs='?',
                     help="passed to tools that can parallelize their checks",
                     default=1)
-    ap.add_argument('--all', '-a',
-                    help="also perform checks with unintended side effects",
-                    action='store_true')
+    ap.add_argument('--checks', '-c', metavar='checks', nargs=1,
+                    help="alter the set of checks to be run based on check names",
+                    action=CheckSelectionAction, checks=checks)
+    ap.add_argument('--flags', '-f', metavar='flags', nargs=1,
+                    help="alter the set of checks to be run based on flag names",
+                    action=FlagSelectionAction, checks=checks, flags=flags)
+    ap.add_argument('--all', '-a', nargs=0,
+                    help="also perform checks with possibly dangerous side effects",
+                    action=FlagSelectionAction, checks=checks, flags=flags, prepend_values=['+dangerous'])
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
-    skipped = {}
-    checks = parse_conf()
     matching_checks = set()
     for root, dirs, files in os.walk('.'):
         for file in files:
@@ -296,8 +399,8 @@ def main():
         next = False
         if name not in matching_checks:
             next |= skip(skipped, name, 'no matching files')
-        if check.is_flag_set('dangerous') and not options.all:
-            next |= skip(skipped, name, 'dangerous check')
+        for reason in checks[name].disabled:
+            next |= skip(skipped, name, reason)
         if next:
             continue
         try:
@@ -327,7 +430,7 @@ def main():
         for reason in sorted(skipped):
             out.initial_indent = '- {reason}: '.format(reason=reason)
             out.subsequent_indent = ' ' * len(out.initial_indent)
-            print(out.fill(' '.join(skipped[reason])))
+            print(out.fill(' '.join(sorted(skipped[reason]))))
 
 if __name__ == '__main__':
     main()
