@@ -1,7 +1,8 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: *
-Copyright: 2014 Jakub Wilk <jwilk@jwilk.net>
+Copyright: 2014 Jakub Wilk <jwilk@jwilk.net>,
+           2015 Paul Wise <pabs@debian.org>,
 License: Expat
 
 Files: debian/*
