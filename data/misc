@@ -11,6 +11,10 @@ command = suspicious-source
 apt = devscripts
 command = licensecheck --check=. --recursive --copyright . | grep -F 'GENERATED FILE'
 
+[licensecheck-incorrect-fsf-address]
+apt = devscripts
+command = licensecheck --check=. --recursive --copyright . | grep -F 'with incorrect FSF address'
+
 [codespell]
 apt = codespell
 command = codespell --quiet-level=3
