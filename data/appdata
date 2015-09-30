@@ -1,1 +1,4 @@
-# TODO: appdata-tools
+[appdata-validate]
+flags = todo
+apt = appstream-util
+comment = appdata-validate ...

@@ -18,6 +18,9 @@ apt = i18nspector
 match = *.po *.pot *.mo *.gmo
 command = i18nspector {files}
 
-# TODO: acheck
+[acheck]
+flags = todo
+apt = acheck
+comment = acheck ...
 
 # vim:ft=dosini
