@@ -41,8 +41,11 @@ When adding support for new checkers, please ensure that you use {file}
 for checkers that take only one argument and that you use {files} for
 checkers that take more than one argument.
 
-When adding TODO entries for packages not in Debian, also either add
-the ITP bug number or a URL to upstream.
+When adding TODO entries, please add a new check config but set the flags
+field to todo and add any known hints in the apt/comment/command fields.
+
+When adding TODO entries for packages not in Debian, please either add
+the ITP bug number or a URL to upstream in the comment field.
 
 For more involved changes to the code you might want to file a bug to
 discuss the changes with people who are interested.
