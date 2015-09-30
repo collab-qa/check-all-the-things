@@ -9,6 +9,17 @@ match = ./debian/watch
 command = uscan --report-status
 flags = network
 
+[checkorig]
+flags = todo network
+apt = devscripts
+match = ./debian/watch
+comment =
+ not yet implemented but checkorig would be like this:
+ tmp=$(mktemp -d)
+ uscan --download-current-version --destdir $tmp
+ diffoscope/tardiff/cmp ../*.orig.* $tmp/*
+ rm -rf $tmp
+
 [duck]
 apt = duck
 match = ./debian/control ./debian/upstream ./debian/upstream-metadata.yaml ./debian/upstream/metadata ./debian/copyright
