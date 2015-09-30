@@ -1,18 +1,16 @@
-# Dangerous because it executes code in use statements
-# and BEGIN, UNITCHECK and CHECK blocks
 [perl-syntax-check]
 apt = perl
 match = *.pl *.pm
 command = perl -wc {file} | grep -v ' syntax OK$'
+comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
 flags = dangerous
 
-# Dangerous because it executes code in use statements
-# and BEGIN, UNITCHECK and CHECK blocks
 [perl-b-lint]
 apt = perl, libb-lint-perl
 match = *.pl *.pm
 prereq = perl -MO=Lint /dev/null
 command = perl -MO=Lint {file} | grep -v ' syntax OK$'
+comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
 flags = dangerous
 
 [perlcritic]
