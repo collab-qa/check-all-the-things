@@ -95,6 +95,7 @@ class Check(object):
         self.cmd = None
         self.cmd_nargs = None
         self.flags = set()
+        self.groups = set()
         self.prereq = None
         self.disabled = set()
 
@@ -146,6 +147,9 @@ class Check(object):
 
     def set_flags(self, value):
         self.flags = set(value.split())
+
+    def set_groups(self, value):
+        self.groups.update(value.split())
 
     def set_prereq(self, value):
         self.prereq = value
@@ -276,11 +280,13 @@ class CheckSelectionAction(argparse.Action):
         for name in checks:
             self.checks[name].disabled.add('cmdline disabled check')
 
-class FlagSelectionAction(argparse.Action):
+class GroupSelectionAction(argparse.Action):
 
-    def __init__(self, option_strings, dest, checks={}, flags=set(), prepend_values=[], *args, **kwargs):
+    def __init__(self, option_strings, dest, msg=None, name=None, checks={}, groups=set(), prepend_values=[], *args, **kwargs):
+        self.msg = msg
+        self.name = name
         self.checks = checks
-        self.flags = flags
+        self.groups = groups
         self.prepend_values = prepend_values
         super().__init__(option_strings=option_strings, dest=dest, *args, **kwargs)
 
@@ -288,25 +294,25 @@ class FlagSelectionAction(argparse.Action):
         for value in self.prepend_values + values:
             process(self, value.split())
 
-    def change(self, flags):
-        self.flags.__init__(flags)
+    def change(self, groups):
+        self.groups.__init__(groups)
         for name, check in self.checks.items():
-            if check.flags.isdisjoint(flags):
-                self.checks[name].disabled.add('cmdline disabled flag')
+            if check.__getattribute__(self.name).isdisjoint(groups):
+                self.checks[name].disabled.add(self.msg)
             else:
                 self.checks[name].disabled = []
 
-    def enable(self, flags):
-        self.flags.add(flags)
+    def enable(self, groups):
+        self.groups.add(groups)
         for name, check in self.checks.items():
-            if not check.flags.isdisjoint(flags):
+            if not check.__getattribute__(self.name).isdisjoint(groups):
                 self.checks[name].disabled = []
 
-    def disable(self, flags):
-        self.flags.difference_update(flags)
+    def disable(self, groups):
+        self.groups.difference_update(groups)
         for name, check in self.checks.items():
-            if not check.flags.isdisjoint(flags):
-                self.checks[name].disabled.add('cmdline disabled flag')
+            if not check.__getattribute__(self.name).isdisjoint(groups):
+                self.checks[name].disabled.add(msg)
 
 
 def parse_section(section):
@@ -320,6 +326,7 @@ def parse_section(section):
 def parse_conf():
     checks = {}
     flags = set()
+    groups = set()
     for path in glob.glob(os.path.join(datadir, '*')):
         cp = configparser.ConfigParser(interpolation=None)
         cp.read(path, encoding='UTF-8')
@@ -328,8 +335,10 @@ def parse_conf():
                 raise RuntimeError('duplicate check name: ' + name)
             section = cp[name]
             checks[name] = parse_section(section)
+            checks[name].groups.update({os.path.basename(path)})
             flags.update(checks[name].flags)
-    return (checks, flags)
+            groups.update(checks[name].groups)
+    return (checks, flags, groups)
 
 
 def skip(skipped, name, reason):
@@ -340,7 +349,7 @@ def skip(skipped, name, reason):
 
 
 def main():
-    (checks, flags) = parse_conf()
+    (checks, flags, groups) = parse_conf()
     skipped = {}
 
     disable_flags = {
@@ -371,10 +380,13 @@ def main():
                     action=CheckSelectionAction, checks=checks)
     ap.add_argument('--flags', '-f', metavar='flags', nargs=1,
                     help="alter the set of checks to be run based on flag names",
-                    action=FlagSelectionAction, checks=checks, flags=flags)
+                    action=GroupSelectionAction, msg='cmdline disabled flag', name='flags', checks=checks, groups=flags)
+    ap.add_argument('--groups', '-g', metavar='groups', nargs=1,
+                    help="alter the set of checks to be run based on group names",
+                    action=GroupSelectionAction, msg='cmdline disabled group', name='groups', checks=checks, groups=groups)
     ap.add_argument('--all', '-a', nargs=0,
                     help="also perform checks with possibly dangerous side effects",
-                    action=FlagSelectionAction, checks=checks, flags=flags, prepend_values=['+dangerous'])
+                    action=GroupSelectionAction, name='flags', checks=checks, groups=flags, prepend_values=['+dangerous'])
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
