@@ -44,6 +44,19 @@ match =
 comment = You should almost never use -m64 and -m32 when compiling.
 command = grep -rE -- '-m64|-m32' .
 
+[cbmc]
+flags = todo
+apt = cbmc
+comment = needs to be a suggestion as it runs during a build
+
+[vera]
+flags = todo
+comment = https://bitbucket.org/verateam/vera/overview
+
+[nsiqcppstyle]
+flags = todo
+comment = https://code.google.com/p/nsiqcppstyle/
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse

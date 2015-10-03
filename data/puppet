@@ -8,6 +8,10 @@ apt = puppet
 match = *.pp
 command = puppet parser validate {files}
 
+[puppet-syntax]
+flags = todo
+comment = ruby-puppet-syntax ITP #800400
+
 # TODO: erb files?
 # erb -x -T '-' {files} | ruby -c
 
