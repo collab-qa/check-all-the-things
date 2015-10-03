@@ -1,8 +1,8 @@
 [openssh-private-key]
-command = grep --recursive --perl-regexp --files-with-matches '(?s)-----BEGIN OPENSSH PRIVATE KEY-----.*-----END OPENSSH PRIVATE KEY-----' .
+command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN OPENSSH PRIVATE KEY-----.*-----END OPENSSH PRIVATE KEY-----' .
 
 [ssh2-private-key]
-command = grep --recursive --perl-regexp --files-with-matches '(?s)---- BEGIN SSH2 ENCRYPTED PRIVATE KEY ----.*---- END SSH2 ENCRYPTED PRIVATE KEY ----' .
+command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)---- BEGIN SSH2 ENCRYPTED PRIVATE KEY ----.*---- END SSH2 ENCRYPTED PRIVATE KEY ----' .
 
 [ec-private-key]
-command = grep --recursive --perl-regexp --files-with-matches '(?s)-----BEGIN EC PRIVATE KEY-----.*-----END EC PRIVATE KEY-----' .
+command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN EC PRIVATE KEY-----.*-----END EC PRIVATE KEY-----' .
