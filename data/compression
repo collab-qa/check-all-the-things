@@ -39,6 +39,10 @@ match = *.zip *.jar *.pk3 *.wz
 command = unzip -q -t {file} | grep -v '^No errors detected in compressed data of '
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
-# TODO: 7zip
+[7z-test]
+apt = p7zip
+match = *.7z
+command = 7zr t {file} | grep --perl-regexp --null-data --only-matching '(?s)Processing archive: .*\n\nError[^\n]*' | tr -s '\n'
+prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 # vim:ft=dosini
