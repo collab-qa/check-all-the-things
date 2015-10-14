@@ -74,6 +74,7 @@ not-match =
  *.pyc *.pyo *.o *.so *.so.* *.debug
  *.wav *.ogg *.oga *.ogv *.mid
  *.ttf *.otf *.fon
+ *.pgp *.gpg
 command = isutf8 {files}
 
 # TODO: EC2_SECRET_KEY
