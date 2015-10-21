@@ -31,6 +31,7 @@ import os
 import re
 import shlex
 import stat
+import time
 import subprocess as ipc
 import sys
 from textwrap import TextWrapper
@@ -387,9 +388,16 @@ def main():
     ap.add_argument('--all', '-a', nargs=0,
                     help="also perform checks with possibly dangerous side effects",
                     action=GroupSelectionAction, name='flags', checks=checks, groups=flags, prepend_values=['+dangerous'])
+    ap.add_argument('--interrupt', '-i', metavar='interrupt',
+                    help="when interrupted, quit or skip the current check",
+                    default='skip', choices=['quit', 'exit', 'skip'])
+    ap.add_argument('--interrupt-period', '-p', metavar='N', type=float,
+                    help="how long to wait after an interrupt for another one",
+                    default=0.5)
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
+    last_interrupt = 0
     matching_checks = set()
     for root, dirs, files in os.walk('.'):
         for file in files:
@@ -422,6 +430,12 @@ def main():
             skip(skipped, name, str(exc))
             exc = None
         else:
+            if (time.time()-last_interrupt) < options.interrupt_period:
+                try:
+                    time.sleep(options.interrupt_period)
+                except KeyboardInterrupt:
+                    print()
+                    sys.exit()
             cmd = check.get_sh_cmd(njobs=options.jobs)
             comment = check.comment
             if comment:
@@ -430,9 +444,14 @@ def main():
             sys.stdout.flush()
             try:
                 ipc.call(cmd, shell=True, stderr=sys.stdout)
-            except KeyboardInterrupt:
-                skip(skipped, name, 'user interrupted')
-                print()
+            except KeyboardInterrupt as e:
+                if options.interrupt in ('exit', 'quit') or (time.time()-last_interrupt) < options.interrupt_period:
+                    print()
+                    sys.exit()
+                elif options.interrupt == 'skip':
+                    skip(skipped, name, 'user interrupted')
+                    print()
+                last_interrupt = time.time()
             print()
     if skipped:
         print('Skipped checks:')
