@@ -77,6 +77,9 @@ not-match =
  *.pgp *.gpg
 command = isutf8 {files}
 
+[disabled-tests]
+command = grep -riEC1 '((check|test) *\|\| *true|-dh_auto_test)' .
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
