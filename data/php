@@ -3,10 +3,12 @@ apt = php5-cli
 match = *.php*
 command = php -l -f {file}
 
+# TODO: pkg-php-tools pkgtools
 # TODO: php-codesniffer
 # TODO: pdepend
 # TODO: phpmd
 # TODO: https://github.com/wayfair/hussar
+# TODO: https://github.com/rlerdorf/phan
 # TODO: shell metacharacter injection: backticks exec system passthru shell_exec popen proc_open
 
 # vim:ft=dosini

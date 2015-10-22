@@ -1,3 +1,6 @@
 [unsafe]
 match = *.rs
 command = grep unsafe {files}
+
+# TODO: https://github.com/Manishearth/rust-clippy
+# TODO: https://github.com/Manishearth/rust-tenacious

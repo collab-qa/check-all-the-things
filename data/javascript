@@ -1,11 +1,14 @@
+# TODO: coffeelint
 # TODO: pylama #779449
 # TODO: https://github.com/jscs-dev/node-jscs
 # TODO: https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make
 # TODO: https://github.com/rdio/jsfmt
 # TODO: https://github.com/mozilla/scanjs
 # TODO: https://github.com/eslint/eslint
+# TODO: https://github.com/abuiles/ember-watson
 # TODO: http://www.jslint.com/
 # TODO: http://jshint.com/
 # TODO: http://flowtype.org/
 # TODO: closure-linter
 # TODO: shell metacharacter injection: child_process.exec()
+# TODO: https://github.com/MozillaSecurity/funfuzz/

@@ -24,7 +24,11 @@ command = grep 'environ *\[.HOME.\]' {files}
 match = *.py
 command = grep -F 'yaml.load' {files}
 
+# TODO: hacking
+# TODO: flake8
+# TODO: pep257
 # TODO: pylint
+# TODO: pylint-django
 # TODO: frosted
 # TODO: pychecker
 # TODO: twistedchecker
@@ -33,10 +37,14 @@ command = grep -F 'yaml.load' {files}
 # TODO: prospector #781165
 # TODO: pyroma #734121
 # TODO: pylama #779449
+# TODO: dodgy #788206
+# TODO: vulture #788222
+# TODO: bandit #793007
 # TODO: python-debtcollector
+# TODO: python-afl #792317
 # TODO: https://github.com/stackforge/bandit
 # TODO: https://github.com/landscapeio/prospector
 # TODO: https://gcc-python-plugin.readthedocs.org/en/latest/cpychecker.html
-# TODO: shell metacharacter injection: subprocess shell=True os.system os.popen popen2
+# TODO: shell metacharacter injection: subprocess shell=True os.system os.popen popen2 commands
 
 # vim:ft=dosini

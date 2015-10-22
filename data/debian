@@ -45,6 +45,8 @@ command =
  ! test -e debian/upstream/metadata &&
  echo 'Please add some upstream metadata: https://wiki.debian.org/UpstreamMetadata'
 
+# TODO: dep11-tools
+# TODO: spellintian
 # TODO: i18n
 # TODO: vcswatch
 # TODO: screenshot
@@ -83,6 +85,7 @@ command =
 # TODO: autopkgtest/sadt
 # TODO: pkg-perl-tools lintian
 # TODO: license-reconcile
+# TODO: scan-copyright
 # TODO: apt Apt::Get::AllowUnauthenticated=true and --force-yes
 
 # vim:ft=dosini

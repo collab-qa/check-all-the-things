@@ -25,9 +25,11 @@ apt = libpod-pom-perl
 match = *.pl *.pm
 command = podlint {file}
 
-# TODO: pkg-perl-tools dpt-packagecheck
+# TODO: pkg-perl-tools dpt-packagecheck check-build
 # TODO: perltidy
 # TODO: libperl-metrics-simple-perl
+# TODO: libtest-kwalitee-perl kwalitee-metrics
+# TODO: libtest-tabs-perl
 # TODO: shell metacharacter injection: backticks system open open2 open3
 
 # vim:ft=dosini

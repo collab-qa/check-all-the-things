@@ -83,9 +83,16 @@ command = isutf8 {files}
 # TODO: svn --trust-server-cert
 # TODO: bogomips
 # TODO: diction
+# TODO: ripper #796920
 # TODO: similarity-tester sim_text
 # TODO: http://jwilk.net/software/mwic
 # TODO: https://bitbucket.org/jwilk/spellintian
 # TODO: https://www.cs.umd.edu/~nspring/software/style-check-readme.html
+# TODO: https://github.com/coala-analyzer/coala
+# TODO: https://github.com/nexB/scancode-toolkit/
+# TODO: https://github.com/jeremylong/DependencyCheck/
+# TODO: http://www.coding-guidelines.com/numbers/
+# TODO: ebnflint
+# TODO: http://fbinfer.com/ #789059
 
 # vim:ft=dosini

@@ -27,6 +27,25 @@ match =
  *.h *.hh *.hxx *.hpp
 command = pmccabe {files} | sort -nr
 
+[clang-check]
+flags = todo
+apt = clang
+match =
+ *.c *.cc *.cxx *.cpp
+ *.h *.hh *.hxx *.hpp
+comment =
+ Please consider checking your code with clang-check:
+ http://clang.llvm.org/extra/clang-modernize.html
+command = echo clang-check {files} --
+
+[clang-tidy]
+flags = todo
+apt = clang-tidy
+match =
+ *.c *.cc *.cxx *.cpp
+ *.h *.hh *.hxx *.hpp
+command = echo clang-tidy {files} --
+
 [clang-modernize]
 apt = clang-modernize | clang-modernize-3.5
 match =
@@ -61,15 +80,21 @@ comment = https://code.google.com/p/nsiqcppstyle/
 # TODO: adlint
 # TODO: sparse
 # TODO: splint
+# TODO: kwstyle
 # TODO: frama-c
 # TODO: scan-build
+# TODO: abi-compliance-checker
 # TODO: complexity #781946
 # TODO: http://oclint.org/
 # TODO: http://saturn.stanford.edu/
 # TODO: https://scan.coverity.com/
 # TODO: https://github.com/facebook/flint
+# TODO: https://github.com/Krazy-collection/krazy
 # TODO: https://css.csail.mit.edu/stack/
 # TODO: https://github.com/kframework/c-semantics
+# TODO: https://code.google.com/p/checkheaders/ https://github.com/cristeab/checkheaders
+# TODO: https://github.com/danmar/ublinter
+# TODO: https://quickgit.kde.org/?p=clazy.git
 # TODO: shell metacharacter injection: g_spawn_command_line* system popen
 
 # vim:ft=dosini
