@@ -35,7 +35,19 @@ prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [unzip-test]
 apt = unzip
-match = *.zip *.jar *.pk3 *.wz
+# Extension list from the File Formats wiki:
+# http://fileformats.archiveteam.org/wiki/Category:ZIP_based_file_formats
+match =
+ *.zip
+ *.jar *.apk *.xpi *.ipa *.sb2 *.pk3 *.wz *.love
+ *.docx *.xlsx *.pptx *.xlsb
+ *.odm *.odt *.ods *.odg *.odp *.odc *.odi *.odf *.odb *.ott *.ots *.otg *.otp *.otc *.oti *.otf *.oth *.fodt *.fods *.fodg *.fodp
+ *.ggb *.maff *.cbz *.ora
+ *.epub *.oxps *.xps
+ *.otx
+ *.pkpass
+ *.itz
+ *.svx
 command = unzip -q -t {file} | grep -v '^No errors detected in compressed data of '
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
