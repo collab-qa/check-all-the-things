@@ -1,2 +1,6 @@
-# TODO: luacheck #776473
+[luacheck]
+apt = lua-check
+match = *.lua
+command = luacheck -q .
+
 # TODO: http://lua-users.org/wiki/ProgramAnalysis
