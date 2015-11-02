@@ -1,0 +1,4 @@
+[gendarme]
+flags = todo
+apt = gendarme
+comment = gendarme ...
