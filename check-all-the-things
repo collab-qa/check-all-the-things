@@ -317,7 +317,7 @@ class GroupSelectionAction(argparse.Action):
         self.groups.difference_update(groups)
         for name, check in self.checks.items():
             if not check.__getattribute__(self.name).isdisjoint(groups):
-                self.checks[name].disabled.add(msg)
+                self.checks[name].disabled.add(self.msg)
 
 
 def parse_section(section):
