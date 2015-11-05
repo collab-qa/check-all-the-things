@@ -38,12 +38,14 @@ from textwrap import TextWrapper
 
 try:
     from shutil import get_terminal_size
+
     def get_columns():
         return get_terminal_size().columns
 except ImportError:
     from fcntl import ioctl
     from termios import TIOCGWINSZ
     from struct import unpack
+
     def get_columns():
         try:
             buf = ioctl(sys.stdout.fileno(), TIOCGWINSZ, ' '*4)
@@ -255,6 +257,7 @@ def process(self, choices):
         args.update(arg)
         action(args)
 
+
 class CheckSelectionAction(argparse.Action):
 
     def __init__(self, option_strings, dest, checks={}, prepend_values=[], *args, **kwargs):
@@ -280,6 +283,7 @@ class CheckSelectionAction(argparse.Action):
     def disable(self, checks):
         for name in checks:
             self.checks[name].disabled.add('cmdline disabled check')
+
 
 class GroupSelectionAction(argparse.Action):
 
@@ -366,12 +370,12 @@ def main():
 
     ap = argparse.ArgumentParser(
         description='This program is aimed at checking things related to '
-            'packaging and software development.  It automates statical '
-            'analysis of code, QA checks, syntax checking, for a very large '
-            'set of files.',
+                    'packaging and software development.  It automates statical '
+                    'analysis of code, QA checks, syntax checking, for a very large '
+                    'set of files.',
         epilog="WARNING: since it checks so many things the output can be "
-            "very verbose so don't use it if you don't have time to go "
-            "through the output to find problems."
+               "very verbose so don't use it if you don't have time to go "
+               "through the output to find problems."
     )
     ap.add_argument('--jobs', '-j', metavar='N', type=int, nargs='?',
                     help="passed to tools that can parallelize their checks",
