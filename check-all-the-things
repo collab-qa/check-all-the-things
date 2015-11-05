@@ -448,7 +448,7 @@ def main():
             sys.stdout.flush()
             try:
                 ipc.call(cmd, shell=True, stderr=sys.stdout)
-            except KeyboardInterrupt as e:
+            except KeyboardInterrupt:
                 if options.interrupt in ('exit', 'quit') or (time.time()-last_interrupt) < options.interrupt_period:
                     print()
                     sys.exit()
