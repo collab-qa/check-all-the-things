@@ -16,6 +16,7 @@ Depends:
  python3,
  ${misc:Depends}
 Recommends:
+ python3-ptyprocess,
  ${catt:Recommends}
 Description: check all of the things!
  This package will help you check all of the things.

@@ -29,6 +29,7 @@ import glob
 import multiprocessing
 import os
 import re
+import pty
 import shlex
 import stat
 import time
@@ -69,6 +70,11 @@ if not hasattr(shlex, 'quote'):
     shlex.quote = pipes.quote
 
 try:
+    import ptyprocess
+except ImportError:
+    ptyprocess = None
+
+try:
     import apt_pkg
 except ImportError:
     apt_pkg = None
@@ -81,6 +87,47 @@ if not os.path.isdir(datadir):
 if not os.path.isdir(datadir):
     datadir = os.path.join(os.path.dirname(rootdir), 'share',
                            'check-all-the-things', 'data')
+
+
+def spawn_header_first(cmd, header):
+    if sys.stdout.isatty():
+        if ptyprocess:
+            proc = ptyprocess.ptyprocess.PtyProcess.spawn(['sh', '-c', cmd])
+            while True:
+                try:
+                    line = proc.readline()
+                    if line:
+                        if header:
+                            print(header)
+                            sys.stdout.flush()
+                            header = None
+                        sys.stdout.buffer.write(line)
+                        sys.stdout.flush()
+                except EOFError:
+                    break
+        else:
+            def read(fd):
+                nonlocal header
+                data = os.read(fd, 1024)
+                if data and header:
+                    print(header.replace('\n', '\r\n'), end='\r\n')
+                    sys.stdout.flush()
+                    header = None
+                return data
+            pty.spawn(['sh', '-c', cmd], read)
+    else:
+        with ipc.Popen(cmd, shell=True, stdout=ipc.PIPE, stderr=ipc.STDOUT) as proc:
+            line = proc.stdout.readline()
+            if line and header:
+                print(header)
+                sys.stdout.flush()
+                header = None
+            sys.stdout.buffer.write(line)
+            sys.stdout.flush()
+            for line in proc.stdout:
+                sys.stdout.buffer.write(line)
+                sys.stdout.flush()
+    return not bool(header)
 
 
 class UnmetPrereq(Exception):
@@ -413,6 +460,9 @@ def main():
     ap.add_argument('--interrupt-period', '-ip', metavar='N', type=float,
                     help="how many seconds to wait after an interrupt for another one before continuing",
                     default=0.5)
+    ap.add_argument('--silent-checks', type=str,
+                    help="what to do with checks that did not print any output",
+                    default='hide', choices={'show', 'hide'})
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
@@ -449,6 +499,7 @@ def main():
             skip(skipped, name, str(exc))
             exc = None
         else:
+            show_check = options.silent_checks == 'show'
             if (time.time()-last_interrupt) < options.interrupt_period:
                 try:
                     time.sleep(options.interrupt_period)
@@ -457,23 +508,34 @@ def main():
                     sys.exit()
             cmd = check.get_sh_cmd(njobs=options.jobs)
             comment = check.comment
+            header = ''
             if comment:
-                print(*('# ' + line for line in comment.split('\n')), sep='\n')
-            print('$', cmd)
-            sys.stdout.flush()
+                header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
+            header += '$ ' + cmd
+            if show_check:
+                print(header)
+                sys.stdout.flush()
             try:
-                ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+                if show_check:
+                    ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+                else:
+                    show_check |= spawn_header_first(cmd, header)
+                    if not show_check:
+                        skip(skipped, name, 'no output')
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time()-last_interrupt) < options.interrupt_period:
-                    print()
+                    if show_check:
+                        print()
                     sys.exit()
                 elif options.interrupt == 'skip':
                     skip(skipped, name, 'user interrupted')
-                    print()
+                    if show_check:
+                        print()
                 last_interrupt = time.time()
-            print()
+            if show_check:
+                print()
     if skipped:
-        print('Skipped checks:')
+        print('Skipped and hidden checks:')
         out = TextWrapper()
         out.width = get_columns()
         out.break_long_words = False
