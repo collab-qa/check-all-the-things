@@ -451,7 +451,7 @@ def main():
             try:
                 ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
             except KeyboardInterrupt:
-                if options.interrupt in ('exit', 'quit') or (time.time()-last_interrupt) < options.interrupt_period:
+                if options.interrupt in {'exit', 'quit'} or (time.time()-last_interrupt) < options.interrupt_period:
                     print()
                     sys.exit()
                 elif options.interrupt == 'skip':
