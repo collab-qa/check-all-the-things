@@ -447,7 +447,7 @@ def main():
             print('$', cmd)
             sys.stdout.flush()
             try:
-                ipc.call(cmd, shell=True, stderr=sys.stdout)
+                ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
             except KeyboardInterrupt:
                 if options.interrupt in ('exit', 'quit') or (time.time()-last_interrupt) < options.interrupt_period:
                     print()
