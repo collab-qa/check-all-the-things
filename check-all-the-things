@@ -53,6 +53,17 @@ except ImportError:
         except IOError:
             return 80
 
+try:
+    from shutil import which
+except ImportError:
+    def which(cmd):
+        PATH = os.environ.get('PATH', '')
+        PATH = PATH.split(os.pathsep)
+        for dir in PATH:
+            path = os.path.join(dir, cmd)
+            if os.access(path, os.X_OK):
+                return path
+
 if not hasattr(shlex, 'quote'):
     import pipes
     shlex.quote = pipes.quote
@@ -70,15 +81,6 @@ if not os.path.isdir(datadir):
 if not os.path.isdir(datadir):
     datadir = os.path.join(os.path.dirname(rootdir), 'share',
                            'check-all-the-things', 'data')
-
-
-def which(cmd):
-    PATH = os.environ.get('PATH', '')
-    PATH = PATH.split(os.pathsep)
-    for dir in PATH:
-        path = os.path.join(dir, cmd)
-        if os.access(path, os.X_OK):
-            return path
 
 
 class UnmetPrereq(Exception):
