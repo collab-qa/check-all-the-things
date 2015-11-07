@@ -56,7 +56,7 @@ comment =
  http://clang.llvm.org/extra/clang-modernize.html
 command = echo clang-modernize {files}
 
-[-m64-m32]
+[m64-m32]
 match =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
