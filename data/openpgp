@@ -1,12 +1,15 @@
 [hokey-lint]
+groups = keys
 apt = hopenpgp-tools
 match = *.pgp *.gpg
 command = cat {files} | hokey lint
 
 [hokey-lint-asc]
+groups = keys
 apt = hopenpgp-tools
 match = *.asc
 command = cat {files} | hot dearmor | hokey lint
 
 [pgp-private-key]
+groups = keys
 command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN PGP PRIVATE KEY BLOCK-----.*-----END PGP PRIVATE KEY BLOCK-----' .

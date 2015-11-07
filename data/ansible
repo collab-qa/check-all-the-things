@@ -1,3 +1,4 @@
 [ansible-lint]
+groups = cfg-mgmt
 flags = todo
 comment = ansible-lint ITP #799144

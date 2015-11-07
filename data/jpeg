@@ -1,4 +1,5 @@
 [jpeginfo]
+groups = images
 apt = jpeginfo
 match = *.jpg *.jpeg
 command = jpeginfo --check --quiet {files} | fgrep -v '[OK]'

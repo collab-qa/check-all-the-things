@@ -1,14 +1,17 @@
 [puppet-lint]
+groups = cfg-mgmt
 apt = puppet-lint
 match = *.pp
 command = puppet-lint {files}
 
 [puppet]
+groups = cfg-mgmt
 apt = puppet
 match = *.pp
 command = puppet parser validate {files}
 
 [puppet-syntax]
+groups = cfg-mgmt
 flags = todo
 comment = ruby-puppet-syntax ITP #800400
 
