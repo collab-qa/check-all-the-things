@@ -28,13 +28,13 @@ apt = fdupes
 command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer)|_(darcs|FOSSIL_)|CVS)(/|$)' | cat -s
 
 [bitmap-multilayer]
-group = images
+groups = images
 comment = Check with upstream where the GIMP XCF source files are.
 match = *.png *.gif *.jpg *.jpeg
 command = grep -iF gimp {files}
 
 [bitmap-vector]
-group = images
+groups = images
 comment = Check with upstream where the Inkscape SVG source files are.
 match = *.png *.gif *.jpg *.jpeg
 command = grep -iF inkscape {files}
