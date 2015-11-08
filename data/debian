@@ -9,7 +9,7 @@ match = ./debian/watch
 command = uscan --report-status
 flags = network
 
-[checkorig]
+[chk-origtargz]
 flags = todo network
 apt = devscripts
 match = ./debian/watch
