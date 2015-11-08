@@ -1,3 +1,36 @@
+check-all-the-things (2015.11.08) experimental; urgency=medium
+
+  * New release.
+    - Option to quit when interrupted (Closes: #796338)
+      Quit after recieving two interrupts within 0.5 seconds
+    - Prune/filter VCS dirs for some checks (Closes: #796340)
+    - Allow selection of which checks to run based on
+      check names, flag names and group names
+    - Hide checks with no output by default
+    - Minimise display of suppressed checks by default
+    - Display names of checks that are not yet implemented
+    - Improve help output and add generated manual page
+    - Show comments for dangerous checks
+    - Add upstream-metadata - missing DEP-12 data
+    - Add licensecheck-generated-files - generated files
+    - Add puppet/puppet-lint - config management checks
+    - Add licensecheck-incorrect-fsf-address - bad FSF address
+    - Add 7z-test - test 7zip compressed archives
+    - Add disabled-tests - find disabled build-time tests
+    - Add luacheck - check Lua code for common issues
+    - Rename -m64-m32 to m64-m32 to fit with check selection options
+    - Rename rust unsafe check to rust-unsafe for namespacing
+    - Drop appdata-validate - should not be used any longer
+    - Fixes for ftlint clang-modernize bashate shellcheck empty
+      bfbtester *-private-key isutf8 unzip-test
+    - TODO items for foodcritic dodgy ruby-lint sourcecode-spellchecker
+      chk-origtargz ansible-lint puppet-syntax cbmc vera nsiqcppstyle
+      clang-check clang-tidy kwstyle abi-compliance-checker krazy
+      checkheaders ublinter clazy csslint dart-shell-metachars
+      dep11-tools spellintian scan-copyright gendarme
+
+ -- Paul Wise <pabs@debian.org>  Sun, 08 Nov 2015 19:18:25 +0800
+
 check-all-the-things (2015.08.11.1) experimental; urgency=medium
 
   * New release.
