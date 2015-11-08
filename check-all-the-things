@@ -274,13 +274,13 @@ class CheckSelectionAction(argparse.Action):
     def change(self, checks):
         for name, check in self.checks.items():
             if name in checks:
-                self.checks[name].disabled = []
+                self.checks[name].disabled.clear()
             else:
                 self.checks[name].disabled.add('cmdline disabled check')
 
     def enable(self, checks):
         for name in checks:
-            self.checks[name].disabled = []
+            self.checks[name].disabled.clear()
 
     def disable(self, checks):
         for name in checks:
@@ -307,13 +307,13 @@ class GroupSelectionAction(argparse.Action):
             if check.__getattribute__(self.name).isdisjoint(groups):
                 self.checks[name].disabled.add(self.msg)
             else:
-                self.checks[name].disabled = []
+                self.checks[name].disabled.clear()
 
     def enable(self, groups):
         self.groups.update(groups)
         for name, check in self.checks.items():
             if not check.__getattribute__(self.name).isdisjoint(groups):
-                self.checks[name].disabled = []
+                self.checks[name].disabled.clear()
 
     def disable(self, groups):
         self.groups.difference_update(groups)
