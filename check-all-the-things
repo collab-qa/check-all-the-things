@@ -361,7 +361,7 @@ def main():
 
     disable_flags = {
         'dangerous': 'dangerous check',
-        'todo': 'not yet implemented',
+        'todo': 'help needed',
     }
 
     flags.difference_update(disable_flags.keys())
