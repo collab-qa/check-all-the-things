@@ -310,7 +310,7 @@ class GroupSelectionAction(argparse.Action):
                 self.checks[name].disabled = []
 
     def enable(self, groups):
-        self.groups.add(groups)
+        self.groups.update(groups)
         for name, check in self.checks.items():
             if not check.__getattribute__(self.name).isdisjoint(groups):
                 self.checks[name].disabled = []
