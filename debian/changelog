@@ -9,7 +9,7 @@ check-all-the-things (2015.11.08) experimental; urgency=medium
 
   * New release.
     - Option to quit when interrupted (Closes: #796338)
-      Quit after recieving two interrupts within 0.5 seconds
+      Quit after receiving two interrupts within 0.5 seconds
     - Prune/filter VCS dirs for some checks (Closes: #796340)
     - Allow selection of which checks to run based on
       check names, flag names and group names
