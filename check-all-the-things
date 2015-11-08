@@ -397,7 +397,7 @@ def main():
     ap.add_argument('--interrupt', '-i', metavar='interrupt',
                     help="when interrupted, quit or skip the current check",
                     default='skip', choices=['quit', 'exit', 'skip'])
-    ap.add_argument('--interrupt-period', '-p', metavar='N', type=float,
+    ap.add_argument('--interrupt-period', '-ip', metavar='N', type=float,
                     help="how long to wait after an interrupt for another one",
                     default=0.5)
     options = ap.parse_args()
