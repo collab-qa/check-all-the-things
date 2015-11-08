@@ -463,6 +463,10 @@ def main():
     ap.add_argument('--silent-checks', type=str,
                     help="what to do with checks that did not print any output",
                     default='hide', choices={'show', 'hide'})
+    ap.add_argument('--suppressed-checks-lines', metavar='N',
+                    help="output lines to use for checks per suppression reason."
+                         " (<= -1: all, 0: only reasons, >= 1: N lines of checks)",
+                    type=int, default=1)
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
@@ -535,15 +539,22 @@ def main():
             if show_check:
                 print()
     if skipped:
-        print('Skipped and hidden checks:')
+        header = 'Skipped and hidden checks:'
         out = TextWrapper()
         out.width = get_columns()
         out.break_long_words = False
         out.break_on_hyphens = False
-        for reason in sorted(skipped):
-            out.initial_indent = '- {reason}: '.format(reason=reason)
-            out.subsequent_indent = ' ' * len(out.initial_indent)
-            print(out.fill(' '.join(sorted(skipped[reason]))))
+        if options.suppressed_checks_lines == 0:
+            print(header + ' ' + out.fill(', '.join(sorted(skipped))))
+        else:
+            print(header)
+            if options.suppressed_checks_lines >= 1:
+                out.placeholder = ' ...'
+                out.max_lines = options.suppressed_checks_lines
+            for reason in sorted(skipped):
+                out.initial_indent = '- {reason}: '.format(reason=reason)
+                out.subsequent_indent = ' ' * len(out.initial_indent)
+                print(out.fill(' '.join(sorted(skipped[reason]))))
 
 if __name__ == '__main__':
     main()
