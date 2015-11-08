@@ -1,3 +1,10 @@
+check-all-the-things (2015.11.08.1) experimental; urgency=medium
+
+  * New release.
+    - Fix traceback when using installed script (Closes: #804491)
+
+ -- Paul Wise <pabs@debian.org>  Mon, 09 Nov 2015 07:07:24 +0800
+
 check-all-the-things (2015.11.08) experimental; urgency=medium
 
   * New release.
