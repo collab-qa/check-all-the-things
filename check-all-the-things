@@ -212,6 +212,8 @@ class Check(object):
             'file': '{} \\;',
             'njobs': njobs,
         }
+        if not self.cmd:
+            return
         cmd = self.cmd.format(**kwargs)
         if self.cmd_nargs > 0:
             fcmd = ['find']
@@ -257,6 +259,8 @@ class Check(object):
 
     def meet_prereq(self):
         if self.prereq is None:
+            if not self.cmd:
+                return
             cmd = shlex.split(self.cmd)[0]
             if not which(cmd):
                 raise UnmetPrereq('command not found: ' + cmd)
@@ -516,17 +520,19 @@ def main():
             header = ''
             if comment:
                 header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
-            header += '$ ' + cmd
+            if cmd:
+                header += '$ ' + cmd
             if show_check:
                 print(header)
                 sys.stdout.flush()
             try:
-                if show_check:
-                    ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
-                else:
-                    show_check |= spawn_header_first(cmd, header)
-                    if not show_check:
-                        skip(skipped, name, 'no output')
+                if cmd:
+                    if show_check:
+                        ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+                    else:
+                        show_check |= spawn_header_first(cmd, header)
+                        if not show_check:
+                            skip(skipped, name, 'no output')
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time()-last_interrupt) < options.interrupt_period:
                     if show_check:
@@ -537,7 +543,7 @@ def main():
                     if show_check:
                         print()
                 last_interrupt = time.time()
-            if show_check:
+            if cmd and show_check:
                 print()
     if skipped:
         header = 'Skipped and hidden checks:'
