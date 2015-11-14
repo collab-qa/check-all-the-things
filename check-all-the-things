@@ -472,6 +472,9 @@ def main():
                     help="output lines to use for checks per suppression reason."
                          " (<= -1: all, 0: only reasons, >= 1: N lines of checks)",
                     type=int, default=1)
+    ap.add_argument('--commands', type=str,
+                    help="what to do with the commands for the chosen set of hooks",
+                    default='run', choices=['run', 'show'])
     options = ap.parse_args()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
@@ -508,7 +511,7 @@ def main():
             skip(skipped, name, str(exc))
             exc = None
         else:
-            show_check = options.silent_checks == 'show'
+            show_check = options.silent_checks == 'show' or options.commands == 'show'
             if (time.time()-last_interrupt) < options.interrupt_period:
                 try:
                     time.sleep(options.interrupt_period)
@@ -526,7 +529,7 @@ def main():
                 print(header)
                 sys.stdout.flush()
             try:
-                if cmd:
+                if cmd and options.commands == 'run':
                     if show_check:
                         ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
                     else:
