@@ -312,6 +312,7 @@ def process(self, choices):
 
 
 class CheckSelectionAction(argparse.Action):
+    msg = 'cmdline disabled check'
 
     def __init__(self, option_strings, dest, checks={}, prepend_values=[], *args, **kwargs):
         self.checks = checks
@@ -327,7 +328,7 @@ class CheckSelectionAction(argparse.Action):
             if name in checks:
                 self.checks[name].disabled.clear()
             else:
-                self.checks[name].disabled.add('cmdline disabled check')
+                self.checks[name].disabled.add(self.msg)
 
     def enable(self, checks):
         for name in checks:
@@ -335,7 +336,7 @@ class CheckSelectionAction(argparse.Action):
 
     def disable(self, checks):
         for name in checks:
-            self.checks[name].disabled.add('cmdline disabled check')
+            self.checks[name].disabled.add(self.msg)
 
 
 class GroupSelectionAction(argparse.Action):
