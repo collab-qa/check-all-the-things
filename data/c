@@ -76,6 +76,10 @@ comment = https://bitbucket.org/verateam/vera/overview
 flags = todo
 comment = https://code.google.com/p/nsiqcppstyle/
 
+[cppclean]
+flags = todo
+comment = https://github.com/myint/cppclean/
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
