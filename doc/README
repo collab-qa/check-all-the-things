@@ -50,6 +50,11 @@ the ITP bug number or a URL to upstream in the comment field.
 For more involved changes to the code you might want to file a bug to
 discuss the changes with people who are interested.
 
+For low-latency discussion you can join the Debian QA IRC channel:
+
+ircs://irc.debian.org/debian-qa
+https://webchat.oftc.net/?channels=debian-qa
+
 Please sign all of your commits, tags and pushes with OpenPGP:
 
 http://mikegerwitz.com/papers/git-horror-story
