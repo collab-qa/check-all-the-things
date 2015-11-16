@@ -106,15 +106,20 @@ def spawn_header_first(cmd, header):
                 except EOFError:
                     break
         else:
+            pipe = None
             def read(fd):
                 nonlocal header
-                data = os.read(fd, 1024)
+                nonlocal pipe
+                if not pipe:
+                    pipe = open(fd, closefd=False)
+                data = pipe.buffer.readline()
                 if data and header:
                     print(header.replace('\n', '\r\n'), end='\r\n')
                     sys.stdout.flush()
                     header = None
                 return data
             pty.spawn(['sh', '-c', cmd], read)
+            pipe.close()
     else:
         with ipc.Popen(cmd, shell=True, stdout=ipc.PIPE, stderr=ipc.STDOUT) as proc:
             line = proc.stdout.readline()
