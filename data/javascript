@@ -1,3 +1,13 @@
+[js-standard]
+flags = todo
+match = *.js
+comment = https://github.com/feross/standard
+
+[js-modern-standard]
+flags = todo
+match = *.js
+comment = https://github.com/modern-standard/modern-standard
+
 # TODO: coffeelint
 # TODO: pylama #779449
 # TODO: https://github.com/jscs-dev/node-jscs
