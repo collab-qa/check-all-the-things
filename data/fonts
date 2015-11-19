@@ -20,4 +20,8 @@ comment =
  Fonts in main should not have embedding restriction bits:
  python -c '0 != fontforge.open(f).os2_fstype'
 
+[font-validator]
+flags = todo
+comment = https://github.com/Microsoft/Font-Validator
+
 # vim:ft=dosini
