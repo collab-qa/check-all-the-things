@@ -1,13 +1,13 @@
 [hokey-lint]
 groups = keys
 apt = hopenpgp-tools
-match = *.pgp *.gpg
+files = *.pgp *.gpg
 command = cat {files} | hokey lint
 
 [hokey-lint-asc]
 groups = keys
 apt = hopenpgp-tools
-match = *.asc
+files = *.asc
 command = cat {files} | hot dearmor | hokey lint
 
 [pgp-private-key]

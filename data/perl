@@ -1,13 +1,13 @@
 [perl-syntax-check]
 apt = perl
-match = *.pl *.pm
+files = *.pl *.pm
 command = perl -wc {file} | grep -v ' syntax OK$'
 comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
 flags = dangerous
 
 [perl-b-lint]
 apt = perl, libb-lint-perl
-match = *.pl *.pm
+files = *.pl *.pm
 prereq = perl -MO=Lint /dev/null
 command = perl -MO=Lint {file} | grep -v ' syntax OK$'
 comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
@@ -22,7 +22,7 @@ command = grep -rw PERLLIB .
 
 [podlint]
 apt = libpod-pom-perl
-match = *.pl *.pm
+files = *.pl *.pm
 command = podlint {file}
 
 # TODO: pkg-perl-tools dpt-packagecheck check-build

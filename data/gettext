@@ -1,21 +1,21 @@
 [msgfmt-check]
 apt = gettext
-match = *.po *.pot
+files = *.po *.pot
 command = msgfmt --check --check-compatibility --check-accelerators --output-file=/dev/null {file}
 
 [gettext-lint-checker]
 apt = gettext-lint
-match = *.po *.pot
+files = *.po *.pot
 command = POFileChecker {files}
 
 [gettext-lint-spell]
 apt = gettext-lint
-match = *.po *.pot
+files = *.po *.pot
 command = POFileSpell {files}
 
 [i18nspector]
 apt = i18nspector
-match = *.po *.pot *.mo *.gmo
+files = *.po *.pot *.mo *.gmo
 command = i18nspector {files}
 
 [acheck]

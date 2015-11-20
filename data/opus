@@ -1,4 +1,4 @@
 [opusinfo]
 apt = opus-tools
-match = *.opus
+files = *.opus
 command = opusinfo -q {files}

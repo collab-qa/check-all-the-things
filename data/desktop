@@ -1,6 +1,6 @@
 [desktop-file-validate]
 apt = desktop-file-utils
-match = *.desktop
+files = *.desktop
 command = desktop-file-validate {file}
 
 # vim:ft=dosini

@@ -1,35 +1,35 @@
 [gzip-test]
-match = *.gz *.tgz
+files = *.gz *.tgz
 command = gzip --test {files}
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [bzip2-test]
 apt = bzip2
-match = *.bz2 *.tbz
+files = *.bz2 *.tbz
 command = bzip2 --test {files}
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [xz-test]
 apt = xz-utils
-match = *.xz *.txz
+files = *.xz *.txz
 command = xz --test {files}
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [lzma-test]
 apt = xz-utils
-match = *.lzma
+files = *.lzma
 command = lzma --test {files}
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [lzo-test]
 apt = lzop
-match = *.lzo
+files = *.lzo
 command = lzop --test {files}
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [lzip-test]
 apt = lzip
-match = *.lzip
+files = *.lzip
 command = lzip --test {files}
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
@@ -37,7 +37,7 @@ prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 apt = unzip
 # Extension list from the File Formats wiki:
 # http://fileformats.archiveteam.org/wiki/Category:ZIP_based_file_formats
-match =
+files =
  *.zip
  *.jar *.apk *.xpi *.ipa *.sb2 *.pk3 *.wz *.love
  *.docx *.xlsx *.pptx *.xlsb
@@ -53,7 +53,7 @@ prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [7z-test]
 apt = p7zip
-match = *.7z
+files = *.7z
 command = 7zr t {file} | grep --perl-regexp --null-data --only-matching '(?s)Processing archive: .*\n\nError[^\n]*' | tr -s '\n'
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 

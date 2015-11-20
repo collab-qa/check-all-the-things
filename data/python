@@ -17,11 +17,11 @@ command = grep -rw site-packages .
 command = grep -rw PYTHONPATH .
 
 [environ-home]
-match = *.py
+files = *.py
 command = grep 'environ *\[.HOME.\]' {files}
 
 [yaml-load]
-match = *.py
+files = *.py
 command = grep -F 'yaml.load' {files}
 
 # TODO: hacking

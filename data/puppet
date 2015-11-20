@@ -1,13 +1,13 @@
 [puppet-lint]
 groups = cfg-mgmt
 apt = puppet-lint
-match = *.pp
+files = *.pp
 command = puppet-lint {files}
 
 [puppet]
 groups = cfg-mgmt
 apt = puppet
-match = *.pp
+files = *.pp
 command = puppet parser validate {files}
 
 [puppet-syntax]

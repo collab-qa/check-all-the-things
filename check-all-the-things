@@ -163,10 +163,10 @@ class UnmetPrereq(Exception):
 class Check(object):
     def __init__(self):
         self.apt = None
-        self.match = None
-        self._match_fn = id
-        self.not_match = None
-        self._not_match_fn = None
+        self.files = None
+        self._files_fn = id
+        self.not_files = None
+        self._not_files_fn = None
         self.prune = None
         self._prune_fn = None
         self.comment = None
@@ -181,25 +181,25 @@ class Check(object):
         if apt_pkg:
             self.apt = apt_pkg.parse_depends(value)
 
-    def set_match(self, value):
-        self.match = value.split()
+    def set_files(self, value):
+        self.files = value.split()
         regexp = '|'.join(
             fnmatch.translate(s)
-            for s in self.match
+            for s in self.files
         )
         regexp = r'\A(?:{re})\Z'.format(re=regexp)
         regexp = re.compile(regexp, flags=re.IGNORECASE)
-        self._match_fn = regexp.match
+        self._files_fn = regexp.match
 
-    def set_not_match(self, value):
-        self.not_match = value.split()
+    def set_not_files(self, value):
+        self.not_files = value.split()
         regexp = '|'.join(
             fnmatch.translate(s)
-            for s in self.not_match
+            for s in self.not_files
         )
         regexp = r'\A(?:{re})\Z'.format(re=regexp)
         regexp = re.compile(regexp, flags=re.IGNORECASE)
-        self._not_match_fn = regexp.match
+        self._not_files_fn = regexp.match
 
     def set_prune(self, value):
         self.prune = value.split()
@@ -256,26 +256,26 @@ class Check(object):
                     fcmd += ['\\)']
                 fcmd += ['-prune', '-o']
             fcmd += ['-type', 'f']
-            if self.match is not None:
-                if len(self.match) == 1:
-                    [wildcard] = self.match
+            if self.files is not None:
+                if len(self.files) == 1:
+                    [wildcard] = self.files
                     fcmd += ['-iname', shlex.quote(wildcard)]
                 else:
                     end = len(fcmd)
-                    for wildcard in self.match:
+                    for wildcard in self.files:
                         fcmd += ['-o', '-iname', shlex.quote(wildcard)]
                     fcmd[end] = '\\('
                     fcmd += ['\\)']
-            if self.not_match is not None:
-                if self.match:
+            if self.not_files is not None:
+                if self.files:
                     fcmd += ['-a']
                 fcmd += ['!']
-                if len(self.not_match) == 1:
-                    [wildcard] = self.not_match
+                if len(self.not_files) == 1:
+                    [wildcard] = self.not_files
                     fcmd += ['-iname', shlex.quote(wildcard)]
                 else:
                     end = len(fcmd)
-                    for wildcard in self.not_match:
+                    for wildcard in self.not_files:
                         fcmd += ['-o', '-iname', shlex.quote(wildcard)]
                     fcmd[end] = '\\('
                     fcmd += ['\\)']
@@ -302,9 +302,9 @@ class Check(object):
                 raise UnmetPrereq('command failed: ' + self.prereq)
 
     def is_file_matching(self, path):
-        if self._not_match_fn and self._not_match_fn(path):
+        if self._not_files_fn and self._not_files_fn(path):
             return False
-        return self._match_fn(path)
+        return self._files_fn(path)
 
     def is_dir_pruned(self, path):
         return self._prune_fn(path) if self._prune_fn else False

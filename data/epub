@@ -1,6 +1,6 @@
 [epubcheck]
 apt = epubcheck
-match = *.epub
+files = *.epub
 command = epubcheck --quiet {file} | egrep -v '^(Check finished with warnings or errors| *)$'
 
 # TODO: flightcrew

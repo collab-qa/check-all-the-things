@@ -1,11 +1,11 @@
 [js-standard]
 flags = todo
-match = *.js
+files = *.js
 comment = https://github.com/feross/standard
 
 [js-modern-standard]
 flags = todo
-match = *.js
+files = *.js
 comment = https://github.com/modern-standard/modern-standard
 
 # TODO: coffeelint

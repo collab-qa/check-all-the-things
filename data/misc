@@ -30,13 +30,13 @@ command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer)|_(darcs|FOSSI
 [bitmap-multilayer]
 groups = images
 comment = Check with upstream where the GIMP XCF source files are.
-match = *.png *.gif *.jpg *.jpeg
+files = *.png *.gif *.jpg *.jpeg
 command = grep -iF gimp {files}
 
 [bitmap-vector]
 groups = images
 comment = Check with upstream where the Inkscape SVG source files are.
-match = *.png *.gif *.jpg *.jpeg
+files = *.png *.gif *.jpg *.jpeg
 command = grep -iF inkscape {files}
 
 [cpuinfo]
@@ -45,14 +45,14 @@ command = grep -rF /proc/cpuinfo .
 
 [readme-install]
 comment = Users of binary packages do not need install instructions.
-match = *README*
-not-match = README.md README.install
+files = *README*
+not-files = README.md README.install
 command = grep --ignore-case --fixed-strings --with-filename install {files}
 
 # TODO: not yet possible (#776559)
 #[autoupdate]
 #apt = autoconf, diffutils, diffstat
-#match = configure.ac configure.in
+#files = configure.ac configure.in
 #command = autoupdate --check
 
 [empty]
@@ -65,8 +65,8 @@ command = grep -riE 'fixme|todo|hack|xxx' .
 apt = moreutils
 # TODO: replace prune with --ignore option
 prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
-# TODO: replace not-match with recursive option (#780197)
-not-match =
+# TODO: replace not-files with recursive option (#780197)
+not-files =
  *.blend
  *.icns *.bmp *.ico *.png *.gif *.jpg *.jpeg *.tga *.xcf
  *.mo *.gmo
@@ -93,7 +93,7 @@ prune =
  .cabal-sandbox .cdv .metadata CMakeFiles _build
  _sgbak autom4te.cache blib cover_db node_modules
  ~.dep ~.dot ~.nib ~.plst
-not-match =
+not-files =
  *.bak *.swp #.* #*# core.* *~
  *.gif *.jpg *.jpeg *.png
  *.min.js *.js.map *.js.min

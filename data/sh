@@ -1,20 +1,20 @@
 [sh-syntax-check]
-match = *.sh
+files = *.sh
 command = sh -n {file}
 
 [checkbashisms]
 apt = devscripts
-match = *.sh
+files = *.sh
 command = checkbashisms {files}
 
 [shellcheck]
 apt = shellcheck
-match = *.sh *.bash *.zsh
+files = *.sh *.bash *.zsh
 command = shellcheck {files}
 
 [bashate]
 apt = python3-bashate | python-bashate
-match = *.sh *.bash
+files = *.sh *.bash
 command = bashate --ignore E002,E003 {files}
 
 # TODO: wget | sudo (ba|z|)sh

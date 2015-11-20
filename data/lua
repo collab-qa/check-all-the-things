@@ -1,6 +1,6 @@
 [luacheck]
 apt = lua-check
-match = *.lua
+files = *.lua
 command = luacheck -q .
 
 # TODO: http://lua-users.org/wiki/ProgramAnalysis

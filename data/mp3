@@ -1,20 +1,20 @@
 [mp3check]
 groups = audio
 apt = mp3check
-match = *.mp3
+files = *.mp3
 command = mp3check --error-check --anomaly-check {files}
 
 # TODO: re-enable if it enters Debian again (#673319)
 #[checkmp3]
 #groups = audio
 #apt = checkmp3
-#match = *.mp3
+#files = *.mp3
 #command = checkmp3 {files}
 
 [mp3val]
 groups = audio
 apt = mp3val
-match = *.mp3
+files = *.mp3
 command = mp3val {files}
 
 # vim:ft=dosini

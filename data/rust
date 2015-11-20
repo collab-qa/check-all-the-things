@@ -1,5 +1,5 @@
 [rust-unsafe]
-match = *.rs
+files = *.rs
 command = grep unsafe {files}
 
 # TODO: https://github.com/Manishearth/rust-clippy

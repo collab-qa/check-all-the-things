@@ -1,14 +1,14 @@
 [blhc]
 apt = blhc
-match = ../*.build
+files = ../*.build
 command = blhc --all {files}
 
 [build-log-warnings]
-match = ../*.build
+files = ../*.build
 command = grep -H -i warn {files} ; grep -H -w W {files}
 
 [build-log-errors]
-match = ../*.build
+files = ../*.build
 command = grep -H -i error {files} ; grep -H -w E {files}
 
 [build-log-scanner]

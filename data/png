@@ -1,7 +1,7 @@
 [pngcheck]
 groups = images
 apt = pngcheck
-match = *.png
+files = *.png
 command = pngcheck -q {files}
 
 # TODO: identify -verbose {file} | grep -i copyright && echo {file}

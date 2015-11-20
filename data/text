@@ -1,11 +1,11 @@
 [rst-lint]
 flags = todo
 apt = python3-restructuredtext-lint | python-restructuredtext-lint
-match = *.rst
+files = *.rst
 comment = rst-lint {files}
 
 [doc8]
 flags = todo
 apt = python3-doc8 | python-doc8
-match = *.txt *.text *.rst
+files = *.txt *.text *.rst
 comment = doc8 {files}

@@ -1,16 +1,16 @@
 [fontlint]
 apt = fontforge-nox | fontforge
-match = *.ttf *.otf *.sfd *.pfa *.pfb *.bdf *.pk *.ttc *.pcf
+files = *.ttf *.otf *.sfd *.pfa *.pfb *.bdf *.pk *.ttc *.pcf
 command = fontlint {file}
 
 [ftvalid]
 apt = freetype2-demos
-match = *.ttf *.otf
+files = *.ttf *.otf
 command = ftvalid {file}
 
 [ftlint]
 apt = freetype2-demos
-match = *.ttf *.otf
+files = *.ttf *.otf
 command = ftlint 16 {files} | grep -v ': OK\.$'
 
 [embedding-restrictions]
