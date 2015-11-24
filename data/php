@@ -3,6 +3,10 @@ apt = php5-cli
 match = *.php*
 command = php -l -f {file}
 
+[php-grinder]
+match = *.php*
+comment = You may want to submit your PHP code to http://php-grinder.com/
+
 # TODO: pkg-php-tools pkgtools
 # TODO: php-codesniffer
 # TODO: pdepend
