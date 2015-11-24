@@ -530,7 +530,7 @@ def main():
                 header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
             if cmd:
                 header += '$ ' + cmd
-            if show_check:
+            if show_check or (check.comment and not cmd):
                 print(header)
                 sys.stdout.flush()
             try:
