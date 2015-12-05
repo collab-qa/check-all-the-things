@@ -91,6 +91,14 @@ if not datadir or not os.path.isdir(datadir):
 
 def spawn_header_first(cmd, header):
     if sys.stdout.isatty():
+        width = get_columns()
+        line = '$ ' + cmd.replace('\n', '')
+        size = len(line)
+        if size > width:
+            line = line[:width]
+        else:
+            line = line + ' ' * (width - size)
+        print(line, end='\r')
         if ptyprocess:
             proc = ptyprocess.ptyprocess.PtyProcess.spawn(['sh', '-c', cmd])
             while True:
@@ -98,6 +106,7 @@ def spawn_header_first(cmd, header):
                     line = proc.readline()
                     if line:
                         if header:
+                            print(' ' * get_columns(), end='\r')
                             print(header)
                             sys.stdout.flush()
                             header = None
@@ -114,6 +123,7 @@ def spawn_header_first(cmd, header):
                     pipe = open(fd, closefd=False)
                 data = pipe.buffer.readline()
                 if data and header:
+                    print(' ' * get_columns(), end='\r')
                     print(header.replace('\n', '\r\n'), end='\r\n')
                     sys.stdout.flush()
                     header = None
@@ -553,6 +563,8 @@ def main():
                 last_interrupt = time.time()
             if cmd and show_check:
                 print()
+    if options.commands == 'run' and options.silent_checks == 'hide' and sys.stdout.isatty():
+        print(' ' * get_columns(), end='\r')
     if skipped:
         header = 'Skipped and hidden checks:'
         out = TextWrapper()
