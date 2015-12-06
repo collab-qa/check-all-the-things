@@ -54,6 +54,11 @@ except ImportError:
         except IOError:
             return 80
 
+if sys.stdout.isatty():
+    from curses import tigetstr, setupterm
+    setupterm()
+    erase_line = tigetstr('el')
+
 try:
     from shutil import which
 except ImportError:
@@ -89,6 +94,12 @@ if not datadir or not os.path.isdir(datadir):
                            'check-all-the-things', 'data')
 
 
+def erase_to_eol_cr():
+    sys.stdout.buffer.write(erase_line)
+    print(end='\r')
+    sys.stdout.flush()
+
+
 def spawn_header_first(cmd, header):
     if sys.stdout.isatty():
         width = get_columns()
@@ -96,9 +107,8 @@ def spawn_header_first(cmd, header):
         size = len(line)
         if size > width:
             line = line[:width]
-        else:
-            line = line + ' ' * (width - size)
-        print(line, end='\r')
+        print(line, end='')
+        erase_to_eol_cr()
         if ptyprocess:
             proc = ptyprocess.ptyprocess.PtyProcess.spawn(['sh', '-c', cmd])
             while True:
@@ -106,7 +116,7 @@ def spawn_header_first(cmd, header):
                     line = proc.readline()
                     if line:
                         if header:
-                            print(' ' * get_columns(), end='\r')
+                            erase_to_eol_cr()
                             print(header)
                             sys.stdout.flush()
                             header = None
@@ -123,7 +133,7 @@ def spawn_header_first(cmd, header):
                     pipe = open(fd, closefd=False)
                 data = pipe.buffer.readline()
                 if data and header:
-                    print(' ' * get_columns(), end='\r')
+                    erase_to_eol_cr()
                     print(header.replace('\n', '\r\n'), end='\r\n')
                     sys.stdout.flush()
                     header = None
@@ -564,7 +574,7 @@ def main():
             if cmd and show_check:
                 print()
     if options.commands == 'run' and options.silent_checks == 'hide' and sys.stdout.isatty():
-        print(' ' * get_columns(), end='\r')
+        erase_to_eol_cr()
     if skipped:
         header = 'Skipped and hidden checks:'
         out = TextWrapper()
