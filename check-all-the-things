@@ -126,6 +126,7 @@ def spawn_header_first(cmd, header):
                     break
         else:
             pipe = None
+
             def read(fd):
                 nonlocal header
                 nonlocal pipe
