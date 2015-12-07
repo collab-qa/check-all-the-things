@@ -493,7 +493,7 @@ def main():
                     default=0.5)
     ap.add_argument('--silent-checks', type=str,
                     help="what to do with checks that did not print any output",
-                    default='hide', choices={'show', 'hide'})
+                    default='hide', choices=['show', 'hide'])
     ap.add_argument('--suppressed-checks-lines', metavar='N',
                     help="output lines to use for checks per suppression reason."
                          " (<= -1: all, 0: only reasons, >= 1: N lines of checks)",
