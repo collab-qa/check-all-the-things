@@ -6,7 +6,7 @@ command = cme check dpkg
 [uscan]
 apt = devscripts
 match = ./debian/watch
-command = uscan --report-status
+command = uscan --report-status --no-verbose
 flags = network
 
 [chk-origtargz]
