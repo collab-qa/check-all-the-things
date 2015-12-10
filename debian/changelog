@@ -1,3 +1,20 @@
+check-all-the-things (2015.12.10) experimental; urgency=medium
+
+  * New release.
+    - Option to show commands instead of running them
+    - Show the currently running command as a progress indicator
+    - Line-by-line output when the ptyprocess module is not installed
+    - Show comments that have no associated command
+    - Make the Debian package build reproducible
+    - Make the uscan check work when USCAN_VERBOSE is set
+    - Add php-grinder - check PHP code for various flaws
+    - TODO items for cppclean js-standard js-modern-standard
+      Microsoft-Font-Validator sass-lint scss-lint lesslinter
+      django-template-tests soot plato coffeelint phpcpd
+      clonedigger xenon brakeman scalastyle tailor
+
+ -- Paul Wise <pabs@debian.org>  Thu, 10 Dec 2015 12:12:13 +0800
+
 check-all-the-things (2015.11.08.1) experimental; urgency=medium
 
   * New release.
