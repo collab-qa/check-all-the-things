@@ -43,7 +43,8 @@ command = grep -F 'yaml.load' {files}
 # TODO: python-debtcollector
 # TODO: python-afl #792317
 # TODO: https://github.com/stackforge/bandit
-# TODO: https://github.com/landscapeio/prospector
+# TODO: https://github.com/jlachowski/clonedigger
+# TODO: https://github.com/rubik/xenon
 # TODO: https://gcc-python-plugin.readthedocs.org/en/latest/cpychecker.html
 # TODO: shell metacharacter injection: subprocess shell=True os.system os.popen popen2 commands
 

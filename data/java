@@ -5,6 +5,7 @@ command = jlint.sh 2>&1 | fgrep -v 'Verification completed: 0 reported messages.
 # TODO: checkstyle
 # TODO: findbugs
 # TODO: pmd
+# TODO: https://sable.github.io/soot/
 # TODO: https://code.google.com/p/error-prone/
 # TODO: japi-compliance-checker
 # TODO: shell metacharacter injection: Runtime.getRuntime().exec()

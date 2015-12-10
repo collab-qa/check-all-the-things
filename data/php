@@ -13,6 +13,7 @@ comment = You may want to submit your PHP code to http://php-grinder.com/
 # TODO: phpmd
 # TODO: https://github.com/wayfair/hussar
 # TODO: https://github.com/rlerdorf/phan
+# TODO: https://github.com/sebastianbergmann/phpcpd
 # TODO: shell metacharacter injection: backticks exec system passthru shell_exec popen proc_open
 
 # vim:ft=dosini
