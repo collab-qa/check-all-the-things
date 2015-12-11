@@ -1,5 +1,5 @@
 [fontlint]
-apt = fontforge-nox
+apt = fontforge-nox | fontforge
 match = *.ttf *.otf *.sfd *.pfa *.pfb *.bdf *.pk *.ttc *.pcf
 command = fontlint {file}
 
