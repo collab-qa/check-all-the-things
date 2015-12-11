@@ -5,5 +5,5 @@ comment = appstreamcli validate ...
 
 [appstream-util-validate]
 flags = todo
-apt = appstream-glib
+apt = appstream-util
 comment = appstream-util validate ...
