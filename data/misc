@@ -82,6 +82,10 @@ command = isutf8 {files}
 [disabled-tests]
 command = grep -riEC1 '((check|test) *\|\| *true|-dh_auto_test)' .
 
+[timeless]
+comment = Prevents reproducible builds: http://reproducible-builds.org/
+command = grep -rE ' __DATE__|__TIME__' .
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
