@@ -86,6 +86,20 @@ command = grep -riEC1 '((check|test) *\|\| *true|-dh_auto_test)' .
 comment = Prevents reproducible builds: http://reproducible-builds.org/
 command = grep -rE ' __DATE__|__TIME__' .
 
+[spellintian]
+apt = lintian
+prune =
+ .bzr .git .hg .svn CVS RCS SCCS _MTN _darcs .pc
+ .cabal-sandbox .cdv .metadata CMakeFiles _build
+ _sgbak autom4te.cache blib cover_db node_modules
+ ~.dep ~.dot ~.nib ~.plst
+not-match =
+ *.bak *.swp #.* core.* *~
+ *.gif *.jpg *.jpeg *.png
+ *.min.js *.js.map *.js.min
+ *.min.css *.css.map *.css.min
+command = spellintian --picky {files}
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
@@ -95,7 +109,6 @@ command = grep -rE ' __DATE__|__TIME__' .
 # TODO: ripper #796920
 # TODO: similarity-tester sim_text
 # TODO: http://jwilk.net/software/mwic
-# TODO: https://bitbucket.org/jwilk/spellintian
 # TODO: https://www.cs.umd.edu/~nspring/software/style-check-readme.html
 # TODO: https://github.com/coala-analyzer/coala
 # TODO: https://github.com/nexB/scancode-toolkit/

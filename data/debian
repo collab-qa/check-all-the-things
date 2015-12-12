@@ -46,7 +46,6 @@ command =
  echo 'Please add some upstream metadata: https://wiki.debian.org/UpstreamMetadata'
 
 # TODO: dep11-tools
-# TODO: spellintian
 # TODO: i18n
 # TODO: vcswatch
 # TODO: screenshot
