@@ -94,7 +94,7 @@ prune =
  _sgbak autom4te.cache blib cover_db node_modules
  ~.dep ~.dot ~.nib ~.plst
 not-match =
- *.bak *.swp #.* core.* *~
+ *.bak *.swp #.* #*# core.* *~
  *.gif *.jpg *.jpeg *.png
  *.min.js *.js.map *.js.min
  *.min.css *.css.map *.css.min
