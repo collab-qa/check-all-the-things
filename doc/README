@@ -47,6 +47,10 @@ field to todo and add any known hints in the apt/comment/command fields.
 When adding TODO entries for packages not in Debian, please either add
 the ITP bug number or a URL to upstream in the comment field.
 
+For ITP bugs or when reporting bugs on other tools that show up in
+check-all-the-things, please mark the bug as affecting check-all-the-things
+and please usertag the bugs as mentioned in the bugs section below.
+
 For more involved changes to the code you might want to file a bug to
 discuss the changes with people who are interested.
 
@@ -63,3 +67,28 @@ Tags should be created using this command and the tag annotation should
 be the release notes for this version, usually stuff from debian/changelog.
 
 git tag -a -s check-all-the-things-$(date -u --iso-8601 | tr - .)
+
+## Bugs
+
+ITP bugs and bugs filed against other packages should be marked as
+affecting check-all-the-things and usertagged as below.
+
+The user for usertags is check-all-the-things@packages.debian.org
+
+These usertags should be used:
+
+new-check: for ITPs or bugs that block the addition of new checks
+new-issues: for requests to check new issues in particular checker tools
+noise: for bugs in particular checkers that make unnessecary noise
+false-positive: for false positives in particular checker tools
+file-detection: for issues related to choice of files to check
+
+Please feel free to add new usertags and document them here.
+
+For example:
+
+To: control@bugs.debian.org
+
+user check-all-the-things@packages.debian.org
+usertags 123456 + new-check
+affects  123456 + check-all-the-things
