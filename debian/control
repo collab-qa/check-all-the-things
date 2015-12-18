@@ -6,7 +6,7 @@ Priority: optional
 Build-Depends:
  debhelper (>= 9),
  help2man,
- python3
+ python3,
 Vcs-Git: git://anonscm.debian.org/collab-maint/check-all-the-things.git
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/check-all-the-things.git
 
@@ -14,10 +14,10 @@ Package: check-all-the-things
 Architecture: all
 Depends:
  python3,
- ${misc:Depends}
+ ${misc:Depends},
 Recommends:
  python3-ptyprocess,
- ${catt:Recommends}
+ ${catt:Recommends},
 Description: check all of the things!
  This package will help you check all of the things.
  .
