@@ -167,8 +167,8 @@ class Check(object):
         self._files_fn = id
         self.not_files = None
         self._not_files_fn = None
-        self.prune = None
-        self._prune_fn = None
+        self.not_dirs = None
+        self._not_dirs_fn = None
         self.comment = None
         self.cmd = None
         self.cmd_nargs = None
@@ -201,15 +201,15 @@ class Check(object):
         regexp = re.compile(regexp, flags=re.IGNORECASE)
         self._not_files_fn = regexp.match
 
-    def set_prune(self, value):
-        self.prune = value.split()
+    def set_not_dirs(self, value):
+        self.not_dirs = value.split()
         regexp = '|'.join(
             fnmatch.translate(s)
-            for s in self.prune
+            for s in self.not_dirs
         )
         regexp = r'\A(?:{re})\Z'.format(re=regexp)
         regexp = re.compile(regexp, flags=re.IGNORECASE)
-        self._prune_fn = regexp.match
+        self._not_dirs_fn = regexp.match
 
     def set_comment(self, value):
         self.comment = value.strip()
@@ -243,14 +243,14 @@ class Check(object):
         cmd = self.cmd.format(**kwargs)
         if self.cmd_nargs > 0:
             fcmd = ['find']
-            if self.prune is not None:
+            if self.not_dirs is not None:
                 fcmd += ['-type', 'd']
-                if len(self.prune) == 1:
-                    [wildcard] = self.prune
+                if len(self.not_dirs) == 1:
+                    [wildcard] = self.not_dirs
                     fcmd += ['-iname', shlex.quote(wildcard)]
                 else:
                     end = len(fcmd)
-                    for wildcard in self.prune:
+                    for wildcard in self.not_dirs:
                         fcmd += ['-o', '-iname', shlex.quote(wildcard)]
                     fcmd[end] = '\\('
                     fcmd += ['\\)']
@@ -306,8 +306,8 @@ class Check(object):
             return False
         return self._files_fn(path)
 
-    def is_dir_pruned(self, path):
-        return self._prune_fn(path) if self._prune_fn else False
+    def is_dir_matching(self, path):
+        return not self._not_dirs_fn(path) if self._not_dirs_fn else True
 
     def is_flag_set(self, value):
         return value in self.flags
@@ -520,7 +520,7 @@ def main():
         i = 0
         for dir in dirs:
             for name, check in checks.items():
-                if check.is_dir_pruned(path):
+                if not check.is_dir_matching(path):
                     del dirs[i]
             i += 1
     for name, check in sorted(checks.items()):

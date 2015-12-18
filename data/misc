@@ -63,8 +63,8 @@ command = grep -riE 'fixme|todo|hack|xxx' .
 
 [isutf8]
 apt = moreutils
-# TODO: replace prune with --ignore option
-prune = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+# TODO: replace not-dirs with --ignore option
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 # TODO: replace not-files with recursive option (#780197)
 not-files =
  *.blend
@@ -88,7 +88,7 @@ command = grep -rE ' __DATE__|__TIME__' .
 
 [spellintian]
 apt = lintian
-prune =
+not-dirs =
  .bzr .git .hg .svn CVS RCS SCCS _MTN _darcs .pc
  .cabal-sandbox .cdv .metadata CMakeFiles _build
  _sgbak autom4te.cache blib cover_db node_modules
