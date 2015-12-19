@@ -523,7 +523,7 @@ def main():
     ap.add_argument('--commands', type=str,
                     help="what to do with the commands for the chosen set of hooks",
                     default='run', choices=['run', 'show'])
-    ap.add_argument("--set-debian-substvars", help="Set Debian substvars", action="store_true")
+    ap.add_argument("--set-debian-substvars", help=argparse.SUPPRESS, action="store_true")
     options = ap.parse_args()
     if options.set_debian_substvars:
         set_debian_substvars(checks)
