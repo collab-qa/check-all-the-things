@@ -79,11 +79,6 @@ try:
 except ImportError:
     ptyprocess = None
 
-try:
-    import apt_pkg
-except ImportError:
-    apt_pkg = None
-
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
 datadir = os.path.join(rootdir, 'data')
@@ -178,8 +173,7 @@ class Check(object):
         self.disabled = set()
 
     def set_apt(self, value):
-        if apt_pkg:
-            self.apt = apt_pkg.parse_depends(value)
+        self.apt = value
 
     def set_files(self, value):
         self.files = value.split()
@@ -437,6 +431,34 @@ def skip(skipped, name, reason):
     return True
 
 
+def set_debian_substvars(checks):
+    try:
+        import apt_pkg
+    except ImportError:
+        print('ERROR: Python apt module not installed', file=sys.stderr)
+        sys.exit(1)
+    recommends = []
+    suggests = []
+    for name, check in checks.items():
+        try:
+            if check.apt:
+                apt_pkg.parse_depends(check.apt)
+            else:
+                continue
+        except ValueError:
+            print('ERROR: Could not parse deps for {}: {}'.format(name, check.apt), file=sys.stderr)
+            sys.exit(1)
+        if 'todo' not in check.flags:
+            recommends.append(check.apt)
+        else:
+            suggests.append(check.apt)
+    recommends = ', '.join(recommends)
+    suggests = ', '.join(suggests)
+    with open('debian/check-all-the-things.substvars', 'a') as substvars:
+        print('catt:Recommends={}'.format(recommends), file=substvars)
+        print('catt:Suggests={}'.format(suggests), file=substvars)
+
+
 def main():
     (checks, flags, groups) = parse_conf()
     skipped = {}
@@ -501,7 +523,11 @@ def main():
     ap.add_argument('--commands', type=str,
                     help="what to do with the commands for the chosen set of hooks",
                     default='run', choices=['run', 'show'])
+    ap.add_argument("--set-debian-substvars", help="Set Debian substvars", action="store_true")
     options = ap.parse_args()
+    if options.set_debian_substvars:
+        set_debian_substvars(checks)
+        sys.exit()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
     last_interrupt = 0

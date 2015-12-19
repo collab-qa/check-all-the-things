@@ -7,7 +7,8 @@ P = check-all-the-things
 	dh $@ --parallel
 
 override_dh_gencontrol:
-	dh_gencontrol -- -Vcatt:Recommends="$$(sed -n 's/$$/, /;s/^ *apt *= *//p' data/* | tr -d \\n)"
+	./check-all-the-things --set-debian-substvars
+	dh_gencontrol
 
 override_dh_auto_build:
 	help2man \
