@@ -31,12 +31,12 @@ apt = lintian
 files = ../*.changes ../*.deb ../*.dsc
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto {files}
 
-# TODO: re-enable if the package is ever revived
-# TODO: see #768988 and #778796
-#[lintian4python]
-#apt = lintian4python
-#files = ../*.changes ../*.deb ../*.dsc
-#command = lintian4py {files}
+[lintian4python]
+flags = todo
+comment = re-enable if the package is ever revived, see #768988 and #778796
+apt = lintian4python
+files = ../*.changes ../*.deb ../*.dsc
+command = lintian4py {files}
 
 [upstream-metadata]
 command = 

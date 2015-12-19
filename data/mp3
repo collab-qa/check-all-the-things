@@ -4,12 +4,13 @@ apt = mp3check
 files = *.mp3
 command = mp3check --error-check --anomaly-check {files}
 
-# TODO: re-enable if it enters Debian again (#673319)
-#[checkmp3]
-#groups = audio
-#apt = checkmp3
-#files = *.mp3
-#command = checkmp3 {files}
+[checkmp3]
+flags = todo
+groups = audio
+comment = re-enable if it enters Debian again (#673319)
+apt = checkmp3
+files = *.mp3
+command = checkmp3 {files}
 
 [mp3val]
 groups = audio
