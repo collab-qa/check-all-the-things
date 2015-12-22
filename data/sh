@@ -17,6 +17,7 @@ apt = python3-bashate | python-bashate
 files = *.sh *.bash
 command = bashate --ignore E002,E003 {files}
 
-# TODO: wget | sudo (ba|z|)sh
+[web-to-shell]
+command = grep -rE '(wget|curl).*\|( *sudo)? *(ba|z|)sh' .
 
 # vim:ft=dosini
