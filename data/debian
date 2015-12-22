@@ -27,13 +27,13 @@ command = duck
 flags = network
 
 [lintian]
-group = package
+groups = package
 apt = lintian
 files = ../*.changes ../*.deb ../*.dsc
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto {files}
 
 [lintian4python]
-group = package
+groups = package
 flags = todo
 comment = re-enable if the package is ever revived, see #768988 and #778796
 apt = lintian4python
