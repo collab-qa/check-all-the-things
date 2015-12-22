@@ -1,7 +1,7 @@
 [appstreamcli-validate]
-flags = todo
 apt = appstream
-comment = appstreamcli validate ...
+files = *.metainfo.xml *.appdata.xml
+command = appstreamcli --pedantic validate {files}
 
 [appstream-util-validate]
 flags = todo
