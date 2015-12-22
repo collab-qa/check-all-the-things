@@ -6,13 +6,19 @@ but not included here yet::
    grep -r 'PATH' .
    grep -r 'x86_64-linux-gnu' .
 
-Add syntax checkers from the syntastic vim plugin:
+Places to find new checks:
 
+apt-file search --regex 'bin/.*(lint|check|valid|tidy)'
+apt-cache search --names-only '(lint|check|valid|tidy)'
 https://github.com/scrooloose/syntastic/tree/master/syntax_checkers
-
-Add checkers from the fedora-review tool:
-
 https://git.fedorahosted.org/cgit/FedoraReview.git
+https://github.com/michenriksen/gitrob/blob/master/patterns.json
+https://registry.hub.docker.com/repos/codeclimate/
+https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis#C.2FC.2B.2B
+https://github.com/mcandre/linters
+https://gitlab.com/linted/linted/tree/master/scripts
+http://docs.codacy.com/docs/special-thanks
+https://github.com/linuxfoundation/cii-best-practices-badge/blob/master/doc/criteria.md#user-content-analysis
 
 Some (all?) wildcards should be case-insensitive.
 
