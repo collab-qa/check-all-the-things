@@ -20,8 +20,6 @@ https://gitlab.com/linted/linted/tree/master/scripts
 http://docs.codacy.com/docs/special-thanks
 https://github.com/linuxfoundation/cii-best-practices-badge/blob/master/doc/criteria.md#user-content-analysis
 
-Some (all?) wildcards should be case-insensitive.
-
 Wildcards is not always an adequate mechanisms for detecting file types. Think
 of Python or Perl scripts without extensions, or ELF binaries.
 
