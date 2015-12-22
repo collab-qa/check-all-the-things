@@ -1,3 +1,8 @@
+[csslint-libcroco]
+apt = libcroco-tools
+files = *.css
+command = csslint-0.6 {file} > /dev/null
+
 # TODO: https://github.com/CSSLint/csslint
 # TODO: https://github.com/sasstools/sass-lint
 # TODO: https://github.com/brigade/scss-lint/
