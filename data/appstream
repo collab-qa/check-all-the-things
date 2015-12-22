@@ -4,6 +4,8 @@ files = *.metainfo.xml *.appdata.xml
 command = appstreamcli --pedantic validate {files}
 
 [appstream-util-validate]
-flags = todo
+flags = network
 apt = appstream-util
-comment = appstream-util validate ...
+files = *.metainfo.xml *.appdata.xml
+# TODO: clarify if we want validate-strict
+command = appstream-util validate {files} | grep -v ': OK$'
