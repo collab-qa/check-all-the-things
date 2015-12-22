@@ -1,1 +1,4 @@
-# TODO: rpmlint
+[rpmlint]
+apt = rpmlint
+files = *.rpm *.spec
+command = rpmlint .
