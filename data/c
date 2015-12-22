@@ -1,5 +1,9 @@
 [cppcheck]
 apt = cppcheck
+# see Path::acceptFile etc in lib/path.cpp in cppcheck
+files =
+ *.c *.cc *.cxx *.cpp *.c++
+ *.h *.hpp *.tpp *.txx
 command = cppcheck -j{njobs} --quiet -f . > /dev/null
 
 [deheader]
