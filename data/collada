@@ -1,4 +1,5 @@
 [opencolladavalidator]
 apt = opencollada-tools
 files = *.dae
+# TODO: remove the grep when #808796 is fixed
 command = opencolladavalidator {file} | grep -v '" is valid against the COLLADA [0-9.]\+ schema\.$'
