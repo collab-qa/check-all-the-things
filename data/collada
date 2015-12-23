@@ -1,1 +1,4 @@
-# TODO: opencollada-tools #694932 OpenCOLLADAValidator
+[opencolladavalidator]
+apt = opencollada-tools
+files = *.dae
+command = opencolladavalidator {file} | grep -v '" is valid against the COLLADA [0-9.]\+ schema\.$'
