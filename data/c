@@ -4,7 +4,7 @@ apt = cppcheck
 files =
  *.c *.cc *.cxx *.cpp *.c++
  *.h *.hpp *.tpp *.txx
-command = cppcheck -j{njobs} --quiet -f . > /dev/null
+command = cppcheck -j{njobs} --quiet -f .
 
 [deheader]
 flags = manual
