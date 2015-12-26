@@ -3,6 +3,9 @@ apt = epubcheck
 files = *.epub
 command = epubcheck --quiet {file} | egrep -v '^(Check finished with warnings or errors| *)$'
 
-# TODO: flightcrew
+[flightcrew]
+apt = flightcrew
+files = *.epub
+command = flightcrew-cli {files}
 
 # vim:ft=dosini
