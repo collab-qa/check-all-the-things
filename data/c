@@ -7,10 +7,13 @@ files =
 command = cppcheck -j{njobs} --quiet -f . > /dev/null
 
 [deheader]
+flags = manual
 apt = deheader
 files = *.c *.cc *.cxx *.cpp
-comment = Check if your C/C++ code contains any unnecessary headers.
-command = echo deheader
+comment =
+ Check if your C/C++ code contains any unnecessary headers.
+ Dangerous because it executes Makefiles
+command = deheader
 
 [include-what-you-use]
 apt = iwyu
