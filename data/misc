@@ -100,6 +100,10 @@ not-files =
  *.min.css *.css.map *.css.min
 command = spellintian --picky {files}
 
+[project-flint]
+flags = todo
+comment = #809042 https://github.com/pengwynn/flint
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
