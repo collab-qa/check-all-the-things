@@ -1,1 +1,4 @@
-# TODO: shell metacharacter injection: os:cmd erlang:open_port
+[erlang-shell-inject]
+files = *.erl
+comment = These calls are potentially vulnerable to shell metacharacter injection
+command = grep -EC2 'cmd|open_port' {files}
