@@ -226,6 +226,12 @@ class Check(object):
     def set_prereq(self, value):
         self.prereq = value
 
+    def find_test(self, wildcard):
+        if wildcard.startswith('./'):
+            return '-iwholename'
+        else:
+            return '-iname'
+
     def get_sh_cmd(self, njobs=1):
         kwargs = {
             'files': '{} +',
@@ -241,11 +247,11 @@ class Check(object):
                 fcmd += ['-type', 'd']
                 if len(self.not_dirs) == 1:
                     [wildcard] = self.not_dirs
-                    fcmd += ['-iname', shlex.quote(wildcard)]
+                    fcmd += [self.find_test(wildcard), shlex.quote(wildcard)]
                 else:
                     end = len(fcmd)
                     for wildcard in self.not_dirs:
-                        fcmd += ['-o', '-iname', shlex.quote(wildcard)]
+                        fcmd += ['-o', self.find_test(wildcard), shlex.quote(wildcard)]
                     fcmd[end] = '\\('
                     fcmd += ['\\)']
                 fcmd += ['-prune', '-o']
@@ -253,11 +259,11 @@ class Check(object):
             if self.files is not None:
                 if len(self.files) == 1:
                     [wildcard] = self.files
-                    fcmd += ['-iname', shlex.quote(wildcard)]
+                    fcmd += [self.find_test(wildcard), shlex.quote(wildcard)]
                 else:
                     end = len(fcmd)
                     for wildcard in self.files:
-                        fcmd += ['-o', '-iname', shlex.quote(wildcard)]
+                        fcmd += ['-o', self.find_test(wildcard), shlex.quote(wildcard)]
                     fcmd[end] = '\\('
                     fcmd += ['\\)']
             if self.not_files is not None:
@@ -266,11 +272,11 @@ class Check(object):
                 fcmd += ['!']
                 if len(self.not_files) == 1:
                     [wildcard] = self.not_files
-                    fcmd += ['-iname', shlex.quote(wildcard)]
+                    fcmd += [self.find_test(wildcard), shlex.quote(wildcard)]
                 else:
                     end = len(fcmd)
                     for wildcard in self.not_files:
-                        fcmd += ['-o', '-iname', shlex.quote(wildcard)]
+                        fcmd += ['-o', self.find_test(wildcard), shlex.quote(wildcard)]
                     fcmd[end] = '\\('
                     fcmd += ['\\)']
             fcmd += ['-exec', cmd]
