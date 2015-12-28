@@ -1,1 +1,7 @@
-# TODO: foodcritic
+[foodcritic]
+flags = todo
+comment = lots of false positives due to *.rb being Chef files and also Ruby files
+groups = cfg-mgmt
+apt = foodcritic
+files = *.rb
+command = foodcritic .
