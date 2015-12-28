@@ -2,3 +2,8 @@
 files = *.erl
 comment = These calls are potentially vulnerable to shell metacharacter injection
 command = grep -EC2 'cmd|open_port' {files}
+
+[erl-tidy]
+apt = erlang-syntax-tools, erlang-base
+files = *.erl
+command = erl -noshell -eval 'erl_tidy:dir(".", [{test, true}, {verbose, false}]).' -s init stop
