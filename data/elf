@@ -2,7 +2,7 @@
 comment = Dangerous because it executes binaries
 apt = bfbtester
 files = ./debian/*/bin/* ./debian/*/usr/bin/* ./debian/*/sbin/* ./debian/*/usr/sbin/* ./debian/*/usr/games/*
-command = bfbtester -x{njobs} -a {files}
+command = bfbtester -x{njobs} -a -t {files}
 flags = dangerous
 
 [lockdep]
