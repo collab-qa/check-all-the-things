@@ -7,3 +7,8 @@ command = grep -EC2 'cmd|open_port' {files}
 apt = erlang-syntax-tools, erlang-base
 files = *.erl
 command = erl -noshell -eval 'erl_tidy:dir(".", [{test, true}, {verbose, false}]).' -s init stop
+
+[erlang-elvis]
+flags = todo
+files = *.erl
+comment = https://github.com/inaka/elvis
