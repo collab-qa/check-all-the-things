@@ -545,6 +545,8 @@ def main():
             if not stat.S_ISREG(st.st_mode):
                 continue
             for name, check in checks.items():
+                if check.disabled:
+                    continue
                 if name in matching_checks:
                     continue
                 if check.is_file_matching(path):
