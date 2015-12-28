@@ -22,6 +22,7 @@ command = grep 'environ *\[.HOME.\]' {files}
 
 [yaml-load]
 files = *.py
+comment = These calls are potentially vulnerable to Python code injection
 command = grep -F 'yaml.load' {files}
 
 # TODO: hacking
