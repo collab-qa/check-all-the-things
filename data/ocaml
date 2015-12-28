@@ -3,4 +3,7 @@ apt = dh-ocaml, ocaml-nox
 files = *.cma
 command = ocaml-lintian {files}
 
-# TODO: shell metacharacter injection: system open_process open_process_in open_process_out open_process_full
+[ocaml-shell-injection]
+files = *.ml
+comment = These calls are potentially vulnerable to shell metacharacter injection
+command = grep -E 'Unix\.(system|open_process(|_in|_out|_full))' {files}
