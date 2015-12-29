@@ -1,20 +1,24 @@
 [sh-syntax-check]
 files = *.sh
+types = text/x-shellscript
 command = sh -n {file}
 
 [checkbashisms]
 apt = devscripts
 files = *.sh
+types = text/x-shellscript
 command = checkbashisms {files}
 
 [shellcheck]
 apt = shellcheck
 files = *.sh *.bash *.zsh
+types = text/x-shellscript
 command = shellcheck {files}
 
 [bashate]
 apt = python3-bashate | python-bashate
 files = *.sh *.bash
+types = text/x-shellscript
 command = bashate --ignore E002,E003 {files}
 flags = style
 

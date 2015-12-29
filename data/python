@@ -1,17 +1,20 @@
 [pyflakes]
 apt = pyflakes
 files = *.py
+types = text/x-python
 command = pyflakes {files}
 
 [pyflakes3]
 apt = pyflakes3 | pyflakes (<< 1.1.0-1)
 files = *.py
+types = text/x-python
 command = pyflakes3 {files}
 
 [pep8]
 flags = style
 apt = pep8
 files = *.py
+types = text/x-python
 command = pep8 --ignore W191 {files}
 
 [site-packages]
@@ -22,10 +25,12 @@ command = grep -rw PYTHONPATH .
 
 [environ-home]
 files = *.py
+types = text/x-python
 command = grep 'environ *\[.HOME.\]' {files}
 
 [yaml-load]
 files = *.py
+types = text/x-python
 comment = These calls are potentially vulnerable to Python code injection
 command = grep -F 'yaml.load' {files}
 

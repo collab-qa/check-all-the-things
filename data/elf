@@ -2,6 +2,7 @@
 comment = Dangerous because it executes binaries
 apt = bfbtester
 files = ./debian/*/bin/* ./debian/*/usr/bin/* ./debian/*/sbin/* ./debian/*/usr/sbin/* ./debian/*/usr/games/*
+types = application/x-executable
 command = bfbtester -x{njobs} -a -t {files}
 flags = dangerous
 
@@ -9,6 +10,7 @@ flags = dangerous
 flags = dangerous manual
 apt = lockdep
 files = ./debian/*/bin/* ./debian/*/usr/bin/* ./debian/*/sbin/* ./debian/*/usr/sbin/* ./debian/*/usr/games/*
+types = application/x-executable
 comment =
  Please test any installed pthread-using programs using lockdep
  Dangerous because it executes binaries

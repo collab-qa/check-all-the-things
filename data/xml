@@ -1,6 +1,7 @@
 [xmllint]
 apt = libxml2-utils
 files = *.xml
+types = application/xml
 command = xmllint --noout --nonet {files}
 
 # vim:ft=dosini

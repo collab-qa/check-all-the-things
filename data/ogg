@@ -2,12 +2,14 @@
 flags = audio
 apt = vorbis-tools
 files = *.ogg *.oga *.ogv
+types = audio/ogg video/ogg
 command = ogginfo -q {files} | grep -v '^Processing file ' | cat -s
 
 [oggz-validate]
 flags = audio
 apt = oggz-tools
 files = *.ogg *.oga *.ogv
+types = audio/ogg video/ogg
 command = oggz-validate {files}
 
 # vim:ft=dosini

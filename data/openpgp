@@ -2,6 +2,7 @@
 flags = keys
 apt = hopenpgp-tools
 files = *.pgp *.gpg
+types = application/x-pgp-keyring
 command = cat {files} | hokey lint
 comment =
  If you contact the owners of these keys, please point out OpenPGP best practices:

@@ -1,23 +1,27 @@
 [gzip-test]
 files = *.gz *.tgz
+types = application/gzip
 command = gzip --test {files}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [bzip2-test]
 apt = bzip2
 files = *.bz2 *.tbz
+types = application/x-bzip2
 command = bzip2 --test {files}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [xz-test]
 apt = xz-utils
 files = *.xz *.txz
+types = application/x-xz
 command = xz --test {files}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [lzma-test]
 apt = xz-utils
 files = *.lzma
+types = application/x-lzma
 command = lzma --test {files}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
@@ -30,6 +34,7 @@ not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 [lzip-test]
 apt = lzip
 files = *.lzip
+types = application/x-lzip
 command = lzip --test {files}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
@@ -49,12 +54,14 @@ files =
  *.pkpass
  *.itz
  *.svx
+types = application/zip
 command = unzip -q -t {file} | grep -v '^No errors detected in compressed data of '
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
 [7z-test]
 apt = p7zip
 files = *.7z
+types = application/x-7z-compressed
 command = 7zr t {file} | grep --perl-regexp --null-data --only-matching '(?s)Processing archive: .*\n\nError[^\n]*' | tr -s '\n'
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 

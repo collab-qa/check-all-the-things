@@ -5,12 +5,14 @@ apt = cppcheck
 files =
  *.c *.cc *.cxx *.cpp *.c++
  *.h *.hpp *.tpp *.txx
+types = text/x-c text/x-c++
 command = cppcheck -j{njobs} --quiet -f .
 
 [deheader]
 flags = manual
 apt = deheader
 files = *.c *.cc *.cxx *.cpp
+types = text/x-c text/x-c++
 comment =
  Check if your C/C++ code contains any unnecessary headers.
  Dangerous because it executes Makefiles
@@ -21,6 +23,7 @@ apt = iwyu
 files =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
+types = text/x-c text/x-c++
 command = include-what-you-use {file}
 
 [flawfinder]
@@ -43,6 +46,7 @@ apt = pmccabe
 files =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
+types = text/x-c text/x-c++
 command = pmccabe {files} | sort -nr
 
 [clang-check]
@@ -51,6 +55,7 @@ apt = clang
 files =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
+types = text/x-c text/x-c++
 comment =
  Please consider checking your code with clang-check:
  http://clang.llvm.org/extra/clang-modernize.html
@@ -62,6 +67,7 @@ apt = clang-tidy
 files =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
+types = text/x-c text/x-c++
 command = echo clang-tidy {files} --
 
 [clang-modernize]
@@ -69,6 +75,7 @@ apt = clang-modernize | clang-modernize-3.5
 files =
  *.cc *.cxx *.cpp
  *.hh *.hxx *.hpp
+types = text/x-c text/x-c++
 comment =
  Please consider modernizing your C++ code with clang-modernize:
  http://clang.llvm.org/extra/clang-modernize.html
@@ -78,6 +85,7 @@ command = echo clang-modernize {files}
 files =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
+types = text/x-c text/x-c++
 comment = You should almost never use -m64 and -m32 when compiling.
 command = grep -rE -- '-m64|-m32' .
 
@@ -102,6 +110,7 @@ comment = https://github.com/myint/cppclean/
 flags = complexity
 apt = complexity
 files = *.c
+types = text/x-c
 command = complexity {files}
 
 [kwstyle]

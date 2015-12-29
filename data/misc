@@ -24,12 +24,14 @@ command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer)|_(darcs|FOSSI
 flags = images
 comment = Check with upstream where the GIMP XCF source files are.
 files = *.png *.gif *.jpg *.jpeg
+types = image/*
 command = grep -iF gimp {files}
 
 [bitmap-vector]
 flags = images
 comment = Check with upstream where the Inkscape SVG source files are.
 files = *.png *.gif *.jpg *.jpeg
+types = image/*
 command = grep -iF inkscape {files}
 
 [cpuinfo]
@@ -81,6 +83,7 @@ not-files =
  *.ttf *.otf *.fon
  *.pgp *.gpg
  *.dat
+types = text/*
 command = isutf8 {files}
 
 [disabled-tests]

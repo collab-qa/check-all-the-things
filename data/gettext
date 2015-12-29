@@ -1,22 +1,26 @@
 [msgfmt-check]
 apt = gettext
 files = *.po *.pot
+types = text/x-po
 command = msgfmt --check --check-compatibility --check-accelerators --output-file=/dev/null {file}
 
 [gettext-lint-checker]
 apt = gettext-lint
 files = *.po *.pot
+types = text/x-po
 command = POFileChecker {files}
 
 [gettext-lint-spell]
 flags = spelling
 apt = gettext-lint
 files = *.po *.pot
+types = text/x-po
 command = POFileSpell {files}
 
 [i18nspector]
 apt = i18nspector
 files = *.po *.pot *.mo *.gmo
+types = text/x-po
 command = i18nspector --jobs {njobs} {files}
 
 [acheck]

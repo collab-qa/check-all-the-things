@@ -1,6 +1,7 @@
 [lacheck]
 apt = lacheck
 files = *.tex
+types = text/x-tex
 command = lacheck {files}
 
 [lintex]

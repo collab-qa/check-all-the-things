@@ -42,6 +42,7 @@ command = lintian --info --display-info --display-experimental --pedantic --show
 flags = package
 apt = lintian
 files = *.changes *.deb *.dsc
+types = application/vnd.debian.binary-package
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto {files}
 
 [lintian4python]
@@ -49,6 +50,7 @@ flags = todo package python
 comment = re-enable if the package is ever revived, see #768988 and #778796
 apt = lintian4python
 files = ../*.changes ../*.deb ../*.dsc *.changes *.deb *.dsc
+types = application/vnd.debian.binary-package
 command = lintian4py {files}
 
 [upstream-metadata]
