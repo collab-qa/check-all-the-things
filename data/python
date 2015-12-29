@@ -1,14 +1,17 @@
 [pyflakes]
 apt = pyflakes
-command = pyflakes .
+files = *.py
+command = pyflakes {files}
 
 [pyflakes3]
 apt = pyflakes
-command = pyflakes3 .
+files = *.py
+command = pyflakes3 {files}
 
 [pep8]
 apt = pep8
-command = pep8 --ignore W191 .
+files = *.py
+command = pep8 --ignore W191 {files}
 
 [site-packages]
 command = grep -rw site-packages .
