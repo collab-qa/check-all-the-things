@@ -96,6 +96,11 @@ try:
 except ImportError:
     netifaces = None
 
+try:
+    import magic
+except ImportError:
+    magic = None
+
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
 datadir = os.environ.get('CATS_DATA')
@@ -290,6 +295,7 @@ class Check(object):
         types.update('files not_files not_dirs'.split())
         for type in set(types):
             types.update((type + '_path', type + '_parent'))
+        types.update('types not_types'.split())
         for type in types:
             self.__dict__[type] = None
             self.__dict__['_' + type + '_fn'] = None
@@ -303,14 +309,18 @@ class Check(object):
     def set_apt(self, value):
         self.apt = value
 
-    def _match_to_regexp_fn(self, values):
+    def _set_re_fn(self, this, type, affix=True):
         regexp = '|'.join(
             fnmatch.translate(s)
-            for s in values
+            for s in this[type]
         )
-        regexp = r'\A(?:{re})\Z'.format(re=regexp)
+        if affix:
+            regexp = r'\A(?:{re})\Z'.format(re=regexp)
+        else:
+            regexp = r'(?:{re})'.format(re=regexp)
+        this['_' + type + '_re'] = regexp
         regexp = re.compile(regexp, flags=re.IGNORECASE)
-        return regexp.match
+        this['_' + type + '_fn'] = regexp.match
 
     def _set_match_fn(self, type, values):
         type_path = type + '_path'
@@ -332,8 +342,7 @@ class Check(object):
                 this[type].append(value)
         for subtype in (type, type_path, type_parent):
             if this[subtype]:
-                match_fn = self._match_to_regexp_fn(this[subtype])
-                this['_' + subtype + '_fn'] = match_fn
+                self._set_re_fn(this, subtype)
 
     def set_files(self, value):
         self._set_match_fn('files', value)
@@ -343,6 +352,18 @@ class Check(object):
 
     def set_not_dirs(self, value):
         self._set_match_fn('not_dirs', value)
+
+    def _set_type_match_fn(self, type, values):
+        this = self.__dict__
+        this[type] = values.split()
+        if this[type]:
+            self._set_re_fn(this, type, False)
+
+    def set_types(self, value):
+        self._set_type_match_fn('types', value)
+
+    def set_not_types(self, value):
+        self._set_type_match_fn('not_types', value)
 
     def set_comment(self, value):
         self.comment = value.strip()
@@ -386,6 +407,11 @@ class Check(object):
             'file': '{} \\;',
             'njobs': njobs,
         }
+        null_kwargs = {
+            'files': '',
+            'file': '',
+            'njobs': njobs,
+        }
         if not self.cmd:
             return
         cmd = self.cmd.format(**kwargs)
@@ -410,7 +436,17 @@ class Check(object):
                     fcmd += ['-a']
                 fcmd += ['!']
                 self._set_fcmd(fcmd, 'not_files')
-            if not self.files_parent or any:
+            if self.types:
+                tfcmd = ''
+                if any:
+                    tfcmd += '''-print0 -o '''
+                tfcmd += '''-exec sh -c 'file --mime-type -r0 "$1" | cut -d "" -f 2 | grep -qP "^: '''
+                tfcmd += self._types_re
+                tfcmd += '''$" && printf "%s\\0" "$1"' sh {} \; | xargs -0'''
+                if self.cmd_nargs == 1:
+                    tfcmd += 'n1'
+                fcmd += [tfcmd, self.cmd.format(**null_kwargs)]
+            elif not self.files_parent or any:
                 fcmd += ['-exec', cmd]
             cmd = ' '.join(fcmd)
         return cmd
@@ -461,8 +497,15 @@ class Check(object):
             return True
         return False
 
+    def is_type_matching(self, type):
+        if self._not_types_fn and self._not_types_fn(type):
+            return False
+        if self._types_fn and self._types_fn(type):
+            return True
+        return False
+
     def is_always_matching(self):
-        if not (self.files or self.files_path or self.files_parent):
+        if not (self.files or self.files_path or self.files_parent or self.types):
             return True
 
     def is_flag_set(self, value):
@@ -694,7 +737,7 @@ def set_debian_substvars(checks):
         print('cats:Suggests={}'.format(suggests), file=substvars)
 
 
-def walk(checks, remarks, matching_checks, parent, top):
+def walk(typedb, checks, remarks, matching_checks, parent, top):
     ignore_checks = {}
     ignore_checks[top] = set()
     ignore_dirs = set('.git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer'.split())
@@ -712,6 +755,7 @@ def walk(checks, remarks, matching_checks, parent, top):
                 if check.is_dir_matching(root):
                     ignore_checks[root].add(name)
         for file in files:
+            type = None
             path = os.path.join(root, file)
             st = os.lstat(path)
             if not stat.S_ISREG(st.st_mode):
@@ -737,6 +781,14 @@ def walk(checks, remarks, matching_checks, parent, top):
                         matching_checks.add(name)
                         if not check.is_always_matching() and not check.is_flag_set('todo'):
                             matching_checks_this_file = True
+                    elif typedb:
+                        if not type:
+                            type = typedb.file(path)
+                        if type != 'application/octet-stream':
+                            if check.is_type_matching(type):
+                                matching_checks.add(name)
+                                if not check.is_always_matching() and not check.is_flag_set('todo'):
+                                    matching_checks_this_file = True
             if not (parent or matching_checks_this_file or root_set.intersection(ignore_dirs)):
                 remark(remarks, not_checked, 'no specific checks')
 
@@ -844,6 +896,12 @@ def main():
     ap.add_argument('--release', '-r', type=str,
                     help="enable check overlay for distribution release",
                     default=None, choices=['jessie'])
+    mime_help = (" matching files based on MIME type."
+                " MIME checking is slow and"
+                " makes more complicated commands.")
+    ap.add_argument('--mime', dest='mime', action='store_true', help='Enable '+mime_help)
+    ap.add_argument('--no-mime', dest='mime', action='store_false', help='Disable '+mime_help)
+    ap.set_defaults(mime=False)
     if argcomplete:
         argcomplete.autocomplete(ap)
     elif '_ARGCOMPLETE' in os.environ:
@@ -862,12 +920,20 @@ def main():
     run = options.commands == 'run'
     hide = options.silent_checks == 'hide'
     limit = options.checks_output_lines
+    mime = options.mime
     method = options.spawn_method
     terminal = sys.stdout.isatty()
     last_interrupt = 0
     matching_checks = set()
-    walk(checks, remarks, matching_checks, True, '..')
-    walk(checks, remarks, matching_checks, False, '.')
+    if magic and mime:
+        typedb = magic.open(magic.MAGIC_MIME_TYPE)
+        typedb.load()
+    else:
+        typedb = None
+    walk(typedb, checks, remarks, matching_checks, True, '..')
+    walk(typedb, checks, remarks, matching_checks, False, '.')
+    if typedb:
+        typedb.close()
     for name, check in sorted(checks.items()):
         next = False
         if name not in matching_checks:
