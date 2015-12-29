@@ -49,7 +49,7 @@ except ImportError:
 
     def get_columns():
         try:
-            buf = ioctl(sys.stdout.fileno(), TIOCGWINSZ, ' '*4)
+            buf = ioctl(sys.stdout.fileno(), TIOCGWINSZ, ' ' * 4)
             return unpack('hh', buf)[1]
         except IOError:
             return 80
@@ -161,10 +161,10 @@ class Check(object):
         types = set()
         types.update('files not_files not_dirs'.split())
         for type in set(types):
-            types.update((type+'_path', type+'_parent'))
+            types.update((type + '_path', type + '_parent'))
         for type in types:
             self.__dict__[type] = None
-            self.__dict__['_'+type+'_fn'] = None
+            self.__dict__['_' + type + '_fn'] = None
         self.comment = None
         self.cmd = None
         self.cmd_nargs = None
@@ -186,27 +186,27 @@ class Check(object):
         return regexp.match
 
     def _set_match_fn(self, type, values):
-        type_path = type+'_path'
-        type_parent = type+'_parent'
+        type_path = type + '_path'
+        type_parent = type + '_parent'
         this = self.__dict__
         this[type] = []
         this[type_path] = []
         this[type_parent] = []
         for value in values.split():
             if value.startswith('/'):
-                this[type_path].append('*'+value)
+                this[type_path].append('*' + value)
             elif value.startswith('./'):
                 this[type_path].append(value)
             elif value.startswith('../'):
                 this[type_parent].append(value)
             elif value.find('/') != -1:
-                this[type_path].append('*/'+value)
+                this[type_path].append('*/' + value)
             elif value:
                 this[type].append(value)
         for subtype in (type, type_path, type_parent):
             if this[subtype]:
                 match_fn = self._match_to_regexp_fn(this[subtype])
-                this['_'+subtype+'_fn'] = match_fn
+                this['_' + subtype + '_fn'] = match_fn
 
     def set_files(self, value):
         self._set_match_fn('files', value)
@@ -254,7 +254,7 @@ class Check(object):
 
     def _set_fcmd(self, fcmd, type):
         self._set_fcmd_(fcmd, type, '-iname')
-        self._set_fcmd_(fcmd, type+'_path', '-iwholename')
+        self._set_fcmd_(fcmd, type + '_path', '-iwholename')
 
     def get_sh_cmd(self, njobs=1):
         kwargs = {
@@ -619,7 +619,7 @@ def main():
         else:
             manual = 'manual' in check.flags
             show_check = options.silent_checks == 'show' or options.commands == 'show' or manual
-            if (time.time()-last_interrupt) < options.interrupt_period:
+            if (time.time() - last_interrupt) < options.interrupt_period:
                 try:
                     time.sleep(options.interrupt_period)
                 except KeyboardInterrupt:
@@ -648,7 +648,7 @@ def main():
                         if not show_check:
                             skip(skipped, name, 'no output')
             except KeyboardInterrupt:
-                if options.interrupt in {'exit', 'quit'} or (time.time()-last_interrupt) < options.interrupt_period:
+                if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
                     if show_check:
                         print()
                     sys.exit()
