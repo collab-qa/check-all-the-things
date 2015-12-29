@@ -1,5 +1,6 @@
 [hlint]
 apt = hlint
+files = *.hs
 command = hlint .
 
 [cabal]
