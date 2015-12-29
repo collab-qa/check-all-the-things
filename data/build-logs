@@ -5,11 +5,19 @@ command = blhc --all {files}
 
 [build-log-warnings]
 files = ../*.build
-command = grep -H -i warn {files} ; grep -H -w W {files}
+command = grep -H -i warn {files}
+
+[build-log-w]
+files = ../*.build
+command = grep -H -w W {files}
 
 [build-log-errors]
 files = ../*.build
-command = grep -H -i error {files} ; grep -H -w E {files}
+command = grep -H -i error {files}
+
+[build-log-e]
+files = ../*.build
+command = grep -H -w E {files}
 
 [build-log-scanner]
 flags = todo
