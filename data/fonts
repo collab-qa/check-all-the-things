@@ -1,6 +1,6 @@
 [fontlint]
 apt = fontforge-nox | fontforge
-files = *.ttf *.otf *.sfd *.pfa *.pfb *.bdf *.pk *.ttc *.pcf
+files = *.ttf *.otf *.woff *.sfd *.pfa *.pfb *.bdf *.pk *.ttc *.pcf
 command = fontlint {file}
 
 [ftvalid]
