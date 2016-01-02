@@ -20,12 +20,8 @@ files = ../*.build
 command = grep -H -w E {files}
 
 [bls-standalone]
-flags = todo
 apt = bls-standalone
 files = ../*.build
-comment =
- Waiting for bls-standalone to be accepted from NEW:
- https://ftp-master.debian.org/new/bls-standalone_0.20151231.html
-command = bls-standalone --blhc=NO {files}
+command = bls-standalone check --blhc=NO {files}
 
 # vim:ft=dosini
