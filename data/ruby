@@ -1,6 +1,8 @@
 # TODO: roodi
 # TODO: ruby-lint https://github.com/YorickPeterse/ruby-lint
 # TODO: rubocop #745423
+# TODO: https://github.com/troessner/reek
+# TODO: http://ruby.sadi.st/
 # TODO: bundler audit
 # TODO: https://github.com/presidentbeef/brakeman
 # TODO: disabling SSL: verify_mode = OpenSSL::SSL::VERIFY_NONE
