@@ -9,6 +9,7 @@ files = *.po *.pot
 command = POFileChecker {files}
 
 [gettext-lint-spell]
+groups = spelling
 apt = gettext-lint
 files = *.po *.pot
 command = POFileSpell {files}

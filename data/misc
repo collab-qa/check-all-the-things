@@ -16,10 +16,12 @@ apt = devscripts
 command = licensecheck --check=. --recursive --copyright . | grep -F 'with incorrect FSF address'
 
 [codespell]
+groups = spelling
 apt = codespell
 command = codespell --quiet-level=3
 
 [sourcecode-spellchecker]
+groups = spelling
 flags = todo
 comment = CPAN Sourcecode::Spellchecker
 
@@ -87,6 +89,7 @@ comment = Prevents reproducible builds: http://reproducible-builds.org/
 command = grep -rE ' __DATE__|__TIME__' .
 
 [spellintian]
+groups = spelling
 apt = lintian
 not-dirs =
  .bzr .git .hg .svn CVS RCS SCCS _MTN _darcs .pc
