@@ -70,13 +70,13 @@ not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 # TODO: replace not-files with recursive option (#780197)
 not-files =
  *.blend
- *.icns *.bmp *.ico *.png *.gif *.jpg *.jpeg *.tga *.xcf
+ *.icns *.bmp *.ico *.png *.gif *.jpg *.jpeg *.tga *.xcf *.tif *.tiff
  *.mo *.gmo
  *.gz *.bz2 *.xz *.lz *.zip *.tar *.deb
  *.pdf *.odt *.docx *.doc
  *.torrent
  *.pyc *.pyo *.o *.so *.so.* *.debug
- *.wav *.ogg *.oga *.ogv *.mid
+ *.wav *.ogg *.oga *.ogv *.mid *.mp3 *.flac
  *.ttf *.otf *.fon
  *.pgp *.gpg
 command = isutf8 {files}
