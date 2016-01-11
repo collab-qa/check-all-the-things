@@ -4,7 +4,7 @@ VERSION ?= $(shell dpkg-parsechangelog --show-field Version)
 P = check-all-the-things
 
 %:
-	dh $@ --parallel
+	dh $@ --parallel --with bash-completion
 
 override_dh_gencontrol:
 	./check-all-the-things --set-debian-substvars
@@ -17,3 +17,4 @@ override_dh_auto_build:
 		--name="Check all of the things!" \
 		./$P \
 		> $P.1
+	register-python-argcomplete check-all-the-things > debian/$P.bash-completion

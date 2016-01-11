@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# PYTHON_ARGCOMPLETE_OK
 
 # Copyright 2014 Jakub Wilk <jwilk@jwilk.net>
 # Copyright 2015 Paul Wise <pabs@debian.org>
@@ -22,6 +23,7 @@
 # SOFTWARE.
 
 import argparse
+import argcomplete
 import collections
 import configparser
 import fnmatch
@@ -457,6 +459,14 @@ class GroupSelectionAction(argparse.Action):
                 self.checks[name].disabled.add(self.msg)
 
 
+class RangeCompleter(object):
+    def __init__(self, start, end):
+        self.choices = range(start, end+1)
+
+    def __call__(self, prefix, **kwargs):
+        return (str(c) for c in self.choices if str(c).startswith(prefix))
+
+
 def parse_section(section):
     check = Check()
     for key, value in section.items():
@@ -555,6 +565,9 @@ def walk(checks, matching_checks, parent, top):
 
 def main():
     (checks, flags, groups) = parse_conf()
+    all_checks = set(checks.keys())
+    all_flags = set(flags)
+    all_groups = set(groups)
     skipped = {}
 
     disable_flags = {
@@ -563,6 +576,7 @@ def main():
         'todo': 'help needed',
     }
 
+    all_flags.update(disable_flags.keys())
     flags.difference_update(disable_flags.keys())
     for name, check in checks.items():
         for flag, reason in disable_flags.items():
@@ -581,22 +595,25 @@ def main():
     )
     ap.add_argument('--jobs', '-j', metavar='N', type=int, nargs='?',
                     help="passed to tools that can parallelize their checks",
-                    default=1)
+                    default=1).completer = RangeCompleter(1, multiprocessing.cpu_count())
     ap.add_argument('--checks', '-c', metavar='selectors', nargs=1,
                     help="alter the set of checks to be run based on check names"
                          " (example: = cppcheck + lintian duck - duck)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
-                    action=CheckSelectionAction, checks=checks)
+                    action=CheckSelectionAction, checks=checks
+                    ).completer = argcomplete.completers.ChoicesCompleter(sorted(all_checks))
     ap.add_argument('--flags', '-f', metavar='selectors', nargs=1,
                     help="alter the set of checks to be run based on flag names"
                          " (example: = dangerous + network - todo)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
-                    action=GroupSelectionAction, msg='cmdline disabled flag', name='flags', checks=checks, groups=flags)
+                    action=GroupSelectionAction, msg='cmdline disabled flag', name='flags', checks=checks, groups=flags
+                    ).completer = argcomplete.completers.ChoicesCompleter(sorted(all_flags))
     ap.add_argument('--groups', '-g', metavar='selectors', nargs=1,
                     help="alter the set of checks to be run based on group names"
                          " (example: = audio c - mp3 + sh)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
-                    action=GroupSelectionAction, msg='cmdline disabled group', name='groups', checks=checks, groups=groups)
+                    action=GroupSelectionAction, msg='cmdline disabled group', name='groups', checks=checks, groups=groups
+                    ).completer = argcomplete.completers.ChoicesCompleter(sorted(all_groups))
     ap.add_argument('--all', '-a', nargs=0,
                     help="perform checks with possible side effects,"
                          " including executing code or modifying files"
@@ -616,11 +633,12 @@ def main():
     ap.add_argument('--suppressed-checks-lines', metavar='N',
                     help="output lines to use for checks per suppression reason."
                          " (<= -1: all, 0: only reasons, >= 1: N lines of checks)",
-                    type=int, default=1)
+                    type=int, default=1).completer = RangeCompleter(-1, 20)
     ap.add_argument('--commands', type=str,
                     help="what to do with the commands for the chosen set of hooks",
                     default='run', choices=['run', 'show'])
     ap.add_argument("--set-debian-substvars", help=argparse.SUPPRESS, action="store_true")
+    argcomplete.autocomplete(ap)
     options = ap.parse_args()
     if options.set_debian_substvars:
         set_debian_substvars(checks)

@@ -4,8 +4,10 @@ Standards-Version: 3.9.6
 Section: devel
 Priority: optional
 Build-Depends:
+ bash-completion,
  debhelper (>= 9),
  help2man,
+ python-argcomplete,
  python3,
  python3-apt,
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/check-all-the-things.git
