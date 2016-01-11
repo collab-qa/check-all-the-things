@@ -95,60 +95,85 @@ def erase_to_eol_cr():
     sys.stdout.flush()
 
 
-def spawn_header_first(cmd, header):
-    if sys.stdout.isatty():
-        width = get_columns()
-        line = '$ ' + cmd.replace('\n', '')
-        size = len(line)
-        if size > width:
-            line = line[:width]
-        print(line, end='')
-        erase_to_eol_cr()
-        if ptyprocess:
-            proc = ptyprocess.ptyprocess.PtyProcess.spawn(['sh', '-c', cmd])
-            while True:
-                try:
-                    line = proc.readline()
-                    if line:
-                        if header:
-                            erase_to_eol_cr()
-                            print(header)
-                            sys.stdout.flush()
-                            header = None
-                        sys.stdout.buffer.write(line)
-                        sys.stdout.flush()
-                except EOFError:
-                    break
-        else:
-            pipe = None
+def spawn_progress(cmd):
+    width = get_columns()
+    line = '$ ' + cmd.replace('\n', '')
+    size = len(line)
+    if size > width:
+        line = line[:width]
+    print(line, end='')
+    erase_to_eol_cr()
 
-            def read(fd):
-                nonlocal header
-                nonlocal pipe
-                if not pipe:
-                    pipe = open(fd, closefd=False)
-                data = pipe.buffer.readline()
-                if data and header:
+
+def spawn_header(header):
+    print(header)
+    sys.stdout.flush()
+
+
+def spawn_ptyprocess(cmd, header):
+    proc = ptyprocess.ptyprocess.PtyProcess.spawn(['sh', '-c', cmd])
+    while True:
+        try:
+            line = proc.readline()
+            if line:
+                if header:
                     erase_to_eol_cr()
-                    print(header.replace('\n', '\r\n'), end='\r\n')
-                    sys.stdout.flush()
+                    spawn_header(header)
                     header = None
-                return data
-            pty.spawn(['sh', '-c', cmd], read)
-            pipe.close()
-    else:
-        with ipc.Popen(cmd, shell=True, stdout=ipc.PIPE, stderr=ipc.STDOUT) as proc:
-            line = proc.stdout.readline()
-            if line and header:
-                print(header)
-                sys.stdout.flush()
-                header = None
-            sys.stdout.buffer.write(line)
-            sys.stdout.flush()
-            for line in proc.stdout:
                 sys.stdout.buffer.write(line)
                 sys.stdout.flush()
+        except EOFError:
+            break
     return not bool(header)
+
+
+def spawn_pty(cmd, header):
+    pipe = None
+
+    def read(fd):
+        nonlocal header
+        nonlocal pipe
+        if not pipe:
+            pipe = open(fd, closefd=False)
+        data = pipe.buffer.readline()
+        if data and header:
+            erase_to_eol_cr()
+            print(header.replace('\n', '\r\n'), end='\r\n')
+            sys.stdout.flush()
+            header = None
+        return data
+    pty.spawn(['sh', '-c', cmd], read)
+    pipe.close()
+    return not bool(header)
+
+
+def spawn_pipe(cmd, header):
+    with ipc.Popen(cmd, shell=True, stdout=ipc.PIPE, stderr=ipc.STDOUT) as proc:
+        line = proc.stdout.readline()
+        if line and header:
+            spawn_header(header)
+            header = None
+        sys.stdout.buffer.write(line)
+        sys.stdout.flush()
+        for line in proc.stdout:
+            sys.stdout.buffer.write(line)
+            sys.stdout.flush()
+    return not bool(header)
+
+
+def spawn_none(cmd, header):
+    ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+
+
+def spawn(cmd, header):
+    if sys.stdout.isatty():
+        spawn_progress(cmd)
+        if ptyprocess:
+            return spawn_ptyprocess(cmd, header)
+        else:
+            return spawn_pty(cmd, header)
+    else:
+        return spawn_pipe(cmd, header)
 
 
 class UnmetPrereq(Exception):
@@ -637,14 +662,13 @@ def main():
             if cmd:
                 header += cmd_prefix + cmd
             if show_check or (check.comment and not cmd):
-                print(header)
-                sys.stdout.flush()
+                spawn_header(header)
             try:
                 if cmd and options.commands == 'run' and not manual:
                     if show_check:
-                        ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+                        spawn_none(cmd, header)
                     else:
-                        show_check |= spawn_header_first(cmd, header)
+                        show_check |= spawn(cmd, header)
                         if not show_check:
                             skip(skipped, name, 'no output')
             except KeyboardInterrupt:
