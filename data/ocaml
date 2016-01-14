@@ -7,3 +7,5 @@ command = ocaml-lintian {files}
 files = *.ml
 comment = These calls are potentially vulnerable to shell metacharacter injection
 command = grep -E 'Unix\.(system|open_process(|_in|_out|_full))' {files}
+
+# TODO: unsafe language features: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=702349#24
