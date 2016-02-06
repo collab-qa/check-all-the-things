@@ -79,7 +79,7 @@ These usertags should be used:
 
 new-check: for ITPs or bugs that block the addition of new checks
 new-issues: for requests to check new issues in particular checker tools
-noise: for bugs in particular checkers that make unnessecary noise
+noise: for bugs in particular checkers that make unnecessary noise
 false-positive: for false positives in particular checker tools
 file-detection: for issues related to choice of files to check
 
