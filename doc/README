@@ -59,7 +59,7 @@ For low-latency discussion you can join the Debian QA IRC channel:
 ircs://irc.debian.org/debian-qa
 https://webchat.oftc.net/?channels=debian-qa
 
-Please sign all of your commits, tags and pushes with OpenPGP:
+Please sign all of your commits and tags with OpenPGP:
 
 http://mikegerwitz.com/papers/git-horror-story
 
