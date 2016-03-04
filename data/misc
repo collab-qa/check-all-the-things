@@ -1,4 +1,5 @@
 [licensecheck]
+groups = copyright
 apt = devscripts
 command = licensecheck --check=. --recursive --copyright .
 # TODO: is --check=. reasonable?
