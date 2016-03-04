@@ -58,6 +58,12 @@ comment =
  Waiting for --dry-run to exist (#808574)
  wrap-and-sort makes VCS diffs of package info easier to read
 
+[license-reconcile]
+groups = copyright
+apt = license-reconcile
+files = ./debian/copyright
+command = license-reconcile
+
 # TODO: dep11-tools
 # TODO: i18n
 # TODO: vcswatch
@@ -96,7 +102,6 @@ comment =
 # TODO: grep-excuses -w
 # TODO: autopkgtest/sadt
 # TODO: pkg-perl-tools lintian
-# TODO: license-reconcile
 # TODO: scan-copyright
 # TODO: apt Apt::Get::AllowUnauthenticated=true and --force-yes
 
