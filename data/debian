@@ -64,6 +64,12 @@ apt = license-reconcile
 files = ./debian/copyright
 command = license-reconcile
 
+[debmake-k]
+groups = copyright
+apt = debmake
+files = ./debian/copyright
+command = debmake -k
+
 # TODO: dep11-tools
 # TODO: i18n
 # TODO: vcswatch
