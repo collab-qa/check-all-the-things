@@ -28,10 +28,19 @@ files = *.py
 comment = These calls are potentially vulnerable to Python code injection
 command = grep -F 'yaml.load' {files}
 
+[pylint]
+apt = pylint
+files = *.py
+command = pylint --msg-template='{{abspath}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
+
+[pylint3]
+apt = pylint3
+files = *.py
+command = pylint3 --msg-template='{{abspath}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
+
 # TODO: hacking
 # TODO: flake8
 # TODO: pep257
-# TODO: pylint
 # TODO: pylint-django
 # TODO: frosted
 # TODO: pychecker
