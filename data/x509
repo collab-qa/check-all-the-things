@@ -6,4 +6,8 @@ command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-
 groups = keys
 command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN DSA PRIVATE KEY-----.*-----END DSA PRIVATE KEY-----' .
 
-# TODO: ssl-cert-check
+[ssl-cert-check]
+groups = keys
+apt = ssl-cert-check
+files = *.pem *.cert
+command = ssl-cert-check -b -c {file} | grep -v -w Valid
