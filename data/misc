@@ -108,6 +108,10 @@ command = spellintian --picky {files}
 flags = todo
 comment = #809042 https://github.com/pengwynn/flint
 
+[http]
+comment = check if these can be switched to https://
+command = grep -rF http: .
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
