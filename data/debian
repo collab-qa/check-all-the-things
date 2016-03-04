@@ -70,6 +70,15 @@ apt = debmake
 files = ./debian/copyright
 command = debmake -k
 
+[autodep8]
+groups = test
+apt = autodep8
+files = ./debian/control
+command = autodep8
+comment =
+ To automatically test the installed packages,
+ place this in debian/tests/control:
+
 # TODO: dep11-tools
 # TODO: i18n
 # TODO: vcswatch
