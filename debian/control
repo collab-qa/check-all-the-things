@@ -33,3 +33,4 @@ Description: check all of the things!
  WARNING: since it checks so many things the output
  can be very verbose so don't use it if you don't
  have time to go through the output to find problems.
+ It is not for the busy, lazy or noise intolerant.
