@@ -1,0 +1,6 @@
+[yamllint]
+flags = todo
+comment = yamllint ITP #816609
+apt = yamllint
+files = *.yaml *.yml
+command = yamllint {files}
