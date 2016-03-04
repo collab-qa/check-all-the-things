@@ -20,6 +20,8 @@ https://gitlab.com/linted/linted/tree/master/scripts
 http://docs.codacy.com/docs/special-thanks
 https://github.com/linuxfoundation/cii-best-practices-badge/blob/master/doc/criteria.md#user-content-analysis
 https://github.com/simplymeasured/ruby-appraiser
+https://bazaar.launchpad.net/~ubuntu-security/ubuntu-security-tools/trunk/files/head:/audits/
+https://github.com/sk-/git-lint
 
 Wildcards is not always an adequate mechanisms for detecting file types. Think
 of Python or Perl scripts without extensions, or ELF binaries.
