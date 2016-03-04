@@ -55,6 +55,8 @@ command = pylint3 --msg-template='{{abspath}}:{{line}}:{{column}}: [{{category}}
 # TODO: bandit #793007
 # TODO: python-debtcollector
 # TODO: python-afl #792317
+# TODO: pycodestyle #816496
+# TODO: pydocstyle #816498
 # TODO: https://github.com/stackforge/bandit
 # TODO: https://github.com/jlachowski/clonedigger
 # TODO: https://github.com/rubik/xenon
