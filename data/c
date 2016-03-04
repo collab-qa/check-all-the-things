@@ -87,7 +87,6 @@ flags = todo
 comment = https://github.com/myint/cppclean/
 
 [complexity]
-flags = todo
 apt = complexity
 files = *.c
 command = complexity {files}
