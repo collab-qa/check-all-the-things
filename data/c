@@ -91,11 +91,20 @@ apt = complexity
 files = *.c
 command = complexity {files}
 
+[kwstyle]
+apt = kwstyle
+files =
+ *.c *.cc *.cxx *.cpp
+ *.h *.hh *.hxx *.hpp
+comment =
+ Please consider checking your code with KWStyle:
+ https://kitware.github.io/KWStyle/resources/documentation.html
+command = echo KWStyle -R -d .
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
 # TODO: splint
-# TODO: kwstyle
 # TODO: frama-c
 # TODO: scan-build
 # TODO: abi-compliance-checker
