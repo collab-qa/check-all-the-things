@@ -49,7 +49,7 @@ command = grep -rF /proc/cpuinfo .
 [readme-install]
 comment = Users of binary packages do not need install instructions.
 files = *README*
-not-files = README.md README.install
+not-files = README.md README.rst README.install
 command = grep --ignore-case --fixed-strings --with-filename install {files}
 
 # TODO: not yet possible (#776559)
