@@ -87,6 +87,12 @@ Please feel free to add new usertags and document them here.
 
 For example:
 
+To: submit@bugs.debian.org
+
+User: check-all-the-things@packages.debian.org
+Usertags: new-check
+Control: affects -1 check-all-the-things
+
 To: control@bugs.debian.org
 
 user check-all-the-things@packages.debian.org
