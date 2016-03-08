@@ -24,4 +24,8 @@ comment =
 flags = todo
 comment = https://github.com/Microsoft/Font-Validator
 
+[ots]
+flags = todo
+comment = ots RFP #817031 https://github.com/khaledhosny/ots
+
 # vim:ft=dosini
