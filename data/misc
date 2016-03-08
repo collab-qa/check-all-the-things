@@ -62,7 +62,7 @@ command = grep --ignore-case --fixed-strings --with-filename install {files}
 command = find \( -name .git -o -name .svn -o -name .bzr -o -name CVS -o -name .hg -o -name _darcs -o -name _FOSSIL_ -o -name .sgdrawer \) -prune -o -empty -print
 
 [todo]
-command = grep -riE 'fixme|todo|hack|xxx' .
+command = grep -riE 'fixme|todo|hack|xxx|broken' .
 
 [isutf8]
 apt = moreutils
