@@ -22,6 +22,8 @@ https://github.com/linuxfoundation/cii-best-practices-badge/blob/master/doc/crit
 https://github.com/simplymeasured/ruby-appraiser
 https://bazaar.launchpad.net/~ubuntu-security/ubuntu-security-tools/trunk/files/head:/audits/
 https://github.com/sk-/git-lint
+https://prospector.readthedocs.org/en/master/supported_tools.html
+http://www.flycheck.org/manual/latest/Supported-languages.html
 
 Wildcards is not always an adequate mechanisms for detecting file types. Think
 of Python or Perl scripts without extensions, or ELF binaries.
