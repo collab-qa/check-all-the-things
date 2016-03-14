@@ -4,7 +4,7 @@ files = *.py
 command = pyflakes {files}
 
 [pyflakes3]
-apt = pyflakes
+apt = pyflakes3 | pyflakes (<< 1.1.0-1)
 files = *.py
 command = pyflakes3 {files}
 
