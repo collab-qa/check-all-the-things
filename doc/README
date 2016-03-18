@@ -82,6 +82,7 @@ new-issues: for requests to check new issues in particular checker tools
 noise: for bugs in particular checkers that make unnecessary noise
 false-positive: for false positives in particular checker tools
 file-detection: for issues related to choice of files to check
+rm-check: for bugs related to the removal of tools used by checks
 
 Please feel free to add new usertags and document them here.
 
