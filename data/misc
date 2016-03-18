@@ -58,6 +58,12 @@ command = grep --ignore-case --fixed-strings --with-filename install {files}
 #files = configure.ac configure.in
 #command = autoupdate --check
 
+# TODO: not yet possible (#818572)
+#[autoscan]
+#apt = autoconf
+#files = configure.ac configure.in
+#command = autoscan --check
+
 [empty]
 command = find \( -name .git -o -name .svn -o -name .bzr -o -name CVS -o -name .hg -o -name _darcs -o -name _FOSSIL_ -o -name .sgdrawer \) -prune -o -empty -print
 
