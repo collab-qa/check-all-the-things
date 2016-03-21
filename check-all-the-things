@@ -559,6 +559,7 @@ def main():
 
     disable_flags = {
         'dangerous': 'dangerous check',
+        'modify': 'modifies files',
         'todo': 'help needed',
     }
 
@@ -597,10 +598,12 @@ def main():
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
                     action=GroupSelectionAction, msg='cmdline disabled group', name='groups', checks=checks, groups=groups)
     ap.add_argument('--all', '-a', nargs=0,
-                    help="perform checks with possibly dangerous side effects."
-                         " (equivalent: --flags +dangerous)",
+                    help="perform checks with possible side effects,"
+                         " including executing code or modifying files",
+                         " from the current directory.",
+                         " (equivalent: --flags +dangerous --flags +modify)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
-                    action=GroupSelectionAction, name='flags', checks=checks, groups=flags, prepend_values=['+dangerous'])
+                    action=GroupSelectionAction, name='flags', checks=checks, groups=flags, prepend_values=['+dangerous modify'])
     ap.add_argument('--interrupt', '-i', type=str,
                     help="when interrupted, quit or skip the current check",
                     default='skip', choices=['quit', 'exit', 'skip'])
