@@ -118,6 +118,7 @@ command = echo KWStyle -R -d .
 # TODO: https://code.google.com/p/checkheaders/ https://github.com/cristeab/checkheaders
 # TODO: https://github.com/danmar/ublinter
 # TODO: https://quickgit.kde.org/?p=clazy.git
+# TODO: http://trust-in-soft.com/tis-interpreter/
 # TODO: shell metacharacter injection: g_spawn_command_line* system popen
 
 # vim:ft=dosini
