@@ -599,8 +599,8 @@ def main():
                     action=GroupSelectionAction, msg='cmdline disabled group', name='groups', checks=checks, groups=groups)
     ap.add_argument('--all', '-a', nargs=0,
                     help="perform checks with possible side effects,"
-                         " including executing code or modifying files",
-                         " from the current directory.",
+                         " including executing code or modifying files"
+                         " from the current directory."
                          " (equivalent: --flags +dangerous --flags +modify)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
                     action=GroupSelectionAction, name='flags', checks=checks, groups=flags, prepend_values=['+dangerous modify'])
