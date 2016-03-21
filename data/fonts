@@ -13,12 +13,10 @@ apt = freetype2-demos
 files = *.ttf *.otf
 command = ftlint 16 {files} | grep -v ': OK\.$'
 
-[embedding-restrictions]
-flags = todo
-apt = python-fontforge
-comment =
- Fonts in main should not have embedding restriction bits:
- python -c '0 != fontforge.open(f).os2_fstype'
+[font-embedding-restrictions]
+apt = python, python-fontforge, python-debian
+files = *.ttf *.otf *.sfd *.pfa *.pfb *.bdf *.pk *.ttc *.pcf
+command = check-font-embedding-restrictions {files}
 
 [font-validator]
 flags = todo

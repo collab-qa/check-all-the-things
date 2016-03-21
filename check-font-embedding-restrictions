@@ -1,0 +1,46 @@
+#!/usr/bin/python2
+
+import fontforge
+import deb822
+import sys
+import os
+
+# The fontforge module prints warnings to stderr
+# but that isn't useful for checking OS/2 fsType
+old = os.dup(2)
+os.close(2)
+os.open(os.devnull, os.O_WRONLY)
+
+try:
+    with open('debian/control') as f:
+        for para in deb822.Deb822.iter_paragraphs(f):
+            if 'Section' in para and para['Section'].startswith('non-free/'):
+                exit()
+except IOError:
+    exit()
+
+embedding_restricted = set()
+
+for file in set(sys.argv[1:]):
+    try:
+        font = fontforge.open(file)
+        if font:
+            if 0 != font.os2_fstype:
+                info = '{}: {:#06x}'.format(file, font.os2_fstype)
+                embedding_restricted.add(info)
+            font.close()
+    except EnvironmentError:
+        pass
+
+# Restore stderr
+os.close(2)
+os.dup(old)
+os.close(old)
+
+if embedding_restricted:
+    print 'These fonts in Debian main/contrib have embedding'
+    print 'restrictions, which are not DFSG compatible:'
+    print
+    print '\n'.join(sorted(embedding_restricted))
+    print
+    print 'https://www.microsoft.com/typography/otspec/os2.htm#fst'

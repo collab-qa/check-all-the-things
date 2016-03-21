@@ -1,2 +1,3 @@
 check-all-the-things usr/bin
+check-font-embedding-restrictions usr/bin
 data usr/share/check-all-the-things
