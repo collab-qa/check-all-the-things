@@ -48,14 +48,14 @@ command =
  echo 'Please add some upstream metadata: https://wiki.debian.org/UpstreamMetadata'
 
 [wrap-and-sort]
-flags = todo
+flags = modify
 apt = devscripts
 # Only need to match debian/control as it is always present
 # alongside any of the files supported by wrap-and-sort
 files = ./debian/control
-command = wrap-and-sort --short-indent --wrap-always --sort-binary-packages --trailing-comma --verbose --dry-run
+command = wrap-and-sort --short-indent --wrap-always --sort-binary-packages --trailing-comma --verbose
 comment =
- Waiting for --dry-run to exist (#808574)
+ wrap-and-sort always modifies files in the source tree (#808574)
  wrap-and-sort makes VCS diffs of package info easier to read
 
 [license-reconcile]
