@@ -25,6 +25,7 @@ https://github.com/sk-/git-lint
 https://prospector.readthedocs.org/en/master/supported_tools.html
 http://www.flycheck.org/manual/latest/Supported-languages.html
 https://atomlinter.github.io/
+https://github.com/coala-analyzer/coala-bears/tree/master/bears
 
 Wildcards is not always an adequate mechanisms for detecting file types. Think
 of Python or Perl scripts without extensions, or ELF binaries.
