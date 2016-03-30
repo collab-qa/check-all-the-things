@@ -1,5 +1,5 @@
 [php-syntax-check]
-apt = php5-cli
+apt = php-cli | php5-cli
 files = *.php*
 command = php -l -f {file}
 
