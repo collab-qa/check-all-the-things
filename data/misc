@@ -88,6 +88,7 @@ not-files =
  *.wav *.ogg *.oga *.ogv *.mid *.mp3 *.flac
  *.ttf *.otf *.fon
  *.pgp *.gpg
+ *.dat
 command = isutf8 {files}
 
 [disabled-tests]
