@@ -24,6 +24,16 @@ command = include-what-you-use {file}
 
 [flawfinder]
 apt = flawfinder
+# see maybe_process_file and c_extensions in the flawfinder script in flawfinder
+files =
+ *.c *.h
+ *.ec *.ecp
+ *.pgc
+ *.cpp *.cxx *.cc
+ *.cc *.c++
+ *.pcc
+ *.hpp
+not-dirs = .*
 command = flawfinder -Q -c .
 
 [pmccabe]
