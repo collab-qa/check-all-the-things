@@ -1,4 +1,4 @@
 [yamllint]
 apt = yamllint
-files = *.yaml *.yml
+files = *.yaml *.yml ./debian/upstream/metadata ./debian/upstream/edam
 command = yamllint {files}
