@@ -1,1 +1,9 @@
-# TODO: jsonlint/python-demjson
+[jsonlint-py3]
+apt = python3-demjson
+files = *.json
+command = jsonlint-py3 {files} | grep -v ': ok$'
+
+[jsonlint-php]
+apt = jsonlint
+files = *.json
+command = jsonlint-php {file} | grep -v '^Valid JSON$'
