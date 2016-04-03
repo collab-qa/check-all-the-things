@@ -33,7 +33,6 @@ files =
  *.cc *.c++
  *.pcc
  *.hpp
-not-dirs = .*
 command = flawfinder -Q -c .
 
 [pmccabe]
