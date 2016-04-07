@@ -572,9 +572,9 @@ def main():
     ap = argparse.ArgumentParser(
         formatter_class=Formatter,
         description='This program is aimed at checking things related to '
-                    'packaging and software development.  It automates statical '
-                    'analysis of code, QA checks, syntax checking, for a very large '
-                    'set of files.',
+                    'packaging and software development.  It automates static '
+                    'analysis of code, QA, syntax and style checks and more, '
+                    'for a large set of file types.',
         epilog="WARNING: since it checks so many things the output can be "
                "very verbose so don't use it if you don't have time to go "
                "through the output to find problems."
