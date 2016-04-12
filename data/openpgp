@@ -3,12 +3,18 @@ groups = keys
 apt = hopenpgp-tools
 files = *.pgp *.gpg
 command = cat {files} | hokey lint
+comment =
+ If you contact the owners of these keys, please point out OpenPGP best practices:
+ https://help.riseup.net/en/security/message-security/openpgp/best-practices
 
 [hokey-lint-asc]
 groups = keys
 apt = hopenpgp-tools
 files = *.asc
 command = cat {files} | hot dearmor | hokey lint
+comment =
+ If you contact the owners of these keys, please point out OpenPGP best practices:
+ https://help.riseup.net/en/security/message-security/openpgp/best-practices
 
 [pgp-private-key]
 groups = keys
