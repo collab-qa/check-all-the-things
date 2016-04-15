@@ -83,6 +83,7 @@ not-files =
  *.mo *.gmo
  *.gz *.bz2 *.xz *.lz *.zip *.tar *.deb
  *.pdf *.odt *.docx *.doc
+ *.chm
  *.torrent
  *.pyc *.pyo *.o *.so *.so.* *.debug
  *.wav *.ogg *.oga *.ogv *.mid *.mp3 *.flac
