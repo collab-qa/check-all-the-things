@@ -8,8 +8,8 @@ but not included here yet::
 
 Places to find new checks:
 
-apt-file search --regex 'bin/.*(lint|check|valid|tidy)'
-apt-cache search --names-only '(lint|check|valid|tidy)'
+apt-file search --regex 'bin/.*(lint|check|valid|tidy|detect)'
+apt-cache search --names-only '(lint|check|valid|tidy|detect)'
 https://github.com/scrooloose/syntastic/tree/master/syntax_checkers
 https://git.fedorahosted.org/cgit/FedoraReview.git
 https://github.com/michenriksen/gitrob/blob/master/patterns.json
