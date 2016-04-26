@@ -95,7 +95,7 @@ command = isutf8 {files}
 command = grep -riEC1 '((check|test) *\|\| *true|-dh_auto_test)' .
 
 [timeless]
-comment = Prevents reproducible builds: http://reproducible-builds.org/
+comment = Prevents reproducible builds: https://reproducible-builds.org/
 command = grep -rE ' __DATE__|__TIME__' .
 
 [spellintian]
@@ -129,7 +129,7 @@ command = grep -rF http: .
 # TODO: diction
 # TODO: ripper #796920
 # TODO: similarity-tester sim_text
-# TODO: http://jwilk.net/software/mwic
+# TODO: https://jwilk.net/software/mwic
 # TODO: https://www.cs.umd.edu/~nspring/software/style-check-readme.html
 # TODO: https://github.com/coala-analyzer/coala
 # TODO: https://github.com/nexB/scancode-toolkit/

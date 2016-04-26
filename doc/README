@@ -61,7 +61,7 @@ https://webchat.oftc.net/?channels=debian-qa
 
 Please sign all of your commits and tags with OpenPGP:
 
-http://mikegerwitz.com/papers/git-horror-story
+https://mikegerwitz.com/papers/git-horror-story
 
 Tags should be created using this command and the tag annotation should
 be the release notes for this version, usually stuff from debian/changelog.
