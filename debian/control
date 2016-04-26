@@ -20,9 +20,9 @@ Depends:
  ${misc:Depends},
 Recommends:
  python3-ptyprocess,
- ${catt:Recommends},
+ ${cats:Recommends},
 Suggests:
- ${catt:Suggests},
+ ${cats:Suggests},
 Description: check all of the things!
  This package will help you check all of the things.
  .

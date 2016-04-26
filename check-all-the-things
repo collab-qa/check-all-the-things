@@ -85,7 +85,7 @@ this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
 datadir = os.path.join(rootdir, 'data')
 if not datadir or not os.path.isdir(datadir):
-    datadir = os.environ.get('CATT_DATA')
+    datadir = os.environ.get('CATS_DATA')
 if not datadir or not os.path.isdir(datadir):
     datadir = os.path.join(os.path.dirname(rootdir), 'share',
                            'check-all-the-things', 'data')
@@ -524,8 +524,8 @@ def set_debian_substvars(checks):
     recommends = ', '.join(recommends)
     suggests = ', '.join(suggests)
     with open('debian/check-all-the-things.substvars', 'a') as substvars:
-        print('catt:Recommends={}'.format(recommends), file=substvars)
-        print('catt:Suggests={}'.format(suggests), file=substvars)
+        print('cats:Recommends={}'.format(recommends), file=substvars)
+        print('cats:Suggests={}'.format(suggests), file=substvars)
 
 
 def walk(checks, matching_checks, parent, top):

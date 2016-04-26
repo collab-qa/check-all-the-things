@@ -68,6 +68,8 @@ be the release notes for this version, usually stuff from debian/changelog.
 
 git tag -a -s check-all-the-things-$(date -u --iso-8601 | tr - .)
 
+You can use 'cats' as the abbreviation of check-all-the-things. Meow!
+
 ## Bugs
 
 ITP bugs and bugs filed against other packages should be marked as
