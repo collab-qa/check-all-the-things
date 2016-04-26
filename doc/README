@@ -63,6 +63,10 @@ Please sign all of your commits and tags with OpenPGP:
 
 https://mikegerwitz.com/papers/git-horror-story
 
+Before releases, update lists of extensions copied from elsewhere:
+
+git grep -C1 TODO.*releases
+
 Tags should be created using this command and the tag annotation should
 be the release notes for this version, usually stuff from debian/changelog.
 

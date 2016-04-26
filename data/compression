@@ -37,6 +37,7 @@ not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 apt = unzip
 # Extension list from the File Formats wiki:
 # http://fileformats.archiveteam.org/wiki/Category:ZIP_based_file_formats
+# TODO: update it before releases
 files =
  *.zip
  *.jar *.apk *.xpi *.ipa *.sb2 *.pk3 *.wz *.love

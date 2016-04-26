@@ -1,6 +1,7 @@
 [cppcheck]
 apt = cppcheck
 # see Path::acceptFile etc in lib/path.cpp in cppcheck
+# TODO: update it before releases
 files =
  *.c *.cc *.cxx *.cpp *.c++
  *.h *.hpp *.tpp *.txx
@@ -25,6 +26,7 @@ command = include-what-you-use {file}
 [flawfinder]
 apt = flawfinder
 # see maybe_process_file and c_extensions in the flawfinder script in flawfinder
+# TODO: update it before releases
 files =
  *.c *.h
  *.ec *.ecp
