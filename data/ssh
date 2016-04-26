@@ -1,11 +1,11 @@
 [openssh-private-key]
-groups = keys
+flags = keys
 command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN OPENSSH PRIVATE KEY-----.*-----END OPENSSH PRIVATE KEY-----' .
 
 [ssh2-private-key]
-groups = keys
+flags = keys
 command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)---- BEGIN SSH2 ENCRYPTED PRIVATE KEY ----.*---- END SSH2 ENCRYPTED PRIVATE KEY ----' .
 
 [ec-private-key]
-groups = keys
+flags = keys
 command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN EC PRIVATE KEY-----.*-----END EC PRIVATE KEY-----' .

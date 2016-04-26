@@ -1,5 +1,5 @@
 [jpylyzer]
-groups = images
+flags = images
 apt = python-jpylyzer, libxml2-utils
 files = *.jp2 *.j2k *.jpf *.jpx *.jpm *.mj2
 command = jpylyzer --wrapper {files} | xmllint --format - | egrep 'fileName|isValid' | tr -d \\n | sed 's_</isValidJP2>_&\n_g;s_ *<fileName>__g;s_</fileName> *__g;s_</\?isValidJP2>_ _g;s_False_is an invalid JPEG2000 file_g' | sed '/True *$/d'

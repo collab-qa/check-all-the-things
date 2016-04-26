@@ -1,5 +1,5 @@
 [hokey-lint]
-groups = keys
+flags = keys
 apt = hopenpgp-tools
 files = *.pgp *.gpg
 command = cat {files} | hokey lint
@@ -8,7 +8,7 @@ comment =
  https://help.riseup.net/en/security/message-security/openpgp/best-practices
 
 [hokey-lint-asc]
-groups = keys
+flags = keys
 apt = hopenpgp-tools
 files = *.asc
 command = cat {files} | hot dearmor | hokey lint
@@ -17,5 +17,5 @@ comment =
  https://help.riseup.net/en/security/message-security/openpgp/best-practices
 
 [pgp-private-key]
-groups = keys
+flags = keys
 command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN PGP PRIVATE KEY BLOCK-----.*-----END PGP PRIVATE KEY BLOCK-----' .

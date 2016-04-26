@@ -15,8 +15,7 @@ comment =
 command = lockdep {files}
 
 [zzuf]
-groups = fuzz
-flags = manual
+flags = manual fuzz
 apt = zzuf
 files =
  *./debian/*/bin/* ./debian/*/usr/bin/* ./debian/*/sbin/* ./debian/*/usr/sbin/* ./debian/*/usr/games/*
@@ -25,8 +24,7 @@ comment = Please fuzz test any installed programs using zzuf
 command = zzuf command args
 
 [afl]
-groups = fuzz
-flags = manual
+flags = manual fuzz
 apt = afl
 files =
  *./debian/*/bin/* ./debian/*/usr/bin/* ./debian/*/sbin/* ./debian/*/usr/sbin/* ./debian/*/usr/games/*

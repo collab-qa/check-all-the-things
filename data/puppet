@@ -1,18 +1,17 @@
 [puppet-lint]
-groups = cfg-mgmt
+flags = cfg-mgmt
 apt = puppet-lint
 files = *.pp
 command = puppet-lint {files}
 
 [puppet]
-groups = cfg-mgmt
+flags = cfg-mgmt
 apt = puppet
 files = *.pp
 command = puppet parser validate {files}
 
 [puppet-syntax]
-groups = cfg-mgmt
-flags = todo
+flags = todo cfg-mgmt
 comment = ruby-puppet-syntax ITP #800400
 
 # TODO: erb files?

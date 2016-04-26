@@ -1,5 +1,5 @@
 [rpmlint]
-groups = package
+flags = package
 apt = rpmlint
 files = *.rpm *.spec
 command = rpmlint .

@@ -1,11 +1,11 @@
 [ogginfo]
-groups = audio
+flags = audio
 apt = vorbis-tools
 files = *.ogg *.oga *.ogv
 command = ogginfo -q {files} | grep -v '^Processing file ' | cat -s
 
 [oggz-validate]
-groups = audio
+flags = audio
 apt = oggz-tools
 files = *.ogg *.oga *.ogv
 command = oggz-validate {files}

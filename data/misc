@@ -1,5 +1,5 @@
 [licensecheck]
-groups = copyright
+flags = copyright
 apt = devscripts
 command = licensecheck --check=. --recursive --copyright .
 # TODO: is --check=. reasonable?
@@ -17,13 +17,12 @@ apt = devscripts
 command = licensecheck --check=. --recursive --copyright . | grep --text -F 'with incorrect FSF address'
 
 [codespell]
-groups = spelling
+flags = spelling
 apt = codespell
 command = codespell --quiet-level=3
 
 [sourcecode-spellchecker]
-groups = spelling
-flags = todo
+flags = todo spelling
 comment = CPAN Sourcecode::Spellchecker
 
 [fdupes]
@@ -31,13 +30,13 @@ apt = fdupes
 command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer)|_(darcs|FOSSIL_)|CVS)(/|$)' | cat -s
 
 [bitmap-multilayer]
-groups = images
+flags = images
 comment = Check with upstream where the GIMP XCF source files are.
 files = *.png *.gif *.jpg *.jpeg
 command = grep -iF gimp {files}
 
 [bitmap-vector]
-groups = images
+flags = images
 comment = Check with upstream where the Inkscape SVG source files are.
 files = *.png *.gif *.jpg *.jpeg
 command = grep -iF inkscape {files}
@@ -100,7 +99,7 @@ comment = Prevents reproducible builds: http://reproducible-builds.org/
 command = grep -rE ' __DATE__|__TIME__' .
 
 [spellintian]
-groups = spelling
+flags = spelling
 apt = lintian
 not-dirs =
  .bzr .git .hg .svn CVS RCS SCCS _MTN _darcs .pc

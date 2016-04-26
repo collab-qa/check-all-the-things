@@ -27,14 +27,13 @@ command = duck
 flags = network
 
 [lintian]
-groups = package
+flags = package
 apt = lintian
 files = ../*.changes ../*.deb ../*.dsc *.changes *.deb *.dsc
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto {files}
 
 [lintian4python]
-groups = package python
-flags = todo
+flags = todo package python
 comment = re-enable if the package is ever revived, see #768988 and #778796
 apt = lintian4python
 files = ../*.changes ../*.deb ../*.dsc *.changes *.deb *.dsc
@@ -59,19 +58,19 @@ comment =
  wrap-and-sort makes VCS diffs of package info easier to read
 
 [license-reconcile]
-groups = copyright
+flags = copyright
 apt = license-reconcile
 files = ./debian/copyright
 command = license-reconcile
 
 [debmake-k]
-groups = copyright
+flags = copyright
 apt = debmake
 files = ./debian/copyright
 command = debmake -k
 
 [autodep8]
-groups = test
+flags = test
 apt = autodep8
 files = ./debian/control
 command = autodep8

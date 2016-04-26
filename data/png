@@ -1,5 +1,5 @@
 [pngcheck]
-groups = images
+flags = images
 apt = pngcheck
 files = *.png
 command = pngcheck -q {files}
