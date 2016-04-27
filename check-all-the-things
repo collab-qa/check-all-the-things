@@ -81,6 +81,11 @@ try:
 except ImportError:
     ptyprocess = None
 
+try:
+    import netifaces
+except ImportError:
+    netifaces = None
+
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
 datadir = os.path.join(rootdir, 'data')
@@ -557,6 +562,21 @@ def walk(checks, matching_checks, parent, top):
                         matching_checks.add(name)
 
 
+def network():
+    if netifaces:
+        gws = netifaces.gateways()
+        gw = gws.get('default')
+        if gw:
+            if netifaces.AF_INET in gw:
+                return True
+            if netifaces.AF_INET6 in gw:
+                return True
+        else:
+            return False
+    else:
+        return True
+
+
 def main():
     (checks, flags) = parse_conf()
     all_checks = set(checks.keys())
@@ -568,6 +588,9 @@ def main():
         'modify': 'modifies files',
         'todo': 'help needed',
     }
+
+    if not network():
+        disable_flags['network'] = 'no network'
 
     all_flags.update(disable_flags.keys())
     flags.difference_update(disable_flags.keys())
