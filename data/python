@@ -61,7 +61,7 @@ command = pylint3 --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{
 # TODO: https://github.com/stackforge/bandit
 # TODO: https://github.com/jlachowski/clonedigger
 # TODO: https://github.com/rubik/xenon
-# TODO: https://gcc-python-plugin.readthedocs.org/en/latest/cpychecker.html
+# TODO: https://gcc-python-plugin.readthedocs.io/en/latest/cpychecker.html
 # TODO: shell metacharacter injection: subprocess shell=True os.system os.popen popen2 commands
 
 # vim:ft=dosini
