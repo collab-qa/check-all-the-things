@@ -19,6 +19,7 @@ Depends:
  python3,
  ${misc:Depends},
 Recommends:
+ python3-argcomplete,
  python3-netifaces,
  python3-ptyprocess,
  ${cats:Recommends},
