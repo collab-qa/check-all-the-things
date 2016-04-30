@@ -23,7 +23,6 @@
 # SOFTWARE.
 
 import argparse
-import argcomplete
 import collections
 import configparser
 import fnmatch
@@ -75,6 +74,15 @@ except ImportError:
 if not hasattr(shlex, 'quote'):
     import pipes
     shlex.quote = pipes.quote
+
+try:
+    import argcomplete
+    ChoicesCompleter = argcomplete.completers.ChoicesCompleter
+except ImportError:
+    argcomplete = None
+    class ChoicesCompleter:
+        def __init__(self, *args, **kwargs):
+            pass
 
 try:
     import ptyprocess
@@ -617,14 +625,14 @@ def main():
                          " (example: = cppcheck + lintian duck - duck)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
                     action=CheckSelectionAction, checks=checks
-                    ).completer = argcomplete.completers.ChoicesCompleter(sorted(all_checks))
+                    ).completer = ChoicesCompleter(sorted(all_checks))
     ap.add_argument('--flags', '-f', metavar='selectors', nargs=1,
                     help="alter the set of checks to be run based on flag names"
                          " (example: = audio c - mp3 + sh)"
                          " (example: = dangerous + network - todo)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
                     action=FlagSelectionAction, msg='cmdline disabled flag', name='flags', checks=checks, flags=flags
-                    ).completer = argcomplete.completers.ChoicesCompleter(sorted(all_flags))
+                    ).completer = ChoicesCompleter(sorted(all_flags))
     ap.add_argument('--all', '-a', nargs=0,
                     help="perform checks with possible side effects,"
                          " including executing code or modifying files"
@@ -649,7 +657,8 @@ def main():
                     help="what to do with the commands for the chosen set of hooks",
                     default='run', choices=['run', 'show'])
     ap.add_argument("--set-debian-substvars", help=argparse.SUPPRESS, action="store_true")
-    argcomplete.autocomplete(ap)
+    if argcomplete:
+        argcomplete.autocomplete(ap)
     options = ap.parse_args()
     if options.set_debian_substvars:
         set_debian_substvars(checks)
