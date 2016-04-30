@@ -659,6 +659,10 @@ def main():
     ap.add_argument("--set-debian-substvars", help=argparse.SUPPRESS, action="store_true")
     if argcomplete:
         argcomplete.autocomplete(ap)
+    elif '_ARGCOMPLETE' in os.environ:
+        print('ERROR: Argument completion requested but Python argcomplete module not installed', file=sys.stderr)
+        sys.exit(1)
+
     options = ap.parse_args()
     if options.set_debian_substvars:
         set_debian_substvars(checks)
