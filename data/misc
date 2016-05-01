@@ -121,6 +121,14 @@ comment = #809042 https://github.com/pengwynn/flint
 comment = check if these can be switched to https://
 command = grep -rF http: .
 
+[embed-readme]
+files = *README*
+comment =
+ Please check if these README files belong to embedded code/data copies.
+ Please remove any embedded copies from the upstream VCS and tarballs.
+ https://wiki.debian.org/EmbeddedCodeCopies
+command = find -mindepth2 -iname '*README*'
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
