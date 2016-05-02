@@ -34,6 +34,7 @@ import pty
 import shlex
 import stat
 import time
+import signal
 import subprocess as ipc
 import sys
 from textwrap import TextWrapper
@@ -130,12 +131,22 @@ def show_header(header):
         return False
 
 
-def spawn_ptyprocess(cmd, header):
+def spawn_ptyprocess(cmd, header, footer, limit):
+    lines = 0
+    trimmed = False
     proc = ptyprocess.ptyprocess.PtyProcess.spawn(['sh', '-c', cmd])
     while True:
         try:
             line = proc.readline()
             if line:
+                if limit > 0:
+                    lines += 1
+                    if lines > limit:
+                        trimmed = True
+                        print(*footer, sep='\n')
+                        sys.stdout.flush()
+                        proc.kill(signal.SIGTERM)
+                        break
                 if header:
                     erase_to_eol_cr()
                     show_header(header)
@@ -144,18 +155,30 @@ def spawn_ptyprocess(cmd, header):
                 sys.stdout.flush()
         except EOFError:
             break
-    return not bool(header)
+    return not bool(header), trimmed
 
 
-def spawn_pty(cmd, header):
+def spawn_pty(cmd, header, footer, limit):
+    lines = 0
+    trimmed = False
     pipe = None
 
     def read(fd):
+        nonlocal limit
+        nonlocal lines
+        nonlocal trimmed
         nonlocal header
         nonlocal pipe
         if not pipe:
             pipe = open(fd, closefd=False)
         data = pipe.buffer.readline()
+        if limit > 0:
+            lines += 1
+            if lines > limit:
+                trimmed = True
+                print(*footer, sep='\r\n', end='\r\n')
+                sys.stdout.flush()
+                raise OSError
         if data and header:
             erase_to_eol_cr()
             print(header.replace('\n', '\r\n'), end='\r\n')
@@ -164,10 +187,27 @@ def spawn_pty(cmd, header):
         return data
     pty.spawn(['sh', '-c', cmd], read)
     pipe.close()
-    return not bool(header)
+    return not bool(header), trimmed
 
 
-def spawn_pipe(cmd, header):
+def spawn_pipe(cmd, header, footer, limit):
+    lines = 0
+    trimmed = False
+
+    def check_lines():
+        nonlocal proc
+        nonlocal limit
+        nonlocal lines
+        nonlocal trimmed
+        nonlocal footer
+        if limit > 0:
+            lines += 1
+            if lines > limit:
+                trimmed = True
+                print(*footer, sep='\n')
+                sys.stdout.flush()
+                proc.terminate()
+                return True
     with ipc.Popen(cmd, shell=True, stdout=ipc.PIPE, stderr=ipc.STDOUT) as proc:
         line = proc.stdout.readline()
         if line and header:
@@ -175,27 +215,30 @@ def spawn_pipe(cmd, header):
             header = None
         sys.stdout.buffer.write(line)
         sys.stdout.flush()
-        for line in proc.stdout:
-            sys.stdout.buffer.write(line)
-            sys.stdout.flush()
-    return not bool(header)
+        if not check_lines():
+            for line in proc.stdout:
+                if check_lines():
+                    break
+                sys.stdout.buffer.write(line)
+                sys.stdout.flush()
+    return not bool(header), trimmed
 
 
 def spawn_none(cmd, header):
     show_header(header)
     ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
-    return True
+    return True, False
 
 
-def spawn(method, cmd, header):
+def spawn(method, cmd, header, footer, limit):
     if method == 'pipe':
-        return spawn_pipe(cmd, header)
+        return spawn_pipe(cmd, header, footer, limit)
     elif method == 'ptyprocess':
         show_progress(cmd)
-        return spawn_ptyprocess(cmd, header)
+        return spawn_ptyprocess(cmd, header, footer, limit)
     elif method == 'pty':
         show_progress(cmd)
-        return spawn_pty(cmd, header)
+        return spawn_pty(cmd, header, footer, limit)
     elif method == 'none':
         return spawn_none(cmd, header)
     else:
@@ -400,16 +443,18 @@ class Check(object):
     def is_flag_set(self, value):
         return value in self.flags
 
-    def do(self, name, jobs, run, hide, method, terminal, skipped):
+    def do(self, name, jobs, run, hide, limit, method, terminal, skipped):
         cmd = self.get_sh_cmd(njobs=jobs)
         comment = self.comment
         manual = 'manual' in self.flags
         run = cmd and run and not manual
         hide = hide and run
-        supervise = hide
+        trim = limit > 0
+        supervise = hide or trim
         if method == 'auto':
             method = spawn_choice(supervise, terminal)
         header = ''
+        footer = ('...',)
         if manual:
             header += '# This command needs a human to read about and run it\n'
         if comment:
@@ -418,9 +463,11 @@ class Check(object):
             prompt = '# $ ' if manual else'$ '
             header += prompt + cmd
         if run:
-            output = spawn(method, cmd, header)
+            output, trimmed = spawn(method, cmd, header, footer, limit)
             if not output and hide:
                 skip(skipped, name, 'no output')
+            if trim and trimmed:
+                skip(skipped, name, 'trimmed')
         else:
             output = show_header(header)
         return output
@@ -708,6 +755,14 @@ def main():
     ap.add_argument("--set-debian-substvars", help=argparse.SUPPRESS, action="store_true")
     ap.add_argument('--spawn-method', type=str, help=argparse.SUPPRESS,
                     default='auto', choices=['auto', 'none', 'pipe', 'pty', 'ptyprocess'])
+    ap.add_argument('--checks-output-lines', metavar='N',
+                    help="output lines to allow for checks."
+                         "checks using more lines are terminated,"
+                         "their output is truncated to fit,"
+                         "a footer is appended as an indicator"
+                         "and their names are printed at the end."
+                         " (<= 0: all, > 0: N lines of output)",
+                    type=int, default=10).completer = RangeCompleter(0, 20)
     if argcomplete:
         argcomplete.autocomplete(ap)
     elif '_ARGCOMPLETE' in os.environ:
@@ -723,6 +778,7 @@ def main():
     jobs = options.jobs
     run = options.commands == 'run'
     hide = options.silent_checks == 'hide'
+    limit = options.checks_output_lines
     method = options.spawn_method
     terminal = sys.stdout.isatty()
     last_interrupt = 0
@@ -750,7 +806,7 @@ def main():
                     print()
                     sys.exit()
             try:
-                output = check.do(name, jobs, run, hide, method, terminal, skipped)
+                output = check.do(name, jobs, run, hide, limit, method, terminal, skipped)
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
                     if output:
@@ -766,7 +822,7 @@ def main():
     if run and hide and terminal:
         erase_to_eol_cr()
     if skipped:
-        header = 'Skipped and hidden checks:'
+        header = 'Skipped, hidden and trimmed checks:'
         out = TextWrapper()
         out.width = get_columns()
         out.break_long_words = False
