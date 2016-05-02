@@ -706,6 +706,8 @@ def main():
                     help="what to do with the commands for the chosen set of hooks",
                     default='run', choices=['run', 'show'])
     ap.add_argument("--set-debian-substvars", help=argparse.SUPPRESS, action="store_true")
+    ap.add_argument('--spawn-method', type=str, help=argparse.SUPPRESS,
+                    default='auto', choices=['auto', 'none', 'pipe', 'pty', 'ptyprocess'])
     if argcomplete:
         argcomplete.autocomplete(ap)
     elif '_ARGCOMPLETE' in os.environ:
@@ -721,7 +723,7 @@ def main():
     jobs = options.jobs
     run = options.commands == 'run'
     hide = options.silent_checks == 'hide'
-    method = 'auto'
+    method = options.spawn_method
     terminal = sys.stdout.isatty()
     last_interrupt = 0
     matching_checks = set()
