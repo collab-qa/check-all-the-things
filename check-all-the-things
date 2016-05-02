@@ -96,9 +96,9 @@ except ImportError:
 
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
-datadir = os.path.join(rootdir, 'data')
+datadir = os.environ.get('CATS_DATA')
 if not datadir or not os.path.isdir(datadir):
-    datadir = os.environ.get('CATS_DATA')
+    datadir = os.path.join(rootdir, 'data')
 if not datadir or not os.path.isdir(datadir):
     datadir = os.path.join(os.path.dirname(rootdir), 'share',
                            'check-all-the-things', 'data')
