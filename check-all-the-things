@@ -80,6 +80,7 @@ try:
     ChoicesCompleter = argcomplete.completers.ChoicesCompleter
 except ImportError:
     argcomplete = None
+
     class ChoicesCompleter:
         def __init__(self, *args, **kwargs):
             pass
