@@ -111,7 +111,7 @@ def erase_to_eol_cr():
     sys.stdout.flush()
 
 
-def spawn_progress(cmd):
+def show_progress(cmd):
     width = get_columns()
     line = '$ ' + cmd.replace('\n', '')
     size = len(line)
@@ -121,9 +121,13 @@ def spawn_progress(cmd):
     erase_to_eol_cr()
 
 
-def spawn_header(header):
-    print(header)
-    sys.stdout.flush()
+def show_header(header):
+    if header:
+        print(header)
+        sys.stdout.flush()
+        return True
+    else:
+        return False
 
 
 def spawn_ptyprocess(cmd, header):
@@ -134,7 +138,7 @@ def spawn_ptyprocess(cmd, header):
             if line:
                 if header:
                     erase_to_eol_cr()
-                    spawn_header(header)
+                    show_header(header)
                     header = None
                 sys.stdout.buffer.write(line)
                 sys.stdout.flush()
@@ -167,7 +171,7 @@ def spawn_pipe(cmd, header):
     with ipc.Popen(cmd, shell=True, stdout=ipc.PIPE, stderr=ipc.STDOUT) as proc:
         line = proc.stdout.readline()
         if line and header:
-            spawn_header(header)
+            show_header(header)
             header = None
         sys.stdout.buffer.write(line)
         sys.stdout.flush()
@@ -178,18 +182,37 @@ def spawn_pipe(cmd, header):
 
 
 def spawn_none(cmd, header):
+    show_header(header)
     ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+    return True
 
 
-def spawn(cmd, header):
-    if sys.stdout.isatty():
-        spawn_progress(cmd)
-        if ptyprocess:
-            return spawn_ptyprocess(cmd, header)
-        else:
-            return spawn_pty(cmd, header)
-    else:
+def spawn(method, cmd, header):
+    if method == 'pipe':
         return spawn_pipe(cmd, header)
+    elif method == 'ptyprocess':
+        show_progress(cmd)
+        return spawn_ptyprocess(cmd, header)
+    elif method == 'pty':
+        show_progress(cmd)
+        return spawn_pty(cmd, header)
+    elif method == 'none':
+        return spawn_none(cmd, header)
+    else:
+        raise Error
+
+
+def spawn_choice(supervise, terminal):
+    if supervise:
+        if terminal:
+            if ptyprocess:
+                return 'ptyprocess'
+            else:
+                return 'pty'
+        else:
+            return 'pipe'
+    else:
+        return 'none'
 
 
 class UnmetPrereq(Exception):
@@ -376,6 +399,31 @@ class Check(object):
 
     def is_flag_set(self, value):
         return value in self.flags
+
+    def do(self, name, jobs, run, hide, method, terminal, skipped):
+        cmd = self.get_sh_cmd(njobs=jobs)
+        comment = self.comment
+        manual = 'manual' in self.flags
+        run = cmd and run and not manual
+        hide = hide and run
+        supervise = hide
+        if method == 'auto':
+            method = spawn_choice(supervise, terminal)
+        header = ''
+        if manual:
+            header += '# This command needs a human to read about and run it\n'
+        if comment:
+            header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
+        if cmd:
+            prompt = '# $ ' if manual else'$ '
+            header += prompt + cmd
+        if run:
+            output = spawn(method, cmd, header)
+            if not output and hide:
+                skip(skipped, name, 'no output')
+        else:
+            output = show_header(header)
+        return output
 
 
 class Formatter(argparse.ArgumentDefaultsHelpFormatter, argparse.MetavarTypeHelpFormatter):
@@ -670,6 +718,11 @@ def main():
         sys.exit()
     if options.jobs is None:
         options.jobs = multiprocessing.cpu_count()
+    jobs = options.jobs
+    run = options.commands == 'run'
+    hide = options.silent_checks == 'hide'
+    method = 'auto'
+    terminal = sys.stdout.isatty()
     last_interrupt = 0
     matching_checks = set()
     walk(checks, matching_checks, True, '..')
@@ -688,48 +741,27 @@ def main():
             skip(skipped, name, str(exc))
             exc = None
         else:
-            manual = 'manual' in check.flags
-            show_check = options.silent_checks == 'show' or options.commands == 'show' or manual
             if (time.time() - last_interrupt) < options.interrupt_period:
                 try:
                     time.sleep(options.interrupt_period)
                 except KeyboardInterrupt:
                     print()
                     sys.exit()
-            cmd = check.get_sh_cmd(njobs=options.jobs)
-            comment = check.comment
-            header = ''
-            if comment:
-                header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
-            if manual:
-                cmd_prefix = '# $ '
-            else:
-                cmd_prefix = '$ '
-            if cmd:
-                header += cmd_prefix + cmd
-            if show_check or (check.comment and not cmd):
-                spawn_header(header)
             try:
-                if cmd and options.commands == 'run' and not manual:
-                    if show_check:
-                        spawn_none(cmd, header)
-                    else:
-                        show_check |= spawn(cmd, header)
-                        if not show_check:
-                            skip(skipped, name, 'no output')
+                output = check.do(name, jobs, run, hide, method, terminal, skipped)
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
-                    if show_check:
+                    if output:
                         print()
                     sys.exit()
                 elif options.interrupt == 'skip':
                     skip(skipped, name, 'user interrupted')
-                    if show_check:
+                    if output:
                         print()
                 last_interrupt = time.time()
-            if cmd and show_check:
+            if output:
                 print()
-    if options.commands == 'run' and options.silent_checks == 'hide' and sys.stdout.isatty():
+    if run and hide and terminal:
         erase_to_eol_cr()
     if skipped:
         header = 'Skipped and hidden checks:'
