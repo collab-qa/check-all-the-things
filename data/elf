@@ -36,6 +36,12 @@ comment =
  Dangerous because it executes binaries
 command = CC=afl-gcc CXX=afl-g++ ./configure ; make clean all ; afl-fuzz -i testcases -o findings command -arg @@
 
+[hardening-check]
+apt = hardening-includes
+files = ./debian/*/bin/* ./debian/*/usr/bin/* ./debian/*/sbin/* ./debian/*/usr/sbin/* ./debian/*/usr/games/*
+        ./debian/*/lib/lib*.so* ./debian/*/lib/*/lib*.so* ./debian/*/usr/lib/lib*.so* ./debian/*/usr/lib/*/lib*.so*
+command = hardening-check --quiet {files}
+
 # TODO: abigail-tools
 # TODO: icheck
 # TODO: abicheck
