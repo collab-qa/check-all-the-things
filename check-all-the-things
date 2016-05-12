@@ -447,6 +447,7 @@ class Check(object):
         cmd = self.get_sh_cmd(njobs=jobs)
         comment = self.comment
         manual = self.is_flag_set('manual')
+        style = self.is_flag_set('style')
         run = cmd and run and not manual
         hide = hide and run
         trim = limit > 0
@@ -457,6 +458,11 @@ class Check(object):
         footer = ('...',)
         if manual:
             header += '# This command needs a human to read about and run it\n'
+        if style:
+            header += '# This command checks style. While a consistent style\n'
+            header += '# is a good idea, people who have different style\n'
+            header += '# preferences will want to ignore some of the output.\n'
+            header += '# Do not bother adding non-upstreamable patches for this.\n'
         if comment:
             header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
         if cmd:
