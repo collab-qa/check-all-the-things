@@ -9,6 +9,7 @@ files = *.py
 command = pyflakes3 {files}
 
 [pep8]
+flags = style
 apt = pep8
 files = *.py
 command = pep8 --ignore W191 {files}
