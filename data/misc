@@ -17,9 +17,12 @@ apt = devscripts
 command = licensecheck --check=. --recursive --copyright . | grep --text -F 'with incorrect FSF address'
 
 [codespell]
-flags = spelling
+flags = spelling fixme
 apt = codespell
 command = codespell --quiet-level=3
+comment =
+ Additional codespell dictionaries need packaging:
+ https://github.com/orbitcowboy/codespell_dictionary
 
 [sourcecode-spellchecker]
 flags = todo spelling
