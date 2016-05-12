@@ -446,7 +446,7 @@ class Check(object):
     def do(self, name, jobs, run, hide, limit, method, terminal, skipped):
         cmd = self.get_sh_cmd(njobs=jobs)
         comment = self.comment
-        manual = 'manual' in self.flags
+        manual = self.is_flag_set('manual')
         run = cmd and run and not manual
         hide = hide and run
         trim = limit > 0
