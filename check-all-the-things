@@ -448,6 +448,8 @@ class Check(object):
         comment = self.comment
         manual = self.is_flag_set('manual')
         style = self.is_flag_set('style')
+        fixme = self.is_flag_set('fixme')
+        todo = self.is_flag_set('todo')
         run = cmd and run and not manual
         hide = hide and run
         trim = limit > 0
@@ -463,6 +465,9 @@ class Check(object):
             header += '# is a good idea, people who have different style\n'
             header += '# preferences will want to ignore some of the output.\n'
             header += '# Do not bother adding non-upstreamable patches for this.\n'
+        if fixme or todo:
+            header += '# This command needs someone to help out with it'
+            skip(skipped, name, 'help needed')
         if comment:
             header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
         if cmd:
@@ -828,7 +833,7 @@ def main():
     if run and hide and terminal:
         erase_to_eol_cr()
     if skipped:
-        header = 'Skipped, hidden and trimmed checks:'
+        header = 'Skipped, hidden, trimmed and work needing checks:'
         out = TextWrapper()
         out.width = get_columns()
         out.break_long_words = False

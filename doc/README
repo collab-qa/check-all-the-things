@@ -41,6 +41,9 @@ When adding support for new checkers, please ensure that you use {file}
 for checkers that take only one argument and that you use {files} for
 checkers that take more than one argument.
 
+When the support for a check is suboptimal, you can add fixme to the flags
+field and add a comment with info about what needs to be fixed.
+
 When adding TODO entries, please add a new check config but set the flags
 field to todo and add any known hints in the apt/comment/command fields.
 
