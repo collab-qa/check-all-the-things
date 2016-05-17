@@ -59,7 +59,6 @@ command = pylint3 --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{
 # TODO: pycodestyle #816496
 # TODO: pydocstyle #816498
 # TODO: python3-requirements-detector
-# TODO: https://github.com/stackforge/bandit
 # TODO: https://github.com/jlachowski/clonedigger
 # TODO: https://github.com/rubik/xenon
 # TODO: https://gcc-python-plugin.readthedocs.io/en/latest/cpychecker.html
