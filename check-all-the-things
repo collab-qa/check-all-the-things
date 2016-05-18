@@ -450,6 +450,7 @@ class Check(object):
         style = self.is_flag_set('style')
         fixme = self.is_flag_set('fixme')
         todo = self.is_flag_set('todo')
+        embed = self.is_flag_set('embed')
         run = cmd and run and not manual
         hide = hide and run
         trim = limit > 0
@@ -470,6 +471,9 @@ class Check(object):
             skip(skipped, name, 'help needed')
         if comment:
             header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
+        if embed:
+            header += '# Please remove any embedded copies from the upstream VCS and tarballs.\n'
+            header += '# https://wiki.debian.org/EmbeddedCodeCopies'
         if cmd:
             prompt = '# $ ' if manual else'$ '
             header += prompt + cmd

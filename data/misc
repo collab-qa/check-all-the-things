@@ -125,11 +125,9 @@ comment = check if these can be switched to https://
 command = grep -rF http: .
 
 [embed-readme]
+flags = embed
 files = *README*
-comment =
- Please check if these README files belong to embedded code/data copies.
- Please remove any embedded copies from the upstream VCS and tarballs.
- https://wiki.debian.org/EmbeddedCodeCopies
+comment = Please check if these README files belong to embedded code/data copies.
 command = find -mindepth 2 -iname '*README*'
 
 # TODO: EC2_SECRET_KEY
