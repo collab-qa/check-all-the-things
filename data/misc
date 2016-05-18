@@ -130,6 +130,11 @@ files = *README*
 comment = Please check if these README files belong to embedded code/data copies.
 command = find -mindepth 2 -iname '*README*'
 
+[embed-dirs]
+flags = embed
+comment = Please check if these directories contain embedded code/data copies.
+command = find -type d -name 'vendor*' -o -name '*rd*party' -o -name contrib -o
+
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure
 # TODO: wget --no-check-certificate
