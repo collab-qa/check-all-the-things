@@ -448,6 +448,7 @@ class Check(object):
         comment = self.comment
         manual = self.is_flag_set('manual')
         style = self.is_flag_set('style')
+        style = self.is_flag_set('complexity')
         fixme = self.is_flag_set('fixme')
         todo = self.is_flag_set('todo')
         embed = self.is_flag_set('embed')
@@ -465,6 +466,10 @@ class Check(object):
             header += '# This command checks style. While a consistent style\n'
             header += '# is a good idea, people who have different style\n'
             header += '# preferences will want to ignore some of the output.\n'
+        if complexity:
+            header += '# This command checks code complexity. While simple\n'
+            header += '# code is a good idea, complex code can be needed.\n'
+        if style or complexity:
             header += '# Do not bother adding non-upstreamable patches for this.\n'
         if fixme or todo:
             header += '# This command needs someone to help out with it'
