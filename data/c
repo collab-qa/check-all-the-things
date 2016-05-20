@@ -38,6 +38,7 @@ files =
 command = flawfinder -Q -c .
 
 [pmccabe]
+flags = complexity
 apt = pmccabe
 files =
  *.c *.cc *.cxx *.cpp
@@ -98,6 +99,7 @@ flags = todo
 comment = https://github.com/myint/cppclean/
 
 [complexity]
+flags = complexity
 apt = complexity
 files = *.c
 command = complexity {files}
