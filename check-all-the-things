@@ -448,7 +448,7 @@ class Check(object):
         comment = self.comment
         manual = self.is_flag_set('manual')
         style = self.is_flag_set('style')
-        style = self.is_flag_set('complexity')
+        complexity = self.is_flag_set('complexity')
         fixme = self.is_flag_set('fixme')
         todo = self.is_flag_set('todo')
         embed = self.is_flag_set('embed')
