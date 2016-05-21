@@ -78,7 +78,8 @@ command = grep -riE 'fixme|todo|hack|xxx|broken' .
 apt = moreutils
 # TODO: replace not-dirs with --ignore option
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
-# TODO: replace not-files with recursive option (#780197)
+flags = fixme
+comment = A recursive option needs to be implemented (#780197)
 not-files =
  *.blend
  *.icns *.bmp *.ico *.png *.gif *.jpg *.jpeg *.tga *.xcf *.tif *.tiff
