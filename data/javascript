@@ -8,6 +8,13 @@ flags = todo style
 files = *.js
 comment = https://github.com/modern-standard/modern-standard
 
+[librejs-cli]
+flags = todo copyright
+comment = librejs-cli is not yet packaged (#820166)
+apt = librejs-cli
+files = *.js
+command = librejs-cli {files}
+
 # TODO: coffeelint
 # TODO: pylama #779449
 # TODO: https://github.com/jscs-dev/node-jscs
