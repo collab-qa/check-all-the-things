@@ -640,7 +640,7 @@ def set_debian_substvars(checks):
         except ValueError:
             print('ERROR: Could not parse deps for {}: {}'.format(name, check.apt), file=sys.stderr)
             sys.exit(1)
-        if 'todo' not in check.flags:
+        if not check.is_flag_set('todo'):
             recommends.append(check.apt)
         else:
             suggests.append(check.apt)
