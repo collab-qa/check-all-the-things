@@ -78,6 +78,15 @@ comment =
  To automatically test the installed packages,
  place this in debian/tests/control:
 
+[debian-tracker]
+flags = todo
+comment =
+ First the tracker.d.o API needs to be added (#824912)
+ Then the pts-actions script needs adding to devscripts
+apt = devscripts
+files = ./debian/control
+command = pts-actions
+
 # TODO: dep11-tools
 # TODO: i18n
 # TODO: vcswatch
