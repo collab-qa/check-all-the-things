@@ -472,13 +472,13 @@ class Check(object):
         if style or complexity:
             header += '# Do not bother adding non-upstreamable patches for this.\n'
         if fixme or todo:
-            header += '# This command needs someone to help out with it'
+            header += '# This command needs someone to help out with it.\n'
             skip(skipped, name, 'help needed')
         if comment:
             header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
         if embed:
             header += '# Please remove any embedded copies from the upstream VCS and tarballs.\n'
-            header += '# https://wiki.debian.org/EmbeddedCodeCopies'
+            header += '# https://wiki.debian.org/EmbeddedCodeCopies\n'
         if cmd:
             prompt = '# $ ' if manual or todo else '$ '
             header += prompt + cmd
