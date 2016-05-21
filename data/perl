@@ -25,6 +25,12 @@ apt = libpod-pom-perl
 files = *.pl *.pm
 command = podlint {file}
 
+[cpants-lint]
+flags = todo
+apt = cpants-lint
+comment = It is not able to use the current dir instead of tarball (#823299)
+command = cpants_lint
+
 # TODO: pkg-perl-tools dpt-packagecheck check-build
 # TODO: perltidy
 # TODO: libperl-metrics-simple-perl
