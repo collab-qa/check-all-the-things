@@ -460,23 +460,23 @@ class Check(object):
             method = spawn_choice(supervise, terminal)
         header = ''
         footer = ('...',)
-        if manual:
+        if manual and not todo:
             header += '# This command needs a human to read about and run it\n'
-        if style:
+        if style and not todo:
             header += '# This command checks style. While a consistent style\n'
             header += '# is a good idea, people who have different style\n'
             header += '# preferences will want to ignore some of the output.\n'
-        if complexity:
+        if complexity and not todo:
             header += '# This command checks code complexity. While simple\n'
             header += '# code is a good idea, complex code can be needed.\n'
-        if style or complexity:
+        if (style or complexity) and not todo:
             header += '# Do not bother adding non-upstreamable patches for this.\n'
         if fixme or todo:
             header += '# This command needs someone to help out with it.\n'
             skip(skipped, name, 'help needed')
         if comment:
             header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
-        if embed:
+        if embed and not todo:
             header += '# Please remove any embedded copies from the upstream VCS and tarballs.\n'
             header += '# https://wiki.debian.org/EmbeddedCodeCopies\n'
         if cmd:
