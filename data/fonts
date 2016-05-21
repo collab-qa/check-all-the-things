@@ -22,8 +22,8 @@ command = check-font-embedding-restrictions {files}
 flags = todo
 comment = https://github.com/Microsoft/Font-Validator
 
-[ots]
+[opentype-sanitiser]
 flags = todo
-comment = ots RFP #817031 https://github.com/khaledhosny/ots
+comment = opentype-sanitiser RFP #817031 https://github.com/khaledhosny/ots
 
 # vim:ft=dosini
