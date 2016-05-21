@@ -1,10 +1,10 @@
 [js-standard]
-flags = todo
+flags = todo style
 files = *.js
 comment = https://github.com/feross/standard
 
 [js-modern-standard]
-flags = todo
+flags = todo style
 files = *.js
 comment = https://github.com/modern-standard/modern-standard
 
