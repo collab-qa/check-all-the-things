@@ -399,7 +399,7 @@ class Check(object):
             if not self.cmd:
                 return
             cmd = shlex.split(self.cmd)[0]
-            if not which(cmd):
+            if not which(cmd) and not self.is_flag_set('todo'):
                 raise UnmetPrereq('command not found: ' + cmd)
         else:
             try:
@@ -452,7 +452,7 @@ class Check(object):
         fixme = self.is_flag_set('fixme')
         todo = self.is_flag_set('todo')
         embed = self.is_flag_set('embed')
-        run = cmd and run and not manual
+        run = cmd and run and not manual and not todo
         hide = hide and run
         trim = limit > 0
         supervise = hide or trim
@@ -480,7 +480,7 @@ class Check(object):
             header += '# Please remove any embedded copies from the upstream VCS and tarballs.\n'
             header += '# https://wiki.debian.org/EmbeddedCodeCopies'
         if cmd:
-            prompt = '# $ ' if manual else'$ '
+            prompt = '# $ ' if manual or todo else '$ '
             header += prompt + cmd
         if run:
             output, trimmed = spawn(method, cmd, header, footer, limit)
