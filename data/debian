@@ -29,8 +29,8 @@ flags = network
 [lintian]
 flags = package
 apt = lintian
-files = ../*.changes ../*.deb ../*.dsc *.changes *.deb *.dsc
-command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto {files}
+files = ../*.changes ../*.deb ../*.dsc *.changes *.deb *.dsc ./debian/control
+command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto
 
 [lintian4python]
 flags = todo package python
