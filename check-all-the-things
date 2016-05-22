@@ -327,7 +327,7 @@ class Check(object):
         self.comment = value.strip()
 
     def set_command(self, value):
-        self.cmd = cmd = value
+        self.cmd = cmd = value.strip()
         d = collections.defaultdict(str)
         cmd.format(**d)
         nargs = 1 * ('file' in d) + 2 * ('files' in d)
