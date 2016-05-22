@@ -777,10 +777,10 @@ def main():
                     default='auto', choices=['auto', 'none', 'pipe', 'pty', 'ptyprocess'])
     ap.add_argument('--checks-output-lines', metavar='N',
                     help="output lines to allow for checks."
-                         "checks using more lines are terminated,"
-                         "their output is truncated to fit,"
-                         "a footer is appended as an indicator"
-                         "and their names are printed at the end."
+                         " checks using more lines are terminated,"
+                         " their output is truncated to fit,"
+                         " a footer is appended as an indicator"
+                         " and their names are printed at the end."
                          " (<= 0: all, > 0: N lines of output)",
                     type=int, default=10).completer = RangeCompleter(0, 20)
     if argcomplete:
