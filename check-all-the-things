@@ -518,14 +518,19 @@ def process(self, choices):
         else:
             arg = set()
         args.update(arg)
+        for arg in args:
+            if arg not in self.all:
+                raise argparse.ArgumentError(self, self.unknown_msg.format(arg))
         action(args)
 
 
 class CheckSelectionAction(argparse.Action):
     msg = 'cmdline disabled check'
+    unknown_msg = 'unknown check: {}'
 
-    def __init__(self, option_strings, dest, checks={}, prepend_values=[], *args, **kwargs):
+    def __init__(self, option_strings, dest, checks={}, all=set(), prepend_values=[], *args, **kwargs):
         self.checks = checks
+        self.all = all
         self.prepend_values = prepend_values
         super().__init__(option_strings=option_strings, dest=dest, *args, **kwargs)
 
@@ -550,12 +555,14 @@ class CheckSelectionAction(argparse.Action):
 
 
 class FlagSelectionAction(argparse.Action):
+    unknown_msg = 'unknown flag: {}'
 
-    def __init__(self, option_strings, dest, msg=None, name=None, checks={}, flags=set(), prepend_values=[], *args, **kwargs):
+    def __init__(self, option_strings, dest, msg=None, name=None, checks={}, flags=set(), all=set(), prepend_values=[], *args, **kwargs):
         self.msg = msg
         self.name = name
         self.checks = checks
         self.flags = flags
+        self.all = all
         self.prepend_values = prepend_values
         super().__init__(option_strings=option_strings, dest=dest, *args, **kwargs)
 
@@ -740,14 +747,14 @@ def main():
                     help="alter the set of checks to be run based on check names"
                          " (example: = cppcheck + lintian duck - duck)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
-                    action=CheckSelectionAction, checks=checks
+                    action=CheckSelectionAction, checks=checks, all=all_checks,
                     ).completer = ChoicesCompleter(sorted(all_checks))
     ap.add_argument('--flags', '-f', metavar='selectors', nargs=1,
                     help="alter the set of checks to be run based on flag names"
                          " (example: = audio c - mp3 + sh)"
                          " (example: = dangerous + network - todo)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
-                    action=FlagSelectionAction, msg='cmdline disabled flag', name='flags', checks=checks, flags=flags
+                    action=FlagSelectionAction, msg='cmdline disabled flag', name='flags', checks=checks, flags=flags, all=all_flags,
                     ).completer = ChoicesCompleter(sorted(all_flags))
     ap.add_argument('--all', '-a', nargs=0,
                     help="perform checks with possible side effects,"
