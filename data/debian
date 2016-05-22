@@ -29,7 +29,7 @@ flags = network
 [lintian]
 flags = package
 apt = lintian
-files = ../*.changes ../*.deb ../*.dsc ./debian/control
+files = ./debian/changelog
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto
 
 [lintian-curdir]
