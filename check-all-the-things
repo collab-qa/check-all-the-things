@@ -242,7 +242,7 @@ def spawn(method, cmd, header, footer, limit):
     elif method == 'none':
         return spawn_none(cmd, header)
     else:
-        raise Error
+        raise RuntimeError
 
 
 def spawn_choice(supervise, terminal):
