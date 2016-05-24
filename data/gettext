@@ -17,7 +17,7 @@ command = POFileSpell {files}
 [i18nspector]
 apt = i18nspector
 files = *.po *.pot *.mo *.gmo
-command = i18nspector {files}
+command = i18nspector --parallel {njobs} {files}
 
 [acheck]
 flags = todo

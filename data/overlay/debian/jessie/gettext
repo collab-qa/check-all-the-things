@@ -1,0 +1,4 @@
+[i18nspector]
+# Drop --parallel from the arguments since it gives an error:
+# i18nspector: error: unrecognized arguments: --parallel=2
+command = i18nspector {files}
