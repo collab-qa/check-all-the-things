@@ -196,6 +196,7 @@ def spawn_pty(cmd, hide, header, footer, limit):
         if data and header:
             output_header()
         return data
+
     pty.spawn(['sh', '-c', cmd], read)
     pipe.close()
     if header and not hide:
@@ -226,6 +227,7 @@ def spawn_pipe(cmd, hide, header, footer, limit):
                 sys.stdout.flush()
                 proc.terminate()
                 return True
+
     with ipc.Popen(cmd, shell=True, stdout=ipc.PIPE, stderr=ipc.STDOUT) as proc:
         line = proc.stdout.readline()
         if line and header:
