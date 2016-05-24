@@ -32,12 +32,12 @@ command = grep -F 'yaml.load' {files}
 [pylint]
 apt = pylint
 files = *.py
-command = pylint --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
+command = pylint --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
 
 [pylint3]
 apt = pylint3
 files = *.py
-command = pylint3 --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
+command = pylint3 --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
 
 # TODO: hacking
 # TODO: flake8
