@@ -620,28 +620,39 @@ class RangeCompleter(object):
         return (str(c) for c in self.choices if str(c).startswith(prefix))
 
 
-def parse_section(section):
-    check = Check()
+def parse_section(section, check=None):
+    if not check:
+        check = Check()
     for key, value in section.items():
         key = key.replace('-', '_')
         getattr(check, 'set_' + key)(value)
     return check
 
 
-def parse_conf():
-    checks = {}
-    flags = set()
-    for path in glob.glob(os.path.join(datadir, '*')):
+def parse_conf(checks={}, flags=set(), distro=None, release=None):
+    if distro and release:
+        for path in glob.glob(os.path.join(datadir, 'overlay', distro, release, '*')):
+            parse_file(checks, flags, path, True)
+    else:
+        for path in glob.glob(os.path.join(datadir, '*')):
+            parse_file(checks, flags, path)
+    return (checks, flags)
+
+
+def parse_file(checks, flags, path, overlay=False):
         cp = configparser.ConfigParser(interpolation=None)
         cp.read(path, encoding='UTF-8')
         for name in cp.sections():
-            if name in checks:
-                raise RuntimeError('duplicate check name: ' + name)
             section = cp[name]
-            checks[name] = parse_section(section)
+            if name in checks:
+                if overlay:
+                    parse_section(section, checks[name])
+                else:
+                    raise RuntimeError('duplicate check name: ' + name)
+            else:
+                checks[name] = parse_section(section)
             checks[name].flags.update({os.path.basename(path)})
             flags.update(checks[name].flags)
-    return (checks, flags)
 
 
 def skip(skipped, name, reason):
@@ -811,6 +822,12 @@ def main():
                          " and their names are printed at the end."
                          " (<= 0: all, > 0: N lines of output)",
                     type=int, default=10).completer = RangeCompleter(0, 20)
+    ap.add_argument('--distro', '-d', type=str,
+                    help="enable check overlay for distribution",
+                    default=None, choices=['debian'])
+    ap.add_argument('--release', '-r', type=str,
+                    help="enable check overlay for distribution release",
+                    default=None, choices=['jessie'])
     if argcomplete:
         argcomplete.autocomplete(ap)
     elif '_ARGCOMPLETE' in os.environ:
@@ -818,6 +835,8 @@ def main():
         sys.exit(1)
 
     options = ap.parse_args()
+    if options.distro and options.release:
+        parse_conf(checks, flags, options.distro, options.release)
     if options.set_debian_substvars:
         set_debian_substvars(checks)
         sys.exit()
