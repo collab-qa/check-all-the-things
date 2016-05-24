@@ -1,1 +1,3 @@
-# TODO: any checks?
+[lisp-critic]
+flags = todo
+comment = https://github.com/g000001/lisp-critic
