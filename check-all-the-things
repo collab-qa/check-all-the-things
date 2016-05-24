@@ -131,9 +131,16 @@ def show_header(header):
         return False
 
 
-def spawn_ptyprocess(cmd, header, footer, limit):
+def spawn_ptyprocess(cmd, hide, header, footer, limit):
     lines = 0
     trimmed = False
+
+    def output_header():
+        nonlocal header
+        erase_to_eol_cr()
+        show_header(header)
+        header = None
+
     proc = ptyprocess.ptyprocess.PtyProcess.spawn(['sh', '-c', cmd])
     while True:
         try:
@@ -148,20 +155,27 @@ def spawn_ptyprocess(cmd, header, footer, limit):
                         proc.kill(signal.SIGTERM)
                         break
                 if header:
-                    erase_to_eol_cr()
-                    show_header(header)
-                    header = None
+                    output_header()
                 sys.stdout.buffer.write(line)
                 sys.stdout.flush()
         except EOFError:
             break
+    if header and not hide:
+        output_header()
     return not bool(header), trimmed
 
 
-def spawn_pty(cmd, header, footer, limit):
+def spawn_pty(cmd, hide, header, footer, limit):
     lines = 0
     trimmed = False
     pipe = None
+
+    def output_header():
+        nonlocal header
+        erase_to_eol_cr()
+        print(header.replace('\n', '\r\n'), end='\r\n')
+        sys.stdout.flush()
+        header = None
 
     def read(fd):
         nonlocal limit
@@ -180,19 +194,23 @@ def spawn_pty(cmd, header, footer, limit):
                 sys.stdout.flush()
                 raise OSError
         if data and header:
-            erase_to_eol_cr()
-            print(header.replace('\n', '\r\n'), end='\r\n')
-            sys.stdout.flush()
-            header = None
+            output_header()
         return data
     pty.spawn(['sh', '-c', cmd], read)
     pipe.close()
+    if header and not hide:
+        output_header()
     return not bool(header), trimmed
 
 
-def spawn_pipe(cmd, header, footer, limit):
+def spawn_pipe(cmd, hide, header, footer, limit):
     lines = 0
     trimmed = False
+
+    def output_header():
+        nonlocal header
+        show_header(header)
+        header = None
 
     def check_lines():
         nonlocal proc
@@ -211,8 +229,7 @@ def spawn_pipe(cmd, header, footer, limit):
     with ipc.Popen(cmd, shell=True, stdout=ipc.PIPE, stderr=ipc.STDOUT) as proc:
         line = proc.stdout.readline()
         if line and header:
-            show_header(header)
-            header = None
+            output_header()
         sys.stdout.buffer.write(line)
         sys.stdout.flush()
         if not check_lines():
@@ -221,6 +238,8 @@ def spawn_pipe(cmd, header, footer, limit):
                     break
                 sys.stdout.buffer.write(line)
                 sys.stdout.flush()
+    if header and not hide:
+        output_header()
     return not bool(header), trimmed
 
 
@@ -230,15 +249,15 @@ def spawn_none(cmd, header):
     return True, False
 
 
-def spawn(method, cmd, header, footer, limit):
+def spawn(method, cmd, hide, header, footer, limit):
     if method == 'pipe':
-        return spawn_pipe(cmd, header, footer, limit)
+        return spawn_pipe(cmd, hide, header, footer, limit)
     elif method == 'ptyprocess':
         show_progress(cmd)
-        return spawn_ptyprocess(cmd, header, footer, limit)
+        return spawn_ptyprocess(cmd, hide, header, footer, limit)
     elif method == 'pty':
         show_progress(cmd)
-        return spawn_pty(cmd, header, footer, limit)
+        return spawn_pty(cmd, hide, header, footer, limit)
     elif method == 'none':
         return spawn_none(cmd, header)
     else:
@@ -483,7 +502,7 @@ class Check(object):
             prompt = '# $ ' if manual or todo else '$ '
             header += prompt + cmd
         if run:
-            output, trimmed = spawn(method, cmd, header, footer, limit)
+            output, trimmed = spawn(method, cmd, hide, header, footer, limit)
             if not output and hide:
                 skip(skipped, name, 'no output')
             if trim and trimmed:
