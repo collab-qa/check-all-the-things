@@ -464,7 +464,7 @@ class Check(object):
     def is_flag_set(self, value):
         return value in self.flags
 
-    def do(self, name, jobs, run, hide, limit, method, terminal, skipped):
+    def do(self, name, jobs, run, hide, limit, method, terminal, remarks):
         cmd = self.get_sh_cmd(njobs=jobs)
         comment = self.comment
         manual = self.is_flag_set('manual')
@@ -494,7 +494,7 @@ class Check(object):
             header += '# Do not bother adding non-upstreamable patches for this.\n'
         if fixme or todo:
             header += '# This command needs someone to help out with it.\n'
-            skip(skipped, name, 'help needed')
+            remark(remarks, name, 'help needed')
         if comment:
             header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
         if embed and not todo:
@@ -506,9 +506,9 @@ class Check(object):
         if run:
             output, trimmed = spawn(method, cmd, hide, header, footer, limit)
             if not output and hide:
-                skip(skipped, name, 'no output')
+                remark(remarks, name, 'no output')
             if trim and trimmed:
-                skip(skipped, name, 'trimmed')
+                remark(remarks, name, 'trimmed')
         else:
             output = show_header(header)
         return output
@@ -655,10 +655,10 @@ def parse_file(checks, flags, path, overlay=False):
             flags.update(checks[name].flags)
 
 
-def skip(skipped, name, reason):
-    if reason not in skipped:
-        skipped[reason] = set()
-    skipped[reason].add(name)
+def remark(remarks, name, reason):
+    if reason not in remarks:
+        remarks[reason] = set()
+    remarks[reason].add(name)
     return True
 
 
@@ -744,7 +744,7 @@ def main():
     (checks, flags) = parse_conf()
     all_checks = set(checks.keys())
     all_flags = set(flags)
-    skipped = {}
+    remarks = {}
 
     disable_flags = {
         'dangerous': 'dangerous check',
@@ -855,15 +855,15 @@ def main():
     for name, check in sorted(checks.items()):
         next = False
         if name not in matching_checks:
-            next |= skip(skipped, name, 'no matching files')
+            next |= remark(remarks, name, 'no matching files')
         for reason in checks[name].disabled:
-            next |= skip(skipped, name, reason)
+            next |= remark(remarks, name, reason)
         if next:
             continue
         try:
             check.meet_prereq()
         except UnmetPrereq as exc:
-            skip(skipped, name, str(exc))
+            remark(remarks, name, str(exc))
             exc = None
         else:
             if (time.time() - last_interrupt) < options.interrupt_period:
@@ -873,14 +873,14 @@ def main():
                     print()
                     sys.exit()
             try:
-                output = check.do(name, jobs, run, hide, limit, method, terminal, skipped)
+                output = check.do(name, jobs, run, hide, limit, method, terminal, remarks)
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
                     if output:
                         print()
                     sys.exit()
                 elif options.interrupt == 'skip':
-                    skip(skipped, name, 'user interrupted')
+                    remark(remarks, name, 'user interrupted')
                     if output:
                         print()
                 last_interrupt = time.time()
@@ -888,23 +888,23 @@ def main():
                 print()
     if run and hide and terminal:
         erase_to_eol_cr()
-    if skipped:
-        header = 'Skipped, hidden, trimmed and work needing checks:'
+    if remarks:
+        header = 'Remarks:'
         out = TextWrapper()
         out.width = get_columns()
         out.break_long_words = False
         out.break_on_hyphens = False
         if options.suppressed_checks_lines == 0:
-            print(header + ' ' + out.fill(', '.join(sorted(skipped))))
+            print(header + ' ' + out.fill(', '.join(sorted(remarks))))
         else:
             print(header)
             if options.suppressed_checks_lines >= 1:
                 out.placeholder = ' ...'
                 out.max_lines = options.suppressed_checks_lines
-            for reason in sorted(skipped):
+            for reason in sorted(remarks):
                 out.initial_indent = '- {reason}: '.format(reason=reason)
                 out.subsequent_indent = ' ' * len(out.initial_indent)
-                print(out.fill(' '.join(sorted(skipped[reason]))))
+                print(out.fill(' '.join(sorted(remarks[reason]))))
 
 if __name__ == '__main__':
     main()
