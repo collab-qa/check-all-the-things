@@ -14,7 +14,15 @@ files = *.hs
 not-files = HLint.hs Setup.hs
 command = ghc-mod lint {file}
 
+[stylish-haskell]
+flags = modify fixme style
+apt = stylish-haskell
+files = *.hs
+command = stylish-haskell --inplace {files}
+comment =
+ A dry-run option is needed to not modify files:
+ https://github.com/jaspervdj/stylish-haskell/issues/107
+
 # TODO: shell metacharacter injection: createProcess shell system runCommand runInteractiveCommand from System.Process/System.Cmd
-# TODO: https://hackage.haskell.org/package/stylish-haskell
 
 # vim:ft=dosini
