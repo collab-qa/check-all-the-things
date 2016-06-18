@@ -11,3 +11,5 @@ flags = keys
 apt = ssl-cert-check
 files = *.pem *.cert
 command = ssl-cert-check -b -c {file} | grep -v -w Valid
+
+# TODO: https://github.com/kroeckx/x509lint
