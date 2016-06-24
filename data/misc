@@ -16,18 +16,6 @@ command = licensecheck --check=. --recursive --copyright . | grep --text -F 'GEN
 apt = devscripts
 command = licensecheck --check=. --recursive --copyright . | grep --text -F 'with incorrect FSF address'
 
-[codespell]
-flags = spelling fixme
-apt = codespell
-command = codespell --quiet-level=3
-comment =
- Additional codespell dictionaries need packaging:
- https://github.com/orbitcowboy/codespell_dictionary
-
-[sourcecode-spellchecker]
-flags = todo spelling
-comment = CPAN Sourcecode::Spellchecker
-
 [fdupes]
 apt = fdupes
 command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer)|_(darcs|FOSSIL_)|CVS)(/|$)' | cat -s
@@ -102,21 +90,6 @@ command = grep -riEC1 '((check|test) *\|\| *true|-dh_auto_test)' .
 comment = Prevents reproducible builds: https://reproducible-builds.org/
 command = grep -rE ' __DATE__|__TIME__' .
 
-[spellintian]
-flags = spelling
-apt = lintian
-not-dirs =
- .bzr .git .hg .svn CVS RCS SCCS _MTN _darcs .pc
- .cabal-sandbox .cdv .metadata CMakeFiles _build
- _sgbak autom4te.cache blib cover_db node_modules
- ~.dep ~.dot ~.nib ~.plst
-not-files =
- *.bak *.swp #.* #*# core.* *~
- *.gif *.jpg *.jpeg *.png
- *.min.js *.js.map *.js.min
- *.min.css *.css.map *.css.min
-command = spellintian --picky {files}
-
 [project-flint]
 flags = todo
 comment = #809042 https://github.com/pengwynn/flint
@@ -145,19 +118,14 @@ command = grep -rF mailto:/ .
 # TODO: wget --no-check-certificate
 # TODO: svn --trust-server-cert
 # TODO: bogomips
-# TODO: diction
-# TODO: python3-proselint
 # TODO: ripper #796920
 # TODO: similarity-tester sim_text
-# TODO: https://jwilk.net/software/mwic
-# TODO: https://www.cs.umd.edu/~nspring/software/style-check-readme.html
 # TODO: https://github.com/coala-analyzer/coala
 # TODO: https://github.com/nexB/scancode-toolkit/
 # TODO: https://github.com/jeremylong/DependencyCheck/
 # TODO: http://www.coding-guidelines.com/numbers/
 # TODO: ebnflint
 # TODO: http://fbinfer.com/ #789059
-# TODO: https://github.com/btford/write-good
 # TODO: https://github.com/facebook/pfff/wiki/Scheck
 
 # vim:ft=dosini

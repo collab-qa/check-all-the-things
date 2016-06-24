@@ -1,0 +1,34 @@
+[codespell]
+flags = spelling fixme
+apt = codespell
+command = codespell --quiet-level=3
+comment =
+ Additional codespell dictionaries need packaging:
+ https://github.com/orbitcowboy/codespell_dictionary
+
+[sourcecode-spellchecker]
+flags = todo spelling
+comment = CPAN Sourcecode::Spellchecker
+
+[spellintian]
+flags = spelling
+apt = lintian
+not-dirs =
+ .bzr .git .hg .svn CVS RCS SCCS _MTN _darcs .pc
+ .cabal-sandbox .cdv .metadata CMakeFiles _build
+ _sgbak autom4te.cache blib cover_db node_modules
+ ~.dep ~.dot ~.nib ~.plst
+not-files =
+ *.bak *.swp #.* #*# core.* *~
+ *.gif *.jpg *.jpeg *.png
+ *.min.js *.js.map *.js.min
+ *.min.css *.css.map *.css.min
+command = spellintian --picky {files}
+
+# TODO: diction
+# TODO: python3-proselint
+# TODO: https://jwilk.net/software/mwic
+# TODO: https://www.cs.umd.edu/~nspring/software/style-check-readme.html
+# TODO: https://github.com/btford/write-good
+
+# vim:ft=dosini
