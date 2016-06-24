@@ -58,4 +58,20 @@ files = *.7z
 command = 7zr t {file} | grep --perl-regexp --null-data --only-matching '(?s)Processing archive: .*\n\nError[^\n]*' | tr -s '\n'
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
 
+[rzip-test]
+flags = todo
+comment = the --test argument is not supported and runzip -o /dev/null gives an error
+apt = rzip
+files = *.rz
+command = rzip --test {files}
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+
+[lrzip-test]
+flags = todo
+comment = All the tests I did killed my computer
+apt = lrzip
+files = *.lrz
+command = lrzip --test {files}
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+
 # vim:ft=dosini

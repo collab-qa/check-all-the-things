@@ -5,5 +5,6 @@ files = *.png
 command = pngcheck -q {files}
 
 # TODO: identify -verbose {file} | grep -i copyright && echo {file}
+# TODO: pngcrush/optipng/advpng
 
 # vim:ft=dosini

@@ -117,6 +117,7 @@ command = echo KWStyle -R -d .
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
+# TODO: http://repo.or.cz/w/smatch.git
 # TODO: splint
 # TODO: frama-c
 # TODO: scan-build

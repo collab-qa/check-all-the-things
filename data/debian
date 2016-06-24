@@ -3,6 +3,12 @@ apt = cme | libconfig-model-perl (<< 2.063), libconfig-model-dpkg-perl
 files = ./debian/control ./debian/copyright
 command = cme check dpkg
 
+[scan-copyrights]
+flags = todo
+comment = needs testing
+apt = libconfig-model-dpkg-perl
+command = scan-copyrights
+
 [uscan]
 apt = devscripts
 files = ./debian/watch
@@ -75,6 +81,13 @@ apt = debmake
 files = ./debian/copyright
 command = debmake -k
 
+[licensecheck2dep5]
+flags = copyright todo
+comment = Doesn't yet work from within cats
+apt = cdbs
+files = ./debian/copyright
+command = diff -u <(licensecheck --copyright --recursive --check=. | /usr/lib/cdbs/licensecheck2dep5) debian/copyright
+
 [autodep8]
 flags = test
 apt = autodep8
@@ -131,7 +144,6 @@ command = pts-actions
 # TODO: grep-excuses -w
 # TODO: autopkgtest/sadt
 # TODO: pkg-perl-tools lintian
-# TODO: scan-copyright
 # TODO: apt Apt::Get::AllowUnauthenticated=true and --force-yes
 
 # vim:ft=dosini

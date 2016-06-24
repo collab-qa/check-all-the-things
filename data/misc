@@ -146,6 +146,7 @@ command = grep -rF mailto:/ .
 # TODO: svn --trust-server-cert
 # TODO: bogomips
 # TODO: diction
+# TODO: python3-proselint
 # TODO: ripper #796920
 # TODO: similarity-tester sim_text
 # TODO: https://jwilk.net/software/mwic
@@ -156,5 +157,7 @@ command = grep -rF mailto:/ .
 # TODO: http://www.coding-guidelines.com/numbers/
 # TODO: ebnflint
 # TODO: http://fbinfer.com/ #789059
+# TODO: https://github.com/btford/write-good
+# TODO: https://github.com/facebook/pfff/wiki/Scheck
 
 # vim:ft=dosini
