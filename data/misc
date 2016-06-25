@@ -91,7 +91,7 @@ command = grep -riEC1 '((check|test) *\|\| *true|-dh_auto_test)' .
 
 [timeless]
 comment = Prevents reproducible builds: https://reproducible-builds.org/
-command = grep -rE ' __DATE__|__TIME__' .
+command = grep -rE ' __DATE__|__TIME__|__TIMESTAMP__' .
 
 [project-flint]
 flags = todo
