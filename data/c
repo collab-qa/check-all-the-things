@@ -29,7 +29,8 @@ command = include-what-you-use {file}
 [flawfinder]
 apt = flawfinder
 # see maybe_process_file and c_extensions in the flawfinder script in flawfinder
-# TODO: update it before releases
+# TODO: update it before releases:
+# sed -n '/^c_extensions/,/ *}$/p' /usr/bin/flawfinder | sed "s/ *: *1 *,*/ /g;s/#.*//;s/'//g;s/\./*./g;s/ \+/ /g;s/.*[{}]//;s/\(.*\)/\L\1/;s/ *$//"
 files =
  *.c *.h
  *.ec *.ecp
