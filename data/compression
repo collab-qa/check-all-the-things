@@ -51,16 +51,40 @@ apt = unzip
 # grep extensions= |
 # sed 's_| *extensions *= *_ _;s_{{ext|\([^}]*\)}} *,* *_*.\1 _g;s_others__;s/ *$//'
 files =
- *.zip
- *.jar *.apk *.xpi *.ipa *.sb2 *.pk3 *.wz *.love
- *.docx *.xlsx *.pptx *.xlsb
+ *.xpi *.sb2 *.pk3 *.wz *.love
+ *.apk
+ *.cbz *.cbr *.cbt *.cba *.cb7
+ *.epub
+ *.docx
+ *.epub
+ *.folio
+ *.ggb
+ *.it *.itbz *.itgz *.itr *.itz
+ *.ipa
+ *.jar *.j
+ *.cel *.kcf
+ *.kra
+ *.maff
+ *.docx *.xlsx *.pptx
+ *.ofip
  *.odm *.odt *.ods *.odg *.odp *.odc *.odi *.odf *.odb *.ott *.ots *.otg *.otp *.otc *.oti *.otf *.oth *.fodt *.fods *.fodg *.fodp
- *.ggb *.maff *.cbz *.ora
- *.epub *.oxps *.xps
+ *.odg *.fodg *.otg
+ *.odp *.fodp *.otp
+ *.ods *.fods *.ots
+ *.odt *.fodt *.ott
+ *.ora
+ *.oxps *.xps
  *.otx
  *.pkpass
- *.itz
+ *.epub
+ *.exe others
  *.svx
+ *.sxd *.std
+ *.sxi *.sti
+ *.sxw
+ *.xlsb
+ *.xlsx
+ *.zip
 types = application/zip
 command = unzip -q -t {file} | grep -v '^No errors detected in compressed data of '
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
