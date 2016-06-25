@@ -1,3 +1,77 @@
+check-all-the-things (2016.06.25) experimental; urgency=medium
+
+  * New release.
+    - The "Check A Bunch Of Things" release
+    - The official abbreviation is now cats. Meow!
+    - Bump Standards-Version, no changes needed
+    - Use https for Vcs-Git and other URLs
+    - Warn away the busy, lazy or noise intolerant
+    - Drop the separation between groups/flags
+    - Drop todo item deps down to Suggests
+    - Fix file matching in a number of cases
+    - Add argument completion for bash
+    - Add an indicator of the currently running command
+    - Add (slow) support for matching files based on MIME type (Closes: #791722)
+    - Add better advice for style/complexity/other checks
+    - Disable network checks when there is no default gateway
+    - Trim check output to 10 lines by default
+    - Support overlays for older distros
+    - Add 'modify' flag for commands that modify files and
+      thus should not be run by default
+    - Add 'manual' flag for commands that must be manually run
+    - Handle 'todo' flagged checks properly
+    - Show list of found file extentions that were not checked
+    - Rename final section to 'Remarks' since the name grew long
+    - Give an error when choosing unknown checks/flags
+    - Report when help is needed for some existing checks
+    - Match more ZIP-based files for the unzip-test check
+    - Document the use of usertags for this package
+    - Document places where more check tools can be found
+    - Add appstreamcli validate - check AppStream files
+    - Add appstream-util validate - check AppStream files
+    - Add bls-standalone - check build logs for issues
+    - Add build-log-static-library - warn against static linking
+    - Add complexity - check C code for function complexity
+    - Add kwstyle - check C code for style conformance
+    - Add opencolladavalidator - check COLLADA files
+    - Add csslint-0.6 - check CSS files
+    - Add wrap-and-sort - wrap and sort various debian/ files
+    - Add license-reconcile - check debian/copyright files
+    - Add debmake-k - check debian/copyright files
+    - Add autodep8 - check if DEP-8 tests can be created
+    - Add lockdep - check pthread-using programs
+    - Add zzuf - fuzz program input
+    - Add afl - intelligently fuzz program input
+    - Add hardening-check - check programs for hardening
+    - Add spellintian - check spelling using lintian dictionaries
+    - Add flightcrew - check epub e-book files
+    - Add erlang-shell-inject - check for Erlang shell metachar injection
+    - Add erl-tidy - check Erlang code
+    - Add font-embedding-restrictions - check TTF embedding restrictions
+    - Add two jsonlints - check JSON files
+    - Add autoupdate - update autotools files
+    - Add autoscan - check completeness of configure.ac
+    - Add timeless - check for macros that break reproducible builds
+    - Add http - check for http URLs to switch to https
+    - Add embed checks - heuristics for embedded code copies
+    - Add mailto - check mailto: links
+    - Add ocaml-shell-injection - check for OCaml shell metachar injection
+    - Add pylint - check Python code for various issues
+    - Add rpmlint - check RPM files
+    - Add web-to-shell - check for `curl | sudo sh` antipattern
+    - Add ssl-cert-check - check SSL key/cert files
+    - Add yamllint - check YAML files
+    - TODO items for android-lint smatch rzip-test lrzip-test
+      csslint scan-copyrights licensecheck2dep5 debian-tracker
+      erlang-elvis opentype-sanitiser bugpicker nit librejs-cli
+      jpegoptim lisp-critic project-flint scheck ocaml-unsafe
+      ocaml-mascot cpants-lint php7cc pngcrush optipng advpng
+      mypy pycodestyle pydocstyle python3-requirements-detector
+      pydiatra pytype ruby-reek ruby-sadist ruby-derailer
+      ruby-space swiftlint x509lint certlint
+
+ -- Paul Wise <pabs@debian.org>  Sat, 25 Jun 2016 12:08:10 +0200
+
 check-all-the-things (2015.12.10) experimental; urgency=medium
 
   * New release.
