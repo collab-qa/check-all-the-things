@@ -1,7 +1,10 @@
 [cppcheck]
 apt = cppcheck
 # see Path::acceptFile etc in lib/path.cpp in cppcheck
-# TODO: update it before releases
+# TODO: update it before releases:
+# curl -s https://sources.debian.net/data/main/c/cppcheck/latest/lib/path.cpp |
+# grep 'ext.* == "' |
+# sed 's/.*"\([^"]*\)".*/\1/;s/^/ */'
 files =
  *.c *.cc *.cxx *.cpp *.c++
  *.h *.hpp *.tpp *.txx
