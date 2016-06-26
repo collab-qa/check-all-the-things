@@ -4,3 +4,5 @@ command = grep -w unsafe {files}
 
 # TODO: https://github.com/Manishearth/rust-clippy
 # TODO: https://github.com/Manishearth/rust-tenacious
+
+# vim:ft=dosini

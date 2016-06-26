@@ -14,3 +14,5 @@ command = ssl-cert-check -b -c {file} | grep -v -w Valid
 
 # TODO: https://github.com/kroeckx/x509lint
 # TODO: https://github.com/awslabs/certlint
+
+# vim:ft=dosini

@@ -12,3 +12,5 @@ command = grep go:generate {files}
 # TODO: golint #799169
 # TODO: https://github.com/dvyukov/go-fuzz#go-fuzz-randomized-testing-for-go
 # TODO: http://0xdabbad00.com/2015/04/12/looking_for_security_trouble_spots_in_go_code/
+
+# vim:ft=dosini

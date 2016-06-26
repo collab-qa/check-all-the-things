@@ -2,3 +2,5 @@
 flags = todo
 apt = gendarme
 comment = gendarme ...
+
+# vim:ft=dosini

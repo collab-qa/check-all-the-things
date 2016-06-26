@@ -20,3 +20,5 @@ comment =
 [pgp-private-key]
 flags = keys
 command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN PGP PRIVATE KEY BLOCK-----.*-----END PGP PRIVATE KEY BLOCK-----' .
+
+# vim:ft=dosini

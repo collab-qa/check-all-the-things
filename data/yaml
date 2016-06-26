@@ -2,3 +2,5 @@
 apt = yamllint
 files = *.yaml *.yml ./debian/upstream/metadata ./debian/upstream/edam
 command = yamllint {files}
+
+# vim:ft=dosini

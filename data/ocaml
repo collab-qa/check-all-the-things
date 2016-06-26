@@ -11,3 +11,5 @@ command = grep -E 'Unix\.(system|open_process(|_in|_out|_full))' {files}
 # TODO: unsafe language features: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=702349#24
 #       asked about on #ocaml and here: <1452740997.2807.5.camel@debian.org>
 # TODO: http://mascot.x9c.fr/
+
+# vim:ft=dosini

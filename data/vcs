@@ -5,3 +5,5 @@
 # TODO: git/etc fsck
 # TODO: mr status
 # TODO: gitrob https://github.com/michenriksen/gitrob
+
+# vim:ft=dosini

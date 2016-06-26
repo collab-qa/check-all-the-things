@@ -7,3 +7,5 @@ command = jsonlint-py3 {files} | grep -v ': ok$'
 apt = jsonlint
 files = *.json
 command = jsonlint-php {file} | grep -v '^Valid JSON$'
+
+# vim:ft=dosini

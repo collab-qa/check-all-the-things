@@ -9,3 +9,5 @@ command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-
 [ec-private-key]
 flags = keys
 command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN EC PRIVATE KEY-----.*-----END EC PRIVATE KEY-----' .
+
+# vim:ft=dosini

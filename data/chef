@@ -4,3 +4,5 @@ comment = lots of false positives due to *.rb being Chef files and also Ruby fil
 apt = foodcritic
 files = *.rb
 command = foodcritic .
+
+# vim:ft=dosini

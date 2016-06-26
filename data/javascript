@@ -31,3 +31,5 @@ command = librejs-cli {files}
 # TODO: closure-linter
 # TODO: shell metacharacter injection: child_process.exec()
 # TODO: https://github.com/MozillaSecurity/funfuzz/
+
+# vim:ft=dosini

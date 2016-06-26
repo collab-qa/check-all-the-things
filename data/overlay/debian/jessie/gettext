@@ -2,3 +2,5 @@
 # Drop --jobs from the arguments since it gives an error:
 # i18nspector: error: unrecognized arguments: --jobs=2
 command = i18nspector {files}
+
+# vim:ft=dosini

@@ -6,3 +6,5 @@ command = luacheck -q .
 comment = Needs to not print anything when no files/issues were found
 
 # TODO: http://lua-users.org/wiki/ProgramAnalysis
+
+# vim:ft=dosini

@@ -12,3 +12,5 @@ command = erl -noshell -eval 'erl_tidy:dir(".", [{test, true}, {verbose, false}]
 flags = todo
 files = *.erl
 comment = https://github.com/inaka/elvis
+
+# vim:ft=dosini

@@ -4,3 +4,5 @@ apt = rpmlint
 files = *.rpm *.spec
 types = application/x-rpm
 command = rpmlint .
+
+# vim:ft=dosini

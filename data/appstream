@@ -9,3 +9,5 @@ apt = appstream-util
 files = *.metainfo.xml *.appdata.xml
 # TODO: clarify if we want validate-strict
 command = appstream-util validate {files} | grep -v ': OK$'
+
+# vim:ft=dosini
