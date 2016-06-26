@@ -642,10 +642,11 @@ class FlagSelectionAction(argparse.Action):
     unknown_msg = 'unknown flag: {}'
     missing_msg = 'missing flag name'
 
-    def __init__(self, option_strings, dest, checks={}, flags=set(), all=set(), prepend_values=[], *args, **kwargs):
+    def __init__(self, option_strings, dest, checks={}, flags=set(), all=set(), disable={}, prepend_values=[], *args, **kwargs):
         self.checks = checks
         self.flags = flags
         self.all = all
+        self.disabled = disable
         self.prepend_values = prepend_values
         super().__init__(option_strings=option_strings, dest=dest, *args, **kwargs)
 
@@ -653,25 +654,42 @@ class FlagSelectionAction(argparse.Action):
         for value in self.prepend_values + values:
             process(self, value.split())
 
+
+    def do(self, flags, enable, disable):
+        bad = set(self.disabled.keys())
+        want_all = flags
+        want_bad = flags & bad
+        want_good = flags - bad
+        for name, check in sorted(self.checks.items()):
+            checkf = check.flags
+            check_enable = check_disable = False
+            if want_good & checkf:
+                if bad & checkf & want_bad:
+                    check_enable = True
+                elif not(checkf & bad):
+                    check_enable = True
+                else:
+                    check_disable = True
+            elif want_all <= bad and want_all & checkf:
+                check_enable = True
+            else:
+                check_disable = True
+            if enable and check_enable:
+                self.checks[name].disabled.clear()
+            elif disable and check_disable:
+                self.checks[name].disabled.add(self.msg)
+
     def change(self, flags):
         self.flags.__init__(flags)
-        for name, check in self.checks.items():
-            if check.__getattribute__(self.name).isdisjoint(flags):
-                self.checks[name].disabled.add(self.msg)
-            else:
-                self.checks[name].disabled.clear()
+        self.do(flags, True, True)
 
     def enable(self, flags):
         self.flags.update(flags)
-        for name, check in self.checks.items():
-            if not check.__getattribute__(self.name).isdisjoint(flags):
-                self.checks[name].disabled.clear()
+        self.do(flags, True, False)
 
     def disable(self, flags):
         self.flags.difference_update(flags)
-        for name, check in self.checks.items():
-            if not check.__getattribute__(self.name).isdisjoint(flags):
-                self.checks[name].disabled.add(self.msg)
+        self.do(flags, False, True)
 
 
 class RangeCompleter(object):
@@ -869,7 +887,7 @@ def main():
                          " (example: = audio c - mp3 + sh)"
                          " (example: = dangerous + network - todo)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
-                    action=FlagSelectionAction, checks=checks, flags=flags, all=all_flags,
+                    action=FlagSelectionAction, checks=checks, flags=flags, all=all_flags, disable=disable_flags,
                     ).completer = ChoicesCompleter(sorted(all_flags))
     ap.add_argument('--all', '-a', nargs=0,
                     help="perform checks with possible side effects,"
