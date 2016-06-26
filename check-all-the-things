@@ -598,12 +598,18 @@ def process(self, choices):
             args = set()
             action = new_action
         args.update(arg)
-    process_args(self, action, args)
+        if not args:
+            raise argparse.ArgumentError(self, self.missing_msg)
+    if args:
+        process_args(self, action, args)
+    else:
+        raise argparse.ArgumentError(self, self.missing_msg)
 
 
 class CheckSelectionAction(argparse.Action):
     msg = 'cmdline disabled check'
     unknown_msg = 'unknown check: {}'
+    missing_msg = 'missing check name'
 
     def __init__(self, option_strings, dest, checks={}, all=set(), prepend_values=[], *args, **kwargs):
         self.checks = checks
@@ -634,6 +640,7 @@ class CheckSelectionAction(argparse.Action):
 class FlagSelectionAction(argparse.Action):
     msg = 'cmdline disabled flag'
     unknown_msg = 'unknown flag: {}'
+    missing_msg = 'missing flag name'
 
     def __init__(self, option_strings, dest, checks={}, flags=set(), all=set(), prepend_values=[], *args, **kwargs):
         self.checks = checks
