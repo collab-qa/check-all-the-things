@@ -455,7 +455,10 @@ class Check(object):
         if self.prereq is None:
             if not self.cmd:
                 return
-            cmd = shlex.split(self.cmd)[0]
+            cmdline = shlex.split(self.cmd)
+            cmd = cmdline[0]
+            if cmd == 'cat':
+                cmd = cmdline[cmdline.index('|') + 1]
             if not which(cmd) and not self.is_flag_set('todo'):
                 raise UnmetPrereq('command not found: ' + cmd)
         else:
