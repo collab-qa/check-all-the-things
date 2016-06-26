@@ -897,8 +897,8 @@ def main():
                     help="enable check overlay for distribution release",
                     default=None, choices=['jessie'])
     mime_help = (" matching files based on MIME type."
-                " MIME checking is slow and"
-                " makes more complicated commands.")
+                 " MIME checking is slow and"
+                 " makes more complicated commands.")
     ap.add_argument('--mime', dest='mime', action='store_true', help='Enable '+mime_help)
     ap.add_argument('--no-mime', dest='mime', action='store_false', help='Disable '+mime_help)
     ap.set_defaults(mime=False)
