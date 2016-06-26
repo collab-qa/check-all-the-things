@@ -1015,6 +1015,7 @@ def main():
                     print()
                     sys.exit()
             try:
+                output = None
                 output = check.do(name, jobs, run, hide, limit, method, terminal, remarks)
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
