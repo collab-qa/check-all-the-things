@@ -565,31 +565,40 @@ class Formatter(argparse.ArgumentDefaultsHelpFormatter, argparse.MetavarTypeHelp
     pass
 
 
+def process_args(self, action, args):
+    for arg in args:
+        if arg not in self.all:
+            raise argparse.ArgumentError(self, self.unknown_msg.format(arg))
+    action(args)
+
+
 def process(self, choices):
     action = self.change
     args = set()
     for choice in choices:
         arg = None
+        start = True
         if choice.startswith('='):
-            action = self.change
+            new_action = self.change
         elif choice.startswith('+'):
-            action = self.enable
+            new_action = self.enable
         elif choice.startswith('-'):
-            action = self.disable
+            new_action = self.disable
         else:
+            start = False
             arg = choice
         if arg is None:
-            args = set()
             arg = choice[1:]
         if arg:
             arg = set([arg])
         else:
             arg = set()
+        if args and start:
+            process_args(self, action, args)
+            args = set()
+            action = new_action
         args.update(arg)
-        for arg in args:
-            if arg not in self.all:
-                raise argparse.ArgumentError(self, self.unknown_msg.format(arg))
-        action(args)
+    process_args(self, action, args)
 
 
 class CheckSelectionAction(argparse.Action):
