@@ -660,8 +660,8 @@ class FlagSelectionAction(argparse.Action):
         for value in self.prepend_values + values:
             process(self, value.split())
 
-
-    def do(self, flags, enable, disable):
+    def change(self, flags):
+        self.flags.__init__(flags)
         bad = set(self.disabled.keys())
         want_all = flags
         want_bad = flags & bad
@@ -680,22 +680,43 @@ class FlagSelectionAction(argparse.Action):
                 check_enable = True
             else:
                 check_disable = True
-            if enable and check_enable:
+            if check_enable:
                 self.checks[name].disabled.clear()
-            elif disable and check_disable:
+            elif check_disable:
                 self.checks[name].disabled.add(self.msg)
-
-    def change(self, flags):
-        self.flags.__init__(flags)
-        self.do(flags, True, True)
 
     def enable(self, flags):
         self.flags.update(flags)
-        self.do(flags, True, False)
+        bad = set(self.disabled.keys())
+        want_all = flags
+        want_bad = flags & bad
+        want_good = flags - bad
+        for name, check in sorted(self.checks.items()):
+            checkf = check.flags
+            check_enable = False
+            if want_good & checkf:
+                if bad & checkf & want_bad:
+                    check_enable = True
+                elif not(checkf & bad):
+                    check_enable = True
+            elif want_all <= bad and want_all & checkf:
+                check_enable = True
+            if check_enable:
+                self.checks[name].disabled.clear()
 
     def disable(self, flags):
         self.flags.difference_update(flags)
-        self.do(flags, False, True)
+        bad = set(self.disabled.keys())
+        want_all = flags
+        want_bad = flags & bad
+        want_good = flags - bad
+        for name, check in sorted(self.checks.items()):
+            checkf = check.flags
+            check_disable = False
+            if want_good & checkf:
+                check_disable = True
+            if check_disable:
+                self.checks[name].disabled.add(self.msg)
 
 
 class RangeCompleter(object):
