@@ -566,18 +566,23 @@ class Formatter(argparse.ArgumentDefaultsHelpFormatter, argparse.MetavarTypeHelp
 
 
 def process_args(self, action, args):
-    for arg in args:
-        if arg not in self.all:
-            raise argparse.ArgumentError(self, self.unknown_msg.format(arg))
-    action(args)
+    if args:
+        for arg in args:
+            if arg not in self.all:
+                raise argparse.ArgumentError(self, self.unknown_msg.format(arg))
+        action(args)
+    else:
+        raise argparse.ArgumentError(self, self.missing_msg)
 
 
 def process(self, choices):
-    action = self.change
+    action = None
     args = set()
-    for choice in choices:
+    if not choices:
+        raise argparse.ArgumentError(self, self.missing_msg)
+    end = len(choices)-1
+    for i, choice in enumerate(choices):
         arg = None
-        start = True
         if choice.startswith('='):
             new_action = self.change
         elif choice.startswith('+'):
@@ -585,7 +590,7 @@ def process(self, choices):
         elif choice.startswith('-'):
             new_action = self.disable
         else:
-            start = False
+            new_action = None
             arg = choice
         if arg is None:
             arg = choice[1:]
@@ -593,17 +598,18 @@ def process(self, choices):
             arg = set([arg])
         else:
             arg = set()
-        if args and start:
+        if i == 0:
+            action = new_action if new_action else self.change
+            args.update(arg)
+        if i > 0 and i < end:
+            if new_action:
+                process_args(self, action, args)
+                action = new_action
+                args = set()
+            args.update(arg)
+        if i == end:
+            args.update(arg)
             process_args(self, action, args)
-            args = set()
-            action = new_action
-        args.update(arg)
-        if not args:
-            raise argparse.ArgumentError(self, self.missing_msg)
-    if args:
-        process_args(self, action, args)
-    else:
-        raise argparse.ArgumentError(self, self.missing_msg)
 
 
 class CheckSelectionAction(argparse.Action):
