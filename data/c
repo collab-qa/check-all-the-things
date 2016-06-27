@@ -109,6 +109,7 @@ types = text/x-c
 command = complexity {files}
 
 [kwstyle]
+flags = manual
 apt = kwstyle
 files =
  *.c *.cc *.cxx *.cpp
@@ -116,7 +117,7 @@ files =
 comment =
  Please consider checking your code with KWStyle:
  https://kitware.github.io/KWStyle/resources/documentation.html
-command = echo KWStyle -R -d .
+command = KWStyle -R -d .
 
 # TODO: pscan
 # TODO: adlint
