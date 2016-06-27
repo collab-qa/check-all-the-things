@@ -76,18 +76,6 @@ types = text/x-c text/x-c++
 command = clang-tidy <files> --
 comment = because it can't be automatically run from `find -exec` due to the requirement for --
 
-[clang-modernize]
-flags = modify
-apt = clang-modernize | clang-modernize-3.5
-files =
- *.cc *.cxx *.cpp
- *.hh *.hxx *.hpp
-types = text/x-c text/x-c++
-comment =
- Please consider modernizing your C++ code with clang-modernize:
- http://clang.llvm.org/extra/clang-modernize.html
-command = clang-modernize {files}
-
 [m64-m32]
 files =
  *.c *.cc *.cxx *.cpp
