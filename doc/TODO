@@ -28,9 +28,6 @@ https://atomlinter.github.io/
 https://github.com/coala-analyzer/coala-bears/tree/master/bears
 https://github.com/alecthomas/gometalinter
 
-Wildcards is not always an adequate mechanisms for detecting file types. Think
-of Python or Perl scripts without extensions, or ELF binaries.
-
 A mechanisms for filtering output is needed.
 
 Only inform about a skipped check if there were actually matching files.
