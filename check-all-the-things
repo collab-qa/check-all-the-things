@@ -401,7 +401,7 @@ class Check(object):
         self._set_fcmd_(fcmd, type, '-iname')
         self._set_fcmd_(fcmd, type + '_path', '-iwholename')
 
-    def get_sh_cmd(self, njobs=1):
+    def get_sh_cmd(self, njobs=1, types=False):
         kwargs = {
             'files': '{} +',
             'file': '{} \\;',
@@ -436,7 +436,7 @@ class Check(object):
                     fcmd += ['-a']
                 fcmd += ['!']
                 self._set_fcmd(fcmd, 'not_files')
-            if self.types:
+            if self.types and types:
                 tfcmd = ''
                 if any:
                     tfcmd += '''-print0 -o '''
@@ -514,8 +514,8 @@ class Check(object):
     def is_flag_set(self, value):
         return value in self.flags
 
-    def do(self, name, jobs, run, hide, limit, method, terminal, remarks):
-        cmd = self.get_sh_cmd(njobs=jobs)
+    def do(self, name, jobs, types, run, hide, limit, method, terminal, remarks):
+        cmd = self.get_sh_cmd(njobs=jobs, types=types)
         comment = self.comment
         manual = self.is_flag_set('manual')
         style = self.is_flag_set('style')
@@ -997,6 +997,7 @@ def main():
     walk(typedb, checks, remarks, matching_checks, False, '.')
     if typedb:
         typedb.close()
+    types = bool(typedb)
     for name, check in sorted(checks.items()):
         next = False
         if name not in matching_checks:
@@ -1019,7 +1020,7 @@ def main():
                     sys.exit()
             try:
                 output = None
-                output = check.do(name, jobs, run, hide, limit, method, terminal, remarks)
+                output = check.do(name, jobs, types, run, hide, limit, method, terminal, remarks)
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
                     if output:
