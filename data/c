@@ -62,7 +62,7 @@ files =
 types = text/x-c text/x-c++
 comment =
  Please consider checking your code with clang-check:
- http://clang.llvm.org/extra/clang-modernize.html
+ http://clang.llvm.org/docs/ClangCheck.html
 command = echo clang-check {files} --
 
 [clang-tidy]
