@@ -37,4 +37,6 @@ Only inform about a skipped check if there were actually matching files.
 
 A mechanism to specify the amount/pedanticness of the output.
 
+Support commands that must be run with `find | xargs` instead of `find -exec`
+
 .. vim:ts=3 sw=3 et ft=rst
