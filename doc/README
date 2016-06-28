@@ -1,6 +1,9 @@
 # check-all-the-things
 
 This is a tool to run many tools that can check various things.
+It is probably not suitable for running in untrusted directories
+since there could be unknown interactions leading to code execution
+or commands that do code execution but are not yet known to do that.
 
 ## Philosophy
 

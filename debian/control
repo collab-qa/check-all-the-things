@@ -35,6 +35,9 @@ Description: check all of the things!
  To find out what kind of things it checks, take a
  look at the package recommends and data directory.
  .
+ WARNING: At this time it is probably not suitable
+ for running against untrusted directories.
+ .
  WARNING: since it checks so many things the output
  can be very verbose so don't use it if you don't
  have time to go through the output to find problems.
