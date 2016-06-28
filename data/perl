@@ -8,12 +8,13 @@ flags = dangerous
 [perl-b-lint]
 apt = perl, libb-lint-perl
 files = *.pl *.pm
-prereq = perl -MO=Lint /dev/null
+prereq = perl -t -MO=Lint /dev/null
 command = perl -MO=Lint {file} | grep -v ' syntax OK$'
 comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
 flags = dangerous
 
 [perlcritic]
+flags = perl-bug-588017
 apt = libperl-critic-perl
 command = perlcritic -1 . 2>&1 | grep -vF 'No perl files were found.'
 
@@ -26,7 +27,7 @@ files = *.pl *.pm
 command = podlint {file}
 
 [cpants-lint]
-flags = todo
+flags = todo perl-bug-588017
 apt = cpants-lint
 comment = It is not able to use the current dir instead of tarball (#823299)
 command = cpants_lint

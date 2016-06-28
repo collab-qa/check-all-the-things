@@ -415,6 +415,9 @@ class Check(object):
         if not self.cmd:
             return
         cmd = self.cmd.format(**kwargs)
+        # FIXME: remove this once Debian bug #588017 is no longer relevant
+        if self.is_flag_set('perl-bug-588017'):
+            cmd = 'env PERL5OPT=-m-lib=. ' + cmd
         if self.cmd_nargs > 0:
             fcmd = ['find']
             any = self.not_files or self.not_files_path or self.files or self.files_path

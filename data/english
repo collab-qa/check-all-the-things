@@ -11,7 +11,7 @@ flags = todo spelling
 comment = CPAN Sourcecode::Spellchecker
 
 [spellintian]
-flags = spelling
+flags = spelling perl-bug-588017
 apt = lintian
 not-dirs =
  .bzr .git .hg .svn CVS RCS SCCS _MTN _darcs .pc

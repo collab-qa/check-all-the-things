@@ -42,6 +42,7 @@ command = CC=afl-gcc CXX=afl-g++ ./configure ; make clean all ; afl-fuzz -i test
 apt = hardening-includes
 files = ./debian/*/bin/* ./debian/*/usr/bin/* ./debian/*/sbin/* ./debian/*/usr/sbin/* ./debian/*/usr/games/*
         ./debian/*/lib/lib*.so* ./debian/*/lib/*/lib*.so* ./debian/*/usr/lib/lib*.so* ./debian/*/usr/lib/*/lib*.so*
+flags = perl-bug-588017
 command = hardening-check --quiet {files}
 
 # TODO: abigail-tools

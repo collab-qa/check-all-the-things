@@ -1,10 +1,11 @@
 [cme-check-dpkg]
+flags = perl-bug-588017
 apt = cme | libconfig-model-perl (<< 2.063), libconfig-model-dpkg-perl
 files = ./debian/control ./debian/copyright
 command = cme check dpkg
 
 [scan-copyrights]
-flags = todo
+flags = todo perl-bug-588017
 comment = needs testing
 apt = libconfig-model-dpkg-perl
 command = scan-copyrights
@@ -13,7 +14,7 @@ command = scan-copyrights
 apt = devscripts
 files = ./debian/watch
 command = uscan --report-status --no-verbose
-flags = network
+flags = network perl-bug-588017
 
 [chk-origtargz]
 flags = todo network
@@ -30,10 +31,10 @@ comment =
 apt = duck
 files = ./debian/control ./debian/upstream ./debian/upstream-metadata.yaml ./debian/upstream/metadata ./debian/copyright
 command = duck
-flags = network
+flags = network perl-bug-588017
 
 [lintian]
-flags = package
+flags = package perl-bug-588017
 apt = lintian
 files = ./debian/changelog
 command = lintian --info --display-info --display-experimental --pedantic --show-overrides --color auto
@@ -72,7 +73,7 @@ comment =
  wrap-and-sort makes VCS diffs of package info easier to read
 
 [license-reconcile]
-flags = copyright
+flags = copyright perl-bug-588017
 apt = license-reconcile
 files = ./debian/copyright
 command = license-reconcile
@@ -84,7 +85,7 @@ files = ./debian/copyright
 command = debmake -k
 
 [licensecheck2dep5]
-flags = copyright todo
+flags = copyright todo perl-bug-588017
 comment = Doesn't yet work from within cats
 apt = cdbs
 files = ./debian/copyright

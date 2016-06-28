@@ -1,4 +1,5 @@
 [ocaml-lintian]
+flags = perl-bug-588017
 apt = dh-ocaml, ocaml-nox
 files = *.cma
 command = ocaml-lintian {files}
