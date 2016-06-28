@@ -36,4 +36,11 @@ A mechanism to specify the amount/pedanticness of the output.
 
 Support commands that must be run with `find | xargs` instead of `find -exec`
 
+Sandboxing with kvmtool/bubblewrap/firejail/etc:
+
+Files in cwd to read-only unless modify flag
+Files in cwd to no-exec unless dangerous flag
+All other files to read-only
+All processes to cgroup, kill after each command
+
 .. vim:ts=3 sw=3 et ft=rst
