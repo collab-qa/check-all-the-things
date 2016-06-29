@@ -11,7 +11,7 @@ apt = libconfig-model-dpkg-perl
 command = scan-copyrights
 
 [uscan]
-apt = devscripts
+apt = devscripts, libwww-perl
 files = ./debian/watch
 command = uscan --report-status --no-verbose
 flags = network perl-bug-588017
