@@ -18,7 +18,7 @@ flags = network perl-bug-588017
 
 [chk-origtargz]
 flags = todo network
-apt = devscripts
+apt = devscripts, libwww-perl
 files = ./debian/watch
 comment =
  not yet implemented but checkorig would be like this:
