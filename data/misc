@@ -1,6 +1,6 @@
 [licensecheck]
 flags = copyright
-apt = devscripts
+apt = licensecheck | devscripts (<< 2.16.6~)
 command = licensecheck --check=. --recursive --copyright .
 # TODO: is --check=. reasonable?
 
@@ -9,11 +9,11 @@ apt = devscripts, python3-magic | python-magic
 command = suspicious-source
 
 [licensecheck-generated-files]
-apt = devscripts
+apt = licensecheck | devscripts (<< 2.16.6~)
 command = licensecheck --check=. --recursive --copyright . | grep --text -F 'GENERATED FILE'
 
 [licensecheck-incorrect-fsf-address]
-apt = devscripts
+apt = licensecheck | devscripts (<< 2.16.6~)
 command = licensecheck --check=. --recursive --copyright . | grep --text -F 'with incorrect FSF address'
 
 [fdupes]
