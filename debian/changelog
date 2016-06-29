@@ -20,7 +20,7 @@ check-all-the-things (2016.06.25) experimental; urgency=medium
       thus should not be run by default
     - Add 'manual' flag for commands that must be manually run
     - Handle 'todo' flagged checks properly
-    - Show list of found file extentions that were not checked
+    - Show list of found file extensions that were not checked
     - Rename final section to 'Remarks' since the name grew long
     - Give an error when choosing unknown checks/flags
     - Report when help is needed for some existing checks
