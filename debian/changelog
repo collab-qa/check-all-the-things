@@ -1,3 +1,26 @@
+check-all-the-things (2016.06.29) unstable; urgency=medium
+
+  * Upload to unstable
+  * New release.
+    - The "Check Some Things Slightly More Securely" release
+    - Warn that running cats in untrusted dirs could have consequences
+    - Does not enable checks with disabled flags unless choosing those flags
+      This prevents running dangerous checks with -f perl (Closes: #826089)
+    - Mitigate Debian perl bug #588017 by passing -m-lib=. to perl-based checks
+      This prevents perl-based commands from running code from the current dir
+    - Fix MIME support: disable MIME in commands when MIME is turned off
+    - Give an error with checks/flags options without check names
+    - Fixes crash when interrupting the first command that is run
+    - Fix checking prerequisites for "cat ... | foo" command-lines
+    - Update dependencies for licensecheck-based checks (see #828830, #828872)
+    - Disable KWStyle - should only be run manually
+    - Add clang-tidy - tidy C++ code using LLVM
+    - Add clang-check - check C++ code using LLVM
+    - Add clang-modernize (jessie-only) - modernize C++ code
+    - Add ocaml-unsafe-features - check compiled OCaml for unsafe features
+
+ -- Paul Wise <pabs@debian.org>  Wed, 29 Jun 2016 10:43:04 +0200
+
 check-all-the-things (2016.06.25) experimental; urgency=medium
 
   * New release.
