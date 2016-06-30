@@ -23,6 +23,7 @@ not-files =
  *.gif *.jpg *.jpeg *.png
  *.min.js *.js.map *.js.min
  *.min.css *.css.map *.css.min
+ *.wav
 types = text/plain
 command = spellintian --picky {files}
 
