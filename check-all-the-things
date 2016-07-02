@@ -796,8 +796,8 @@ def set_debian_substvars(checks):
             recommends.append(check.apt)
         else:
             suggests.append(check.apt)
-    recommends = ', '.join(recommends)
-    suggests = ', '.join(suggests)
+    recommends = ', '.join(sorted(recommends))
+    suggests = ', '.join(sorted(suggests))
     with open('debian/check-all-the-things.substvars', 'a') as substvars:
         print('cats:Recommends={}'.format(recommends), file=substvars)
         print('cats:Suggests={}'.format(suggests), file=substvars)
