@@ -1044,13 +1044,13 @@ def main():
         out.width = get_columns()
         out.break_long_words = False
         out.break_on_hyphens = False
-        if options.suppressed_checks_lines == 0:
+        if options.remarks_lines == 0:
             print(header + ' ' + out.fill(', '.join(sorted(remarks))))
         else:
             print(header)
-            if options.suppressed_checks_lines >= 1:
+            if options.remarks_lines >= 1:
                 out.placeholder = ' ...'
-                out.max_lines = options.suppressed_checks_lines
+                out.max_lines = options.remarks_lines
             for reason in sorted(remarks):
                 out.initial_indent = '- {reason}: '.format(reason=reason)
                 out.subsequent_indent = ' ' * len(out.initial_indent)
