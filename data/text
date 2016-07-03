@@ -10,4 +10,6 @@ apt = python3-doc8 | python-doc8
 files = *.txt *.text *.rst
 comment = doc8 {files}
 
+# TODO: https://github.com/myint/rstcheck
+
 # vim:ft=dosini
