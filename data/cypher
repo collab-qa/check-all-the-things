@@ -1,8 +1,6 @@
 # https://en.wikipedia.org/wiki/Cypher_Query_Language
 
 [cypher-lint]
-flags = fixme
-comment = Needs better input options to remove the hack (https://bugs.debian.org/829211)
-apt = cypher-lint
+apt = cypher-lint (>= 0.3.4)
 files = *.cyp
-command = sh -c 'cypher-lint < "$1"' sh {file}
+command = cypher-lint {files}
