@@ -33,5 +33,6 @@ command = spellintian --picky {files}
 # TODO: https://www.cs.umd.edu/~nspring/software/style-check-readme.html
 # TODO: https://github.com/btford/write-good
 # TODO: https://www.languagetool.org/ #403619
+# TODO: http://jwilk.net/software/anorack
 
 # vim:ft=dosini
