@@ -13,5 +13,6 @@ command = jlint.sh 2>&1 | fgrep -v 'Verification completed: 0 reported messages.
 # TODO: http://www.opal-project.de/tools/bugpicker/
 # TODO: http://javalib.gforge.inria.fr/Nit.html
 # TODO: shell metacharacter injection: Runtime.getRuntime().exec()
+# TODO: doctorj
 
 # vim:ft=dosini
