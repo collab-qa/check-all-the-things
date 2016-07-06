@@ -55,7 +55,7 @@ types = application/vnd.debian.binary-package
 command = lintian4py {files}
 
 [upstream-metadata]
-command = 
+command =
  test -d ./debian &&
  ! grep -s -q native debian/source/format &&
  ! test -e debian/upstream/metadata &&
