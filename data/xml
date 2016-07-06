@@ -4,4 +4,7 @@ files = *.xml
 types = application/xml
 command = xmllint --noout --nonet {files}
 
+# TODO: xmlwf (part of expat)
+# TODO: rxp
+
 # vim:ft=dosini
