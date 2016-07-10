@@ -12,7 +12,7 @@ command = puppet parser validate {files}
 
 [puppet-syntax]
 flags = todo cfg-mgmt
-comment = ruby-puppet-syntax ITP #800400
+comment = ruby-puppet-syntax
 
 # TODO: erb files?
 # erb -x -T '-' {files} | ruby -c

@@ -56,16 +56,16 @@ command = pylint3 --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}
 # TODO: pymetrics
 # TODO: dodgy
 # TODO: mypy
-# TODO: prospector #781165
-# TODO: pyroma #734121
+# TODO: prospector
+# TODO: pyroma
 # TODO: pylama #779449
-# TODO: dodgy #788206
-# TODO: vulture #788222
-# TODO: bandit #793007
+# TODO: dodgy
+# TODO: vulture
+# TODO: bandit
 # TODO: python-debtcollector
-# TODO: python-afl #792317
+# TODO: python-afl
 # TODO: pycodestyle #816496
-# TODO: pydocstyle #816498
+# TODO: pydocstyle
 # TODO: python3-requirements-detector
 # TODO: https://github.com/jlachowski/clonedigger
 # TODO: https://github.com/rubik/xenon

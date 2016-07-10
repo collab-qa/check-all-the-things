@@ -121,7 +121,7 @@ command = grep -rF mailto:/ .
 # TODO: wget --no-check-certificate
 # TODO: svn --trust-server-cert
 # TODO: bogomips
-# TODO: ripper #796920
+# TODO: ripper
 # TODO: similarity-tester sim_text
 # TODO: https://github.com/coala-analyzer/coala
 # TODO: https://github.com/nexB/scancode-toolkit/
