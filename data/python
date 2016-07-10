@@ -73,5 +73,6 @@ command = pylint3 --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}
 # TODO: http://jwilk.net/software/pydiatra
 # TODO: shell metacharacter injection: subprocess shell=True os.system os.popen popen2 commands
 # TODO: https://github.com/google/pytype
+# TODO: pep8-naming
 
 # vim:ft=dosini
