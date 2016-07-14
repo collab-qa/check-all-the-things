@@ -43,4 +43,6 @@ Files in cwd to no-exec unless dangerous flag
 All other files to read-only
 All processes to cgroup, kill after each command
 
+Add more types of deps for general and language-specific package managers
+
 .. vim:ts=3 sw=3 et ft=rst
