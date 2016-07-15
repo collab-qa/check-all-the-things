@@ -34,6 +34,12 @@ files = *.png *.gif *.jpg *.jpeg
 types = image/*
 command = grep -iF inkscape {files}
 
+[bitmap-base64]
+flags = images
+files = *.xml *.html *.svg
+comment = Check with upstream why they are storing binary data in plain text form.
+command = grep -oP 'data:image/[a-z0-9]*;base64,.{{20}}' {files}
+
 [cpuinfo]
 comment = Parsing /proc/cpuinfo is not portable at all, use /sys instead.
 command = grep -rF /proc/cpuinfo .
