@@ -46,7 +46,6 @@ command = pylint3 --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}
 
 # TODO: hacking
 # TODO: flake8
-# TODO: pep257
 # TODO: pylint-celery
 # TODO: pylint-django
 # TODO: pylint-flask
