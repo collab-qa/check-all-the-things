@@ -77,7 +77,7 @@ files =
  *.otx
  *.pkpass
  *.epub
- *.exe others
+ *.exe
  *.svx
  *.sxd *.std
  *.sxi *.sti
