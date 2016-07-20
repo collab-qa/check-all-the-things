@@ -1,0 +1,4 @@
+[dsniff]
+flags = network-dump
+files = *.pcap
+command = /usr/sbin/dsniff -p {file} | grep -v 'dsniff: using '
