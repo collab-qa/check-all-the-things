@@ -1,0 +1,5 @@
+[httpolice]
+flags = todo
+comment = https://github.com/vfaronov/httpolice
+files = *.har
+command = httpolice -i har {file}
