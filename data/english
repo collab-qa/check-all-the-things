@@ -34,5 +34,6 @@ command = spellintian --picky {files}
 # TODO: https://github.com/btford/write-good
 # TODO: https://www.languagetool.org/ #403619
 # TODO: http://jwilk.net/software/anorack
+# TODO: https://github.com/decagon/pedant
 
 # vim:ft=dosini
