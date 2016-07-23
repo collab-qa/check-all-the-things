@@ -39,6 +39,7 @@ command = lzip --test {files}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [unzip-test]
+flags = fixme fixme-silent
 apt = unzip
 # Extension list from the File Formats wiki:
 # http://fileformats.archiveteam.org/wiki/Category:ZIP_based_file_formats
@@ -90,6 +91,7 @@ command = unzip -q -t {file} | grep -v '^No errors detected in compressed data o
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [7z-test]
+flags = fixme fixme-silent
 apt = p7zip
 files = *.7z
 types = application/x-7z-compressed

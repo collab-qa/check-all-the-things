@@ -1,5 +1,5 @@
 [jpeginfo]
-flags = images
+flags = images fixme fixme-silent
 apt = jpeginfo
 files = *.jpg *.jpeg
 types = image/jpeg

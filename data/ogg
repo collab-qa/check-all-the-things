@@ -1,5 +1,5 @@
 [ogginfo]
-flags = audio
+flags = audio fixme fixme-silent
 apt = vorbis-tools
 files = *.ogg *.oga *.ogv
 types = audio/ogg video/ogg

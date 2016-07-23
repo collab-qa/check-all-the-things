@@ -1,4 +1,5 @@
 [epubcheck]
+flags = fixme fixme-silent
 apt = epubcheck
 files = *.epub
 types = application/epub+zip

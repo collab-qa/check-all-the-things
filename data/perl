@@ -3,7 +3,7 @@ apt = perl
 files = *.pl *.pm
 command = perl -wc {file} | grep -v ' syntax OK$'
 comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
-flags = dangerous
+flags = dangerous fixme fixme-silent
 
 [perl-b-lint]
 apt = perl, libb-lint-perl
@@ -11,10 +11,10 @@ files = *.pl *.pm
 prereq = perl -t -MO=Lint /dev/null
 command = perl -MO=Lint {file} | grep -v ' syntax OK$'
 comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
-flags = dangerous
+flags = dangerous fixme fixme-silent
 
 [perlcritic]
-flags = perl-bug-588017
+flags = perl-bug-588017 fixme fixme-silent
 apt = libperl-critic-perl
 command = perlcritic -1 . 2>&1 | grep -vF 'No perl files were found.'
 

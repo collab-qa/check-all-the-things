@@ -11,6 +11,7 @@ types = application/x-font-ttf application/vnd.ms-opentype
 command = ftvalid {file}
 
 [ftlint]
+flags = fixme fixme-silent
 apt = freetype2-demos
 files = *.ttf *.otf
 types = application/x-font-ttf application/vnd.ms-opentype

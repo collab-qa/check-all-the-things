@@ -1,5 +1,5 @@
 [opencolladavalidator]
-flags = fixme
+flags = fixme fixme-silent
 apt = opencollada-tools
 files = *.dae
 comment = Remove the grep when #808796 is fixed
