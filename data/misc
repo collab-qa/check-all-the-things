@@ -17,6 +17,7 @@ apt = licensecheck | devscripts (<< 2.16.6~)
 command = licensecheck --check=. --recursive --copyright . | grep --text -F 'with incorrect FSF address'
 
 [fdupes]
+flags = fixme fixme-ignore
 apt = fdupes
 command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer|pc)|_(darcs|FOSSIL_)|CVS)(/|$)' | cat -s
 
@@ -71,8 +72,7 @@ command = find \( -name .git -o -name .svn -o -name .bzr -o -name CVS -o -name .
 command = grep -riE 'fixme|todo|hack|xxx+|broken' .
 
 [isutf8]
-apt = moreutils
-# TODO: replace not-dirs with --ignore option
+apt = moreutils fixme fixme-ignore
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 flags = fixme
 comment = A recursive option needs to be implemented (#780197)
