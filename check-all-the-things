@@ -806,7 +806,7 @@ def set_debian_substvars(checks):
 def walk(typedb, checks, remarks, matching_checks, parent, top):
     ignore_checks = {}
     ignore_checks[top] = set()
-    ignore_dirs = set('.git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer'.split())
+    ignore_dirs = set('.git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc'.split())
     for root, dirs, files in os.walk(top):
         root_set = set(root.split(os.path.sep))
         if parent:

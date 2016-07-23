@@ -2,41 +2,41 @@
 files = *.gz *.tgz
 types = application/gzip
 command = gzip --test {files}
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [bzip2-test]
 apt = bzip2
 files = *.bz2 *.tbz
 types = application/x-bzip2
 command = bzip2 --test {files}
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [xz-test]
 apt = xz-utils
 files = *.xz *.txz
 types = application/x-xz
 command = xz --test {files}
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [lzma-test]
 apt = xz-utils
 files = *.lzma
 types = application/x-lzma
 command = lzma --test {files}
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [lzo-test]
 apt = lzop
 files = *.lzo
 command = lzop --test {files}
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [lzip-test]
 apt = lzip
 files = *.lzip
 types = application/x-lzip
 command = lzip --test {files}
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [unzip-test]
 apt = unzip
@@ -87,14 +87,14 @@ files =
  *.zip
 types = application/zip
 command = unzip -q -t {file} | grep -v '^No errors detected in compressed data of '
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [7z-test]
 apt = p7zip
 files = *.7z
 types = application/x-7z-compressed
 command = 7zr t {file} | grep --perl-regexp --null-data --only-matching '(?s)Processing archive: .*\n\nError[^\n]*' | tr -s '\n'
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [rzip-test]
 flags = todo
@@ -102,7 +102,7 @@ comment = the --test argument is not supported and runzip -o /dev/null gives an 
 apt = rzip
 files = *.rz
 command = rzip --test {files}
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [lrzip-test]
 flags = todo
@@ -110,6 +110,6 @@ comment = All the tests I did killed my computer
 apt = lrzip
 files = *.lrz
 command = lrzip --test {files}
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 # vim:ft=dosini

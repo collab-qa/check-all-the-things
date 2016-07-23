@@ -18,7 +18,7 @@ command = licensecheck --check=. --recursive --copyright . | grep --text -F 'wit
 
 [fdupes]
 apt = fdupes
-command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer)|_(darcs|FOSSIL_)|CVS)(/|$)' | cat -s
+command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer|pc)|_(darcs|FOSSIL_)|CVS)(/|$)' | cat -s
 
 [bitmap-multilayer]
 flags = images
@@ -65,7 +65,7 @@ command = autoscan
 comment = Overwrites autom4te.cache/ autoscan.log configure.scan (#818572)
 
 [empty]
-command = find \( -name .git -o -name .svn -o -name .bzr -o -name CVS -o -name .hg -o -name _darcs -o -name _FOSSIL_ -o -name .sgdrawer \) -prune -o -empty -print
+command = find \( -name .git -o -name .svn -o -name .bzr -o -name CVS -o -name .hg -o -name _darcs -o -name _FOSSIL_ -o -name .sgdrawer -o -name .pc \) -prune -o -empty -print
 
 [todo]
 command = grep -riE 'fixme|todo|hack|xxx+|broken' .
@@ -73,7 +73,7 @@ command = grep -riE 'fixme|todo|hack|xxx+|broken' .
 [isutf8]
 apt = moreutils
 # TODO: replace not-dirs with --ignore option
-not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 flags = fixme
 comment = A recursive option needs to be implemented (#780197)
 not-files =
