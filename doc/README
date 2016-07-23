@@ -54,6 +54,11 @@ checkers that take more than one argument.
 When the support for a check is suboptimal, you can add fixme to the flags
 field and add a comment with info about what needs to be fixed.
 
+Some common comments for fixme flags are available with additional flags:
+
+fixme-silent: when commands need an option to be more silent
+fixme-ignore: when commands need an option to ignore some paths
+
 When adding TODO entries, please add a new check config but set the flags
 field to todo and add any known hints in the apt/comment/command fields.
 

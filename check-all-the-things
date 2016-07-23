@@ -524,6 +524,8 @@ class Check(object):
         style = self.is_flag_set('style')
         complexity = self.is_flag_set('complexity')
         fixme = self.is_flag_set('fixme')
+        fixme_silent = fixme and self.is_flag_set('fixme-silent')
+        fixme_ignore = fixme and self.is_flag_set('fixme-ignore')
         todo = self.is_flag_set('todo')
         embed = self.is_flag_set('embed')
         run = cmd and run and not manual and not todo
@@ -548,6 +550,10 @@ class Check(object):
         if fixme or todo:
             header += '# This command needs someone to help out with it.\n'
             remark(remarks, name, 'help needed')
+        if fixme_silent:
+            header += '# This command needs an option to only print issues.\n'
+        if fixme_ignore:
+            header += '# This command needs an option to ignore certain paths.\n'
         if comment:
             header += ''.join('# ' + line + '\n' for line in comment.split('\n'))
         if embed and not todo:
