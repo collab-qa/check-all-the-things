@@ -25,4 +25,7 @@ flags = style
 [web-to-shell]
 command = grep -rE '(wget|curl).*\|( *sudo)? *(ba|z|)sh' .
 
+[web-to-apt-key]
+command = grep -rE '(wget|curl).*\|( *sudo)? *apt-key' .
+
 # vim:ft=dosini
