@@ -45,6 +45,7 @@ try:
     def get_columns():
         return get_terminal_size().columns
 except ImportError:
+    # Python 3.2 compatibility:
     from fcntl import ioctl
     from termios import TIOCGWINSZ
     from struct import unpack
@@ -64,6 +65,7 @@ if sys.stdout.isatty():
 try:
     from shutil import which
 except ImportError:
+    # Python 3.2 compatibility:
     def which(cmd):
         PATH = os.environ.get('PATH', '')
         PATH = PATH.split(os.pathsep)
@@ -73,6 +75,7 @@ except ImportError:
                 return path
 
 if not hasattr(shlex, 'quote'):
+    # Python 3.2 compatibility:
     import pipes
     shlex.quote = pipes.quote
 
