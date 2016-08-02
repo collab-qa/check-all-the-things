@@ -573,7 +573,7 @@ class Check(object):
         return output
 
 
-class Formatter(argparse.ArgumentDefaultsHelpFormatter, argparse.MetavarTypeHelpFormatter):
+class Formatter(argparse.ArgumentDefaultsHelpFormatter):
     pass
 
 
