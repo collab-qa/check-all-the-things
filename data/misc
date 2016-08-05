@@ -37,7 +37,7 @@ command = grep -iF inkscape {files}
 
 [bitmap-base64]
 flags = images
-files = *.xml *.html *.svg
+files = *.xml *.html *.xhtml *.svg
 comment = Check with upstream why they are storing binary data in plain text form.
 command = grep -oP 'data:image/[a-z0-9]*;base64,.{{20}}' {files}
 
