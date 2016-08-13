@@ -24,6 +24,6 @@ command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-
 [insecure-recv-keys]
 flags = keys
 comment = Only ever use the full fingerprint when downloading keys
-command = grep --recursive --perl-regexp \b(?:apt-key|gpg2?)\b.*--recv(-keys?)?\s+(0x)?[0-9a-fA-F]{1-31}\b
+command = grep --recursive --perl-regexp \b(?:apt-key|gpg2?)\b.*--recv(-keys?)?\s+(0x)?[0-9a-fA-F]{{1-31}}\b
 
 # vim:ft=dosini
