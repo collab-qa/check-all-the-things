@@ -572,6 +572,8 @@ class Check(object):
             if trim and trimmed:
                 remark(remarks, name, 'trimmed')
         else:
+            if terminal:
+                erase_to_eol_cr()
             output = show_header(header)
         return output
 
