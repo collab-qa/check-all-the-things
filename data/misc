@@ -116,7 +116,7 @@ command = find -mindepth 2 -iname '*README*'
 [embed-dirs]
 flags = embed
 comment = Please check if these directories contain embedded code/data copies.
-command = find -type d -name 'vendor*' -o -iname '*rd*party' -o -name contrib -o -name imports -o -name node_modules -o -iname external -o -iname deps
+command = find -type d -name 'vendor*' -o -iname '*rd*party' -o -iname 3rdp -o -name contrib -o -name imports -o -name node_modules -o -iname external -o -iname deps
 
 [mailto]
 comment = As per RFC 6068, there should be no slashes after "mailto:".
