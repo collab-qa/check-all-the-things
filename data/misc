@@ -35,6 +35,27 @@ files = *.png *.gif *.jpg *.jpeg
 types = image/*
 command = grep -iF inkscape {files}
 
+[bitmap-synfig]
+flags = images
+comment = Check with upstream where the Synfig SIF source files are.
+files = *.png *.gif *.jpg *.jpeg
+types = image/*
+command = grep -i 'SINFG|SYNFIG' {files}
+
+[bitmap-povray]
+flags = images
+comment = Check with upstream where the POV-Ray POV source files are.
+files = *.png *.gif *.jpg *.jpeg
+types = image/*
+command = grep -iF 'POV-Ray' {files}
+
+[bitmap-gnuplot]
+flags = images
+comment = Check with upstream where the gnuplot scripts are.
+files = *.png *.gif *.jpg *.jpeg
+types = image/*
+command = grep -iF 'gnuplot' {files}
+
 [bitmap-base64]
 flags = images
 files = *.xml *.html *.xhtml *.svg
