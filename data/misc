@@ -21,14 +21,14 @@ flags = fixme fixme-ignore
 apt = fdupes
 command = fdupes -q -r . | grep -vE '/(\.(git|svn|bzr|hg|sgdrawer|pc)|_(darcs|FOSSIL_)|CVS)(/|$)' | cat -s
 
-[bitmap-multilayer]
+[bitmap-gimp]
 flags = images
 comment = Check with upstream where the GIMP XCF source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
 command = grep -iF gimp {files}
 
-[bitmap-vector]
+[bitmap-inkscape]
 flags = images
 comment = Check with upstream where the Inkscape SVG source files are.
 files = *.png *.gif *.jpg *.jpeg
