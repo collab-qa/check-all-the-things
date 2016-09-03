@@ -93,9 +93,9 @@ command = find \( -name .git -o -name .svn -o -name .bzr -o -name CVS -o -name .
 command = grep -riE 'fixme|todo|hack|xxx+|broken' .
 
 [isutf8]
-apt = moreutils fixme fixme-ignore
+apt = moreutils
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
-flags = fixme
+flags = fixme fixme-ignore
 comment = A recursive option needs to be implemented (#780197)
 not-files =
  *.blend
