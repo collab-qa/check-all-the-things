@@ -6,8 +6,16 @@ apt = cppcheck
 # grep 'ext.* == "' |
 # sed 's/.*"\([^"]*\)".*/\1/;s/^/ */'
 files =
- *.c *.cc *.cxx *.cpp *.c++
- *.h *.hpp *.tpp *.txx
+ *.c
+ *.cpp
+ *.cxx
+ *.cc
+ *.c++
+ *.hpp
+ *.hxx
+ *.hh
+ *.tpp
+ *.txx
 types = text/x-c text/x-c++
 command = cppcheck -j{njobs} --quiet -f .
 
