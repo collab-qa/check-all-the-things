@@ -17,6 +17,7 @@ comment = You may want to submit your PHP code to http://php-grinder.com/
 # TODO: https://github.com/wayfair/hussar
 # TODO: https://github.com/rlerdorf/phan
 # TODO: https://github.com/sebastianbergmann/phpcpd
+# TODO: https://github.com/wsdookadr/mdetect https://blog.garage-coding.com/2016/09/01/detecting-potentially-malicious-php-code-using-parsers-and-heuristics.html
 # TODO: shell metacharacter injection: backticks exec system passthru shell_exec popen proc_open
 
 # vim:ft=dosini
