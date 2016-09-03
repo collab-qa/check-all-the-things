@@ -1,3 +1,31 @@
+check-all-the-things (2016.09.03) unstable; urgency=medium
+
+  * New release.
+    - The "Reproducibly Depend On Thing Checkers" release
+    - Fixes reproducible builds by sorting Recommends/Suggests (Closes: #829297)
+    - Rename an option in line with final 'Remarks' section rename
+    - Allow autocompletion with alias cats=check-all-the-things
+    - Ignore quilt .pc directories in all the places VCSen are ignored
+    - Eliminate terminal crunk for certain situations
+    - Update spellintian - ignore *.wav files too
+    - Update unzip-test - check *.zhfst files too
+    - Update embed-dirs - warn about deps and 3rdp dirs too
+    - Update cppcheck - check *.hxx *.hh files too
+    - Add cypher-lint - check Cypher Query Language files
+    - Add bitmap-synfig - ask where Synfig SIF source files are
+    - Add bitmap-povray - ask where POV-Ray POV source files are
+    - Add bitmap-gnuplot - ask where gnuplot scripts are
+    - Add bitmap-base64 - check files for embedded base64 images
+    - Add dsniff - check for passwords in packet capture files
+    - Add web-to-apt-key - check for blindly installing gpg keys
+    - Add insecure-recv-keys - check for insecure downloads of gpg keys
+    - TODO items for rstcheck anorack fuzz linklint webcheck doctorj xmlwf
+      checkit_tiff pylint-celery pylint-flask  pep8-naming vint flay mdetect
+      markdownlint haxe-checkstyle cmake-lint stylelint httpolice pedant
+      check-manifest rxp
+
+ -- Paul Wise <pabs@debian.org>  Sat, 03 Sep 2016 12:14:15 +0800
+
 check-all-the-things (2016.06.29.1) unstable; urgency=medium
 
   * New release.
