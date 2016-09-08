@@ -27,7 +27,7 @@ command = librejs-cli {files}
 # TODO: http://www.coffeelint.org/
 # TODO: http://www.jslint.com/
 # TODO: http://jshint.com/
-# TODO: http://flowtype.org/
+# TODO: https://flowtype.org/
 # TODO: closure-linter
 # TODO: shell metacharacter injection: child_process.exec()
 # TODO: https://github.com/MozillaSecurity/funfuzz/
