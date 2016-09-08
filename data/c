@@ -138,7 +138,7 @@ command = KWStyle -R -d .
 # TODO: http://oclint.org/
 # TODO: http://saturn.stanford.edu/
 # TODO: https://scan.coverity.com/
-# TODO: https://github.com/facebook/flint
+# TODO: https://github.com/facebookarchive/flint
 # TODO: https://github.com/Krazy-collection/krazy
 # TODO: https://css.csail.mit.edu/stack/
 # TODO: https://github.com/kframework/c-semantics
