@@ -13,7 +13,7 @@ apt-cache search --names-only '(lint|check|valid|tidy|detect)'
 https://github.com/scrooloose/syntastic/tree/master/syntax_checkers
 https://git.fedorahosted.org/cgit/FedoraReview.git
 https://github.com/michenriksen/gitrob/blob/master/signatures.json
-https://registry.hub.docker.com/repos/codeclimate/
+https://docs.codeclimate.com/docs/list-of-engines
 https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis#C.2FC.2B.2B
 https://github.com/mcandre/linters
 https://gitlab.com/linted/linted/tree/master/scripts
