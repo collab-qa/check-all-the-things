@@ -114,4 +114,10 @@ files = *.lrz
 command = lrzip --test {files}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
+[zstd-test]
+apt = zstd
+files = *.zst
+command = zstd --quiet --test {file}
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
+
 # vim:ft=dosini
