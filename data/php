@@ -2,7 +2,7 @@
 apt = php-cli | php5-cli
 files = *.php*
 types = text/x-php
-command = php -l -f {file}
+command = php -l -f {file} | grep -v '^No syntax errors detected in '
 
 [php-grinder]
 files = *.php*
