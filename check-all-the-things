@@ -513,9 +513,11 @@ class Check(object):
             return True
         return False
 
-    def is_always_matching(self):
-        if not (self.files or self.files_path or self.files_parent or self.types):
-            return True
+    def is_always_matching_files(self):
+        return not (self.files or self.files_path or self.files_parent)
+
+    def is_always_matching_types(self):
+        return not self.types
 
     def is_flag_set(self, value):
         return value in self.flags
@@ -815,6 +817,10 @@ def set_debian_substvars(checks):
 
 
 def walk(typedb, checks, remarks, matching_checks, parent, top):
+    matched_globs = collections.defaultdict(set)
+    matched_names = collections.defaultdict(set)
+    matched_types = collections.defaultdict(set)
+    unknown = 'application/octet-stream'
     ignore_checks = {}
     ignore_checks[top] = set()
     ignore_dirs = set('.git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc'.split())
@@ -838,17 +844,18 @@ def walk(typedb, checks, remarks, matching_checks, parent, top):
             if not stat.S_ISREG(st.st_mode):
                 continue
             base, ext = os.path.splitext(file)
-            if not ext:
-                not_checked = base
+            base = base.lower()
+            ext = ext.lower()
+            if ext:
+                matched_files = matched_globs
+                matched_key = ext
             else:
-                not_checked = '*' + ext
-            matching_checks_this_file = False
+                matched_files = matched_names
+                matched_key = base
             for name, check in checks.items():
                 if check.disabled:
                     continue
                 if name in ignore_checks[root]:
-                    continue
-                if name in matching_checks:
                     continue
                 if parent:
                     if check.is_parent_file_matching(path):
@@ -856,18 +863,25 @@ def walk(typedb, checks, remarks, matching_checks, parent, top):
                 else:
                     if check.is_file_matching(path, file):
                         matching_checks.add(name)
-                        if not check.is_always_matching() and not check.is_flag_set('todo'):
-                            matching_checks_this_file = True
-                    elif typedb:
+                        if not check.is_always_matching_files() and not check.is_flag_set('todo'):
+                            matched_files[matched_key].add(name)
+                    if typedb:
                         if not type:
                             type = typedb.file(path)
-                        if type != 'application/octet-stream':
+                        if type != unknown:
+                            if name in matched_types[type]:
+                                continue
                             if check.is_type_matching(type):
                                 matching_checks.add(name)
-                                if not check.is_always_matching() and not check.is_flag_set('todo'):
-                                    matching_checks_this_file = True
-            if not (parent or matching_checks_this_file or root_set.intersection(ignore_dirs)):
-                remark(remarks, not_checked, 'no specific checks')
+                                if not check.is_always_matching_types() and not check.is_flag_set('todo'):
+                                    matched_types[type].add(name)
+            if not (parent or root_set.intersection(ignore_dirs)):
+                if ext and not matched_globs[ext]:
+                     remark(remarks, '*' + ext, 'no specific file name wildcard checks')
+                if not ext and base and not matched_names[base]:
+                     remark(remarks, base, 'no specific file name checks')
+                if typedb and type != unknown and not matched_types[type]:
+                    remark(remarks, type, 'no specific file type checks')
 
 
 def network():
