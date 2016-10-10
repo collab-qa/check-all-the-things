@@ -30,4 +30,9 @@ comment = https://github.com/Microsoft/Font-Validator
 flags = todo
 comment = opentype-sanitiser RFP #817031 https://github.com/khaledhosny/ots
 
+[t1lint]
+apt = lcdf-typetools
+files = *.pfa *.pfb
+command = t1lint {files}
+
 # vim:ft=dosini
