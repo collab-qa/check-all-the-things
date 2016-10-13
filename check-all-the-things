@@ -726,8 +726,6 @@ class FlagSelectionAction(argparse.Action):
     def disable(self, flags):
         self.flags.difference_update(flags)
         bad = set(self.disabled.keys())
-        want_all = flags
-        want_bad = flags & bad
         want_good = flags - bad
         for name, check in sorted(self.checks.items()):
             checkf = check.flags
