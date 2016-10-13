@@ -4,3 +4,5 @@ files = GNUmakefile Makefile *.make *.mk
 types = text/x-makefile
 command = make --question --makefile {file}
 flags = dangerous
+
+# vim:ft=dosini

@@ -4,3 +4,5 @@
 apt = cypher-lint (>= 0.3.4)
 files = *.cyp
 command = cypher-lint {files}
+
+# vim:ft=dosini
