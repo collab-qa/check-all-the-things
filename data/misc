@@ -87,6 +87,7 @@ command = autoscan
 comment = Overwrites autom4te.cache/ autoscan.log configure.scan (#818572)
 
 [empty]
+types = inode/x-empty
 command = find \( -name .git -o -name .svn -o -name .bzr -o -name CVS -o -name .hg -o -name _darcs -o -name _FOSSIL_ -o -name .sgdrawer -o -name .pc \) -prune -o -empty -print
 
 [todo]
