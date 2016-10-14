@@ -37,14 +37,14 @@ comment = These calls are potentially vulnerable to Python code injection
 command = grep -F 'yaml.load' {files}
 
 [pylint]
-apt = pylint
+apt = pylint (>= 1.1.0)
 files = *.py
 types = text/x-python
 prereq = python2 -m pylint --rcfile=/dev/null /dev/null
 command = python2 -m pylint --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
 
 [pylint3]
-apt = pylint3
+apt = pylint3 (>= 1.1.0)
 files = *.py
 types = text/x-python
 prereq = python3 -m pylint --rcfile=/dev/null /dev/null
