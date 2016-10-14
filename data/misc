@@ -5,7 +5,11 @@ command = licensecheck --check=. --recursive --copyright .
 # TODO: is --check=. reasonable?
 
 [suspicious-source]
-apt = devscripts, python3-magic | python-magic
+# We need:
+#   devscripts (<< 2.13.1~), python-magic
+# or
+#   devscripts (>= 2.13.1~), python3-magic
+apt = devscripts, devscripts (>= 2.13.1~) | python-magic, devscripts (<< 2.13.1~) | python3-magic
 command = suspicious-source
 
 [licensecheck-generated-files]
