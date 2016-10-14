@@ -1,12 +1,12 @@
 [pyflakes]
-apt = pyflakes
+apt = pyflakes (>= 0.7.3)
 files = *.py
 types = text/x-python
 prereq = python2 -m pyflakes /dev/null
 command = python2 -m pyflakes {files}
 
 [pyflakes3]
-apt = pyflakes3 | pyflakes (<< 1.1.0-1)
+apt = pyflakes3 | pyflakes (>= 0.7.3), pyflakes3 | pyflakes (<< 1.1.0-1)
 files = *.py
 types = text/x-python
 prereq = python3 -m pyflakes /dev/null
