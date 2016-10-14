@@ -2,12 +2,14 @@
 apt = pyflakes
 files = *.py
 types = text/x-python
+prereq = python2 -m pyflakes /dev/null
 command = python2 -m pyflakes {files}
 
 [pyflakes3]
 apt = pyflakes3 | pyflakes (<< 1.1.0-1)
 files = *.py
 types = text/x-python
+prereq = python3 -m pyflakes /dev/null
 command = python3 -m pyflakes {files}
 
 [pep8]
@@ -38,12 +40,14 @@ command = grep -F 'yaml.load' {files}
 apt = pylint
 files = *.py
 types = text/x-python
+prereq = python2 -m pylint --rcfile=/dev/null /dev/null
 command = python2 -m pylint --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
 
 [pylint3]
 apt = pylint3
 files = *.py
 types = text/x-python
+prereq = python3 -m pylint --rcfile=/dev/null /dev/null
 command = python3 -m pylint --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
 
 # TODO: hacking
