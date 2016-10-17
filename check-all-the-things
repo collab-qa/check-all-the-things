@@ -2,7 +2,7 @@
 # PYTHON_ARGCOMPLETE_OK
 
 # Copyright 2014-2018 Jakub Wilk <jwilk@jwilk.net>
-# Copyright 2015-2016 Paul Wise <pabs@debian.org>
+# Copyright 2015-2018 Paul Wise <pabs@debian.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -80,6 +80,31 @@ if not hasattr(shlex, 'quote'):
     # Python 3.2 compatibility:
     import pipes
     shlex.quote = pipes.quote
+
+if not hasattr(signal, 'Signals'):
+    # Python 3.4 compatibility:
+    try:
+        from enum import IntEnum
+    except ImportError:
+        # Python 3.3 compatibility:
+        def IntEnum(tname, values):
+            remove = ['SIGIOT', 'SIGCLD']
+            _Signals = {value: key for key, value in values if key not in remove}
+
+            def Signals(value):
+                class Signal(object):
+                    def __init__(self, name):
+                        self.name = name
+                return Signal(_Signals[value])
+            return Signals
+
+    items = []
+    for name, value in vars(signal).items():
+        sig = name.startswith('SIG') and not name.startswith('SIG_')
+        ctrl = name.startswith('CTRL_')
+        if name.isupper() and sig or ctrl:
+            items.append((name, value))
+    signal.Signals = IntEnum('Signals', items)
 
 try:
     import argcomplete
@@ -871,6 +896,144 @@ def set_debian_substvars(checks):
         print('cats:Suggests={}'.format(suggests), file=substvars)
 
 
+def strip_path(script):
+    base = os.path.basename(script)
+    if which(base) == script:
+        return base
+    return script
+
+
+def cats_cmd(*args):
+    script = strip_path(sys.argv[0])
+    cmd = [shlex.quote(script)]
+    cmd += args
+    cmd += [shlex.quote(arg) for arg in sys.argv[1:]]
+    cmd = ' '.join(cmd)
+    return cmd
+
+
+def root_cmd(cmd):
+    if which('sudo'):
+        return ['sudo'] + cmd
+    elif which('pkexec'):
+        return ['pkexec'] + cmd
+    elif which('su'):
+        return 'su -c'.split() + [' '.join([shlex.quote(arg) for arg in cmd])]
+    else:
+        return None
+
+
+def install_apt(matching_checks, checks):
+    if os.geteuid() == 0:
+        print('ERROR: Installing apt packages should not be done as root', file=sys.stderr)
+        return 1
+    try:
+        import apt_pkg
+        apt_pkg.init_system()
+    except ImportError:
+        print('ERROR: Python apt module not installed', file=sys.stderr)
+        return 1
+    missing = []
+    check_deps = []
+    for name, check in checks.items():
+        if name not in matching_checks or check.disabled or not check.debian:
+            continue
+        try:
+            check.meet_prereq()
+        except UnmetPrereq:
+            missing.append(name)
+            check_deps.append(check.debian)
+    if not missing:
+        print('ERROR: no missing commands to install', file=sys.stderr)
+        return 1
+    deps = ', '.join(sorted(check_deps))
+    build_deps = 'Build-Depends: ' + deps
+    if which('apt'):
+        version = ipc.check_output('apt-get --version'.split()).split()[1]
+        # apt 0.5.5 added the APT::Build-Essential option
+        # apt 0.9.14.3~exp3 added the apt command
+        # apt 1.0 installed the apt command by default
+        # apt 1.1~exp1 added support for installing build-deps from .dsc files
+        # apt 1.2.2 switched to using the normal resolver for build-deps
+        # apt 1.4~beta3 allows the default APT::Build-Essential to be overridden
+        # apt 1.4~beta3~bpo could be in someone's local backports
+        if apt_pkg.version_compare(version, '1.4~beta3~') >= 0:
+            from tempfile import NamedTemporaryFile as tmp
+            with tmp(mode='w', prefix='check-all-the-things-install-', suffix='.dsc') as dsc:
+                print(build_deps, file=dsc)
+                # Ensure that apt will see the contents of the dsc
+                dsc.flush()
+                # The option prevents apt from installing build-essential
+                # The comma is important because the option is a list
+                cmd = 'apt build-dep --option APT::Build-Essential=,'.split()
+                fake_cmd = list(cmd)
+                cmd.append(dsc.name)
+                fake_dsc = './check-all-the-things-install.dsc'
+                fake_cmd.append(fake_dsc)
+                cmd = root_cmd(cmd)
+                fake_cmd = root_cmd(fake_cmd)
+                if cmd is None:
+                    print('ERROR: tools for gaining root are not available', file=sys.stderr)
+                    return 1
+                print('Installing missing commands for checks:', *missing)
+                print('Installing packages:', deps)
+                print('$', 'echo', shlex.quote(build_deps), '>', fake_dsc)
+                print('$', *[shlex.quote(arg) for arg in fake_cmd])
+                # Both the gain root command and apt itself request confirmation
+                # so that does not have to be done here
+                p = ipc.Popen(cmd)
+                ret = None
+                try:
+                    ret = p.wait()
+                except KeyboardInterrupt:
+                    try:
+                        p.terminate()
+                    except OSError:
+                        pass
+                    ret = p.wait()
+                    print()
+                if ret > 0:
+                    print('apt returned failure code: {}'.format(ret))
+                elif ret < 0:
+                    ret = -ret
+                    sig = signal.Signals(ret).name
+                    print('apt terminated by signal: {}'.format(sig))
+                    # Preserve the exit status in the same way that shells do
+                    ret += 128
+                return ret
+            print('ERROR: could not open temporary file', file=sys.stderr)
+            return 1
+    print('ERROR: apt earlier than version 1.4~beta3 not supported yet', file=sys.stderr)
+    return 1
+
+
+def install_debian(matching_checks, checks):
+    return install_apt(matching_checks, checks)
+
+
+def install(install_type, matching_checks, checks):
+    if install_type == 'debian':
+        ret = install_debian(matching_checks, checks)
+    else:
+        print('ERROR: Unknown install type {}'.format(install_type), file=sys.stderr)
+        ret = 1
+    return ret
+
+
+def install_choice():
+    if os.path.isfile('/etc/debian_version'):
+        return 'debian'
+    else:
+        return None
+
+
+def install_cmd(install_type):
+    if install_type:
+        return cats_cmd('--install', install_type)
+    else:
+        return None
+
+
 def walk(typedb, checks, remarks, matching_checks, parent, top):
     matched_globs = collections.defaultdict(set)
     matched_names = collections.defaultdict(set)
@@ -1060,6 +1223,9 @@ def main():
                  " makes more complicated commands.")
     ap.add_argument('--mime', dest='mime', action='store_true', help='Enable '+mime_help)
     ap.add_argument('--no-mime', dest='mime', action='store_false', help='Disable '+mime_help)
+    ap.add_argument('--install', type=str,
+                    help="install missing check commands via a package manager",
+                    nargs='?', default=None, const='auto', choices=['auto', 'debian'])
     ap.set_defaults(mime=False)
     if argcomplete:
         argcomplete.autocomplete(ap)
@@ -1094,6 +1260,15 @@ def main():
     if typedb:
         typedb.close()
     types = bool(typedb)
+    if options.install == 'auto':
+        options.install = install_choice()
+    if options.install:
+        ret = install(options.install, matching_checks, checks)
+        # Exit since users will not expect mixing install and checks
+        sys.exit(ret)
+    else:
+        install_type = install_choice()
+        cats_install = install_cmd(install_type)
     for name, check in sorted(checks.items()):
         next = False
         if name not in matching_checks and not check.disabled:
@@ -1106,6 +1281,8 @@ def main():
             check.meet_prereq()
         except UnmetPrereq as exc:
             remark(remarks, name, str(exc))
+            if cats_install:
+                remark(remarks, None, 'commands can be installed with: {}'.format(cats_install))
             exc = None
         else:
             if (time.time() - last_interrupt) < options.interrupt_period:
