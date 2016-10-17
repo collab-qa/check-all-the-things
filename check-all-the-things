@@ -782,7 +782,8 @@ def parse_file(checks, flags, path, overlay=False):
 def remark(remarks, name, reason):
     if reason not in remarks:
         remarks[reason] = set()
-    remarks[reason].add(name)
+    if name:
+        remarks[reason].add(name)
     return True
 
 
@@ -1075,9 +1076,12 @@ def main():
                 out.placeholder = ' ...'
                 out.max_lines = options.remarks_lines
             for reason in sorted(remarks):
-                out.initial_indent = '- {reason}: '.format(reason=reason)
-                out.subsequent_indent = ' ' * len(out.initial_indent)
-                print(out.fill(' '.join(sorted(remarks[reason]))))
+                if remarks[reason]:
+                    out.initial_indent = '- {reason}: '.format(reason=reason)
+                    out.subsequent_indent = ' ' * len(out.initial_indent)
+                    print(out.fill(' '.join(sorted(remarks[reason]))))
+                else:
+                    print('- {reason}'.format(reason=reason))
 
 if __name__ == '__main__':
     main()
