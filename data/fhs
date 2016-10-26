@@ -1,4 +1,0 @@
-[fhs]
-command = grep -nHEr '/(home|srv|opt)(\W|$)' .
-
-# vim:ft=dosini

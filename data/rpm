@@ -1,9 +1,0 @@
-[rpmlint]
-comment = Dangerous because parsing RPM spec files executes arbitrary code
-flags = package dangerous
-apt = rpmlint
-files = *.rpm *.spec
-types = application/x-rpm
-command = rpmlint .
-
-# vim:ft=dosini

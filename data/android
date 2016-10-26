@@ -1,7 +1,0 @@
-[android-lint]
-flags = todo
-comment = can't run it from the command-line?
-command = lint ...
-apt = android-platform-tools-base
-
-# vim:ft=dosini

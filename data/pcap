@@ -1,6 +1,0 @@
-[dsniff]
-flags = network-dump fixme fixme-silent
-files = *.pcap
-command = /usr/sbin/dsniff -p {file} | grep -v 'dsniff: using '
-
-# vim:ft=dosini

@@ -1,8 +1,0 @@
-[opencolladavalidator]
-flags = fixme fixme-silent
-apt = opencollada-tools
-files = *.dae
-comment = Remove the grep when #808796 is fixed
-command = opencolladavalidator {file} | grep -v '" is valid against the COLLADA [0-9.]\+ schema\.$'
-
-# vim:ft=dosini

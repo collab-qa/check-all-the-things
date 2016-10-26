@@ -1,9 +1,0 @@
-[luacheck]
-apt = lua-check
-files = *.lua
-flags = fixme fixme-silent run-in-tmp-dir
-command = luacheck -q {cwd}
-
-# TODO: http://lua-users.org/wiki/ProgramAnalysis
-
-# vim:ft=dosini

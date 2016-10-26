@@ -1,7 +1,0 @@
-[xapian-check]
-flags = todo
-comment = needs a way to find which dirs to check
-apt = xapian-tools
-command = xapian-check <dir>
-
-# vim:ft=dosini

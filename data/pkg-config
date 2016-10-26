@@ -1,6 +1,0 @@
-[pkg-config]
-apt = pkg-config
-files = *.pc
-command = pkg-config --validate {files}
-
-# vim:ft=dosini

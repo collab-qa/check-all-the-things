@@ -1,6 +1,0 @@
-[opusinfo]
-apt = opus-tools
-files = *.opus
-command = opusinfo -q {files}
-
-# vim:ft=dosini

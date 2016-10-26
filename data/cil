@@ -1,9 +1,0 @@
-[gendarme]
-flags = fixme
-comment = Needs an option to disable warnings about non-CIL *.dll files
-apt = gendarme
-files = *.dll
-types = application/x-dosexec
-command = gendarme --quiet {files}
-
-# vim:ft=dosini

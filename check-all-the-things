@@ -110,8 +110,11 @@ except ImportError:
 this = os.path.realpath(__file__)
 rootdir = os.path.dirname(this)
 datadir = os.environ.get('CATS_DATA')
+dataglob = '*.ini'
 if not datadir or not os.path.isdir(datadir):
     datadir = os.path.join(rootdir, 'data')
+else:
+    dataglob = '*'
 if not datadir or not os.path.isdir(datadir):
     datadir = os.path.join(os.path.dirname(rootdir), 'share',
                            'check-all-the-things', 'data')
@@ -806,10 +809,10 @@ def parse_section(section, check=None):
 
 def parse_conf(checks={}, flags=set(), distro=None, release=None):
     if distro and release:
-        for path in glob.glob(os.path.join(datadir, 'overlay', distro, release, '*')):
+        for path in glob.glob(os.path.join(datadir, 'overlay', distro, release, dataglob)):
             parse_file(checks, flags, path, True)
     else:
-        for path in glob.glob(os.path.join(datadir, '*')):
+        for path in glob.glob(os.path.join(datadir, dataglob)):
             parse_file(checks, flags, path)
     return (checks, flags)
 
@@ -826,7 +829,7 @@ def parse_file(checks, flags, path, overlay=False):
                 raise RuntimeError('duplicate check name: ' + name)
         else:
             checks[name] = parse_section(section)
-        checks[name].flags.update({os.path.basename(path)})
+        checks[name].flags.update({os.path.splitext(os.path.basename(path))[0]})
         flags.update(checks[name].flags)
 
 

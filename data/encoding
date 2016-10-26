@@ -1,6 +1,0 @@
-[uu-test]
-apt = sharutils
-files = *.uue *.uu *.enc
-command = uudecode -o /dev/null {file}
-
-# vim:ft=dosini

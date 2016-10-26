@@ -1,5 +1,0 @@
-[ansible-lint]
-flags = todo cfg-mgmt
-comment = ansible-lint ITP #799144
-
-# vim:ft=dosini
