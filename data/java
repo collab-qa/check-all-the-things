@@ -14,5 +14,8 @@ command = jlint.sh 2>&1 | fgrep -v 'Verification completed: 0 reported messages.
 # TODO: http://javalib.gforge.inria.fr/Nit.html
 # TODO: shell metacharacter injection: Runtime.getRuntime().exec()
 # TODO: doctorj
+# TODO: https://github.com/amaembo/huntbugs
+# TODO: https://spotbugs.github.io/
+# TODO: https://find-sec-bugs.github.io/
 
 # vim:ft=dosini
