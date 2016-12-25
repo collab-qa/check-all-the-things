@@ -1,3 +1,21 @@
+check-all-the-things (2016.12.25) unstable; urgency=medium
+
+  * New release.
+    - The "Check Everywhere For Tangerines" release
+    - Improve the 'no specific checks' remark
+    - Update php-syntax-check - ignore no files warning
+    - Update empty - never print inode/x-empty as unchecked
+    - Update pylint - check text/x-python files too
+    - Update python checks to work on other distros
+    - Add make - check Makefiles with GNU make
+    - Add pkg-config - check pkg-config .pc files
+    - Add t1lint - check Type 1 font files
+    - Add zstd-test - check zstd compressed files validity
+    - TODO items for urlycue multivalent pdf-hul pdfavalidation
+      huntbugs spotbugs find-sec-bugs binskim
+
+ -- Paul Wise <pabs@debian.org>  Sun, 25 Dec 2016 08:02:09 +0800
+
 check-all-the-things (2016.09.03) unstable; urgency=medium
 
   * New release.
