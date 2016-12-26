@@ -448,7 +448,7 @@ class Check(object):
                     tfcmd += '''-print0 -o '''
                 tfcmd += '''-exec sh -c 'file --mime-type -r0 "$1" | cut -d "" -f 2 | grep -qP "^: '''
                 tfcmd += self._types_re
-                tfcmd += '''$" && printf "%s\\0" "$1"' sh {} \; | xargs -0'''
+                tfcmd += '''$" && printf "%s\\0" "$1"' sh {} \\; | xargs -0'''
                 if self.cmd_nargs == 1:
                     tfcmd += 'n1'
                 fcmd += [tfcmd, self.cmd.format(**null_kwargs)]
