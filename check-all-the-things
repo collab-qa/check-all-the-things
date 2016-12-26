@@ -473,6 +473,8 @@ class Check(object):
                 raise UnmetPrereq('command not found: ' + cmd)
         else:
             try:
+                # For Python 3.2 compatibility, open /dev/null manually instead
+                # of using subprocess.DEVNULL
                 with open(os.devnull, 'wb') as dev_null:
                     ipc.check_call(
                         ['sh', '-e', '-c', self.prereq],
