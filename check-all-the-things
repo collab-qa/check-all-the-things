@@ -36,6 +36,7 @@ import stat
 import time
 import signal
 import subprocess as ipc
+import string
 import sys
 from textwrap import TextWrapper
 
@@ -373,9 +374,12 @@ class Check(object):
 
     def set_command(self, value):
         self.cmd = cmd = value.strip()
-        d = collections.defaultdict(str)
-        cmd.format(**d)
-        nargs = 1 * ('file' in d) + 2 * ('files' in d)
+        fields = {
+            field
+            for text, field, fmt, conv
+            in string.Formatter().parse(cmd)
+        }
+        nargs = 1 * ('file' in fields) + 2 * ('files' in fields)
         if nargs >= 3:
             raise RuntimeError('invalid command specification: ' + cmd)
         self.cmd_nargs = nargs
