@@ -111,12 +111,14 @@ flags = todo
 comment = All the tests I did killed my computer
 apt = lrzip
 files = *.lrz
+types = application/x-lrzip
 command = lrzip --test {files}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
 [zstd-test]
 apt = zstd
 files = *.zst
+types = application/x-zstd
 command = zstd --quiet --test {file}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
