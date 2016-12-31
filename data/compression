@@ -122,4 +122,11 @@ types = application/x-zstd
 command = zstd --quiet --test {file}
 not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
 
+[lz4-test]
+apt = liblz4-tool
+files = *.lz4
+types = application/x-lz4
+command = lz4 --quiet --test {file}
+not-dirs = .git .svn .bzr CVS .hg _darcs _FOSSIL_ .sgdrawer .pc
+
 # vim:ft=dosini
