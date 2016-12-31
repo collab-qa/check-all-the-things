@@ -62,6 +62,7 @@ if sys.stdout.isatty():
     from curses import tigetstr, setupterm
     setupterm()
     erase_line = tigetstr('el')
+    reset_term = tigetstr('sgr0')
 
 try:
     from shutil import which
@@ -140,7 +141,7 @@ def show_header(header):
         return False
 
 
-def spawn_ptyprocess(cmd, hide, header, footer, limit):
+def spawn_ptyprocess(terminal, cmd, hide, header, footer, limit):
     lines = 0
     trimmed = False
 
@@ -159,6 +160,8 @@ def spawn_ptyprocess(cmd, hide, header, footer, limit):
                     lines += 1
                     if lines > limit:
                         trimmed = True
+                        if terminal:
+                            sys.stdout.buffer.write(reset_term)
                         print(*footer, sep='\n')
                         sys.stdout.flush()
                         proc.kill(signal.SIGTERM)
@@ -171,10 +174,12 @@ def spawn_ptyprocess(cmd, hide, header, footer, limit):
             break
     if header and not hide:
         output_header()
+    if terminal and not trimmed:
+        sys.stdout.buffer.write(reset_term)
     return not bool(header), trimmed
 
 
-def spawn_pty(cmd, hide, header, footer, limit):
+def spawn_pty(terminal, cmd, hide, header, footer, limit):
     lines = 0
     trimmed = False
     pipe = None
@@ -199,6 +204,8 @@ def spawn_pty(cmd, hide, header, footer, limit):
             lines += 1
             if lines > limit:
                 trimmed = True
+                if terminal:
+                    sys.stdout.buffer.write(reset_term)
                 print(*footer, sep='\r\n', end='\r\n')
                 sys.stdout.flush()
                 raise OSError
@@ -210,10 +217,12 @@ def spawn_pty(cmd, hide, header, footer, limit):
     pipe.close()
     if header and not hide:
         output_header()
+    if terminal and not trimmed:
+        sys.stdout.buffer.write(reset_term)
     return not bool(header), trimmed
 
 
-def spawn_pipe(cmd, hide, header, footer, limit):
+def spawn_pipe(terminal, cmd, hide, header, footer, limit):
     lines = 0
     trimmed = False
 
@@ -232,6 +241,8 @@ def spawn_pipe(cmd, hide, header, footer, limit):
             lines += 1
             if lines > limit:
                 trimmed = True
+                if terminal:
+                    sys.stdout.buffer.write(reset_term)
                 print(*footer, sep='\n')
                 sys.stdout.flush()
                 proc.terminate()
@@ -251,26 +262,30 @@ def spawn_pipe(cmd, hide, header, footer, limit):
                 sys.stdout.flush()
     if header and not hide:
         output_header()
+    if terminal and not trimmed:
+        sys.stdout.buffer.write(reset_term)
     return not bool(header), trimmed
 
 
-def spawn_none(cmd, header):
+def spawn_none(terminal, cmd, header):
     show_header(header)
     ipc.call(cmd, shell=True, stderr=ipc.STDOUT)
+    if terminal:
+        sys.stdout.buffer.write(reset_term)
     return True, False
 
 
-def spawn(method, cmd, hide, header, footer, limit):
+def spawn(terminal, method, cmd, hide, header, footer, limit):
     if method == 'pipe':
-        return spawn_pipe(cmd, hide, header, footer, limit)
+        return spawn_pipe(terminal, cmd, hide, header, footer, limit)
     elif method == 'ptyprocess':
         show_progress(cmd)
-        return spawn_ptyprocess(cmd, hide, header, footer, limit)
+        return spawn_ptyprocess(terminal, cmd, hide, header, footer, limit)
     elif method == 'pty':
         show_progress(cmd)
-        return spawn_pty(cmd, hide, header, footer, limit)
+        return spawn_pty(terminal, cmd, hide, header, footer, limit)
     elif method == 'none':
-        return spawn_none(cmd, header)
+        return spawn_none(terminal, cmd, header)
     else:
         raise RuntimeError
 
@@ -574,7 +589,7 @@ class Check(object):
             prompt = '# $ ' if manual or todo else '$ '
             header += prompt + cmd
         if run:
-            output, trimmed = spawn(method, cmd, hide, header, footer, limit)
+            output, trimmed = spawn(terminal, method, cmd, hide, header, footer, limit)
             if not output and hide:
                 remark(remarks, name, 'no output')
             if trim and trimmed:
@@ -1057,11 +1072,15 @@ def main():
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
                     if output:
+                        if terminal:
+                            sys.stdout.buffer.write(reset_term)
                         print()
                     sys.exit()
                 elif options.interrupt == 'skip':
                     remark(remarks, name, 'user interrupted')
                     if output:
+                        if terminal:
+                            sys.stdout.buffer.write(reset_term)
                         print()
                 last_interrupt = time.time()
             if output:
