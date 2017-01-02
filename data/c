@@ -127,6 +127,17 @@ comment =
  https://kitware.github.io/KWStyle/resources/documentation.html
 command = KWStyle -R -d .
 
+[path-max]
+files =
+ *.c *.cc *.cxx *.cpp
+ *.h *.hh *.hxx *.hpp
+types = text/x-c text/x-c++
+command = grep -wE 'PATH_MAX|MAXPATHLEN' {files}
+comment =
+ You should not assume that paths are at most PATH_MAX characters long.
+ Some operating systems (e.g. Hurd) don't define PATH_MAX at all.
+ Others (e.g. Linux, OS X) define it, but don't enforce the limit.
+
 # TODO: pscan
 # TODO: adlint
 # TODO: sparse
