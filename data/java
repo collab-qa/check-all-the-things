@@ -1,6 +1,6 @@
 [jlint]
-flags = todo fixme fixme-silent
-comment = re-enable if it enters Debian again (#811366)
+flags = apt-suggests fixme fixme-silent
+comment = remove suggests tag if it enters Debian again (#811366)
 apt = jlint
 command = jlint.sh 2>&1 | fgrep -v 'Verification completed: 0 reported messages.'
 

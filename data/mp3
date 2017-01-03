@@ -6,8 +6,8 @@ types = audio/mpeg
 command = mp3check --error-check --anomaly-check {files}
 
 [checkmp3]
-flags = todo audio
-comment = re-enable if it enters Debian again (#673319)
+flags = apt-suggests audio
+comment = remove suggests tag if it enters Debian again (#673319)
 apt = checkmp3
 files = *.mp3
 types = audio/mpeg
