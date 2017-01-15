@@ -1,3 +1,19 @@
+check-all-the-things (2017.01.15) unstable; urgency=high
+
+  * New release.
+    - The "Check Things Securely Not Portably" release
+    - Reset terminal modes after commands to avoid colour spew
+    - Improve compatibility with Python 3.6
+    - Update python checks to not work on other distros
+      because the `python -m` command is insecure
+    - Update checkers removed from Debian - allow to run if installed
+    - Update lrzip-test/zstd-test - add MIME types
+    - Add lz4-test - check lz4 compressed files
+    - Add path-max - check for non-portable path size macros
+    - TODO items for deep-text-correcter sblint decopy
+
+ -- Paul Wise <pabs@debian.org>  Sun, 15 Jan 2017 10:37:30 +0800
+
 check-all-the-things (2016.12.25) unstable; urgency=medium
 
   * New release.
