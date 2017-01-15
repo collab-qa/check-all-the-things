@@ -109,6 +109,7 @@ apt = devscripts
 files = ./debian/control
 command = pts-actions
 
+# TODO: decopy
 # TODO: dep11-tools
 # TODO: i18n
 # TODO: vcswatch
