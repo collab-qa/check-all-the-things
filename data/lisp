@@ -2,4 +2,6 @@
 flags = todo
 comment = https://github.com/g000001/lisp-critic
 
+# TODO: https://github.com/fukamachi/sblint
+
 # vim:ft=dosini
