@@ -48,4 +48,9 @@ Add more types of deps for general and language-specific package managers
 
 Add the ability to suggest command-lines for installing missing tools
 
+Check if any tests contain dangerous commands:
+
+python -m
+python -c
+
 .. vim:ts=3 sw=3 et ft=rst
