@@ -155,7 +155,7 @@ command = grep -rF mailto:/ .
 # TODO: bogomips
 # TODO: ripper
 # TODO: similarity-tester sim_text
-# TODO: https://github.com/coala-analyzer/coala
+# TODO: https://github.com/coala/coala
 # TODO: https://github.com/nexB/scancode-toolkit/
 # TODO: https://github.com/jeremylong/DependencyCheck/
 # TODO: http://www.coding-guidelines.com/numbers/
