@@ -81,7 +81,7 @@ files =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
 types = text/x-c text/x-c++
-command = clang-tidy <files> --
+command = clang-tidy -checks=* <files> --
 comment = because it can't be automatically run from `find -exec` due to the requirement for --
 
 [m64-m32]
