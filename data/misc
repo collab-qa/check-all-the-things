@@ -163,5 +163,6 @@ command = grep -rF mailto:/ .
 # TODO: http://fbinfer.com/ #789059
 # TODO: https://github.com/facebook/pfff/wiki/Scheck
 # TODO: http://jwilk.net/software/urlycue
+# TODO: https://github.com/dlenski/wtf
 
 # vim:ft=dosini
