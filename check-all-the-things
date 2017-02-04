@@ -448,7 +448,9 @@ class Check(object):
                 self._set_fcmd_(fcmd, 'files_parent', '-iwholename')
                 fcmd += ['-exec', cmd]
                 if any:
-                    fcmd += [';', 'find']
+                    fcmd += [';', 'find', '.']
+            else:
+                fcmd += ['.']
             if self.not_dirs or self.not_dirs_path:
                 fcmd += ['-type', 'd']
                 self._set_fcmd(fcmd, 'not_dirs')
