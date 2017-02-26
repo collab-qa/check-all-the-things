@@ -19,7 +19,7 @@ comment =
 
 [pgp-private-key]
 flags = keys
-command = grep --recursive --perl-regexp --null-data --files-with-matches '(?s)-----BEGIN PGP PRIVATE KEY BLOCK-----.*-----END PGP PRIVATE KEY BLOCK-----' .
+command = grep --recursive --perl-regexp --files-with-matches '(?s)-----BEGIN PGP PRIVATE KEY BLOCK-----.*-----END PGP PRIVATE KEY BLOCK-----' .
 
 [insecure-recv-keys]
 flags = keys
