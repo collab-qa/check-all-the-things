@@ -3,6 +3,11 @@ apt = golang-go
 files = *.go
 command = gofmt -l {files}
 
+[goimports]
+apt = golang-golang-x-tools
+files = *.go
+command = goimports -l {files}
+
 [govet]
 apt = golang-go
 files = *.go
