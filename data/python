@@ -63,7 +63,6 @@ command = pylint3 --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}
 # TODO: prospector
 # TODO: pyroma
 # TODO: pylama #779449
-# TODO: dodgy
 # TODO: vulture
 # TODO: bandit
 # TODO: python-debtcollector
