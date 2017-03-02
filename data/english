@@ -27,8 +27,14 @@ not-files =
 types = text/plain
 command = spellintian --picky {files}
 
+[proselint]
+apt = python3-proselint
+# TODO: update it before releases:
+# cat $(python3 -c 'import proselint.command_line as c; print(c.__file__)') | sed -n -e 's/^ *legal_extensions *= *//p' | sed -e 's/^\["/*/; s/"\]$//; s/", *"/ */g'
+files = *.md *.txt *.rtf *.html *.tex *.markdown
+command = proselint .
+
 # TODO: diction
-# TODO: python3-proselint
 # TODO: https://jwilk.net/software/mwic
 # TODO: https://www.cs.umd.edu/~nspring/software/style-check-readme.html
 # TODO: https://github.com/btford/write-good
