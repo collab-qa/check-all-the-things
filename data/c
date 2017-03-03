@@ -138,7 +138,14 @@ comment =
  Some operating systems (e.g. Hurd) don't define PATH_MAX at all.
  Others (e.g. Linux, OS X) define it, but don't enforce the limit.
 
-# TODO: pscan
+[pscan]
+apt = pscan
+files =
+ *.c *.cc *.cxx *.cpp
+ *.h *.hh *.hxx *.hpp
+types = text/x-c text/x-c++
+command = pscan {files}
+
 # TODO: adlint
 # TODO: sparse
 # TODO: http://repo.or.cz/w/smatch.git
