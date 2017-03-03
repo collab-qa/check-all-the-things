@@ -46,6 +46,12 @@ files = *.py
 types = text/x-python
 command = pylint3 --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}}: [{{category}}:{{symbol}}] {{obj}}: {{msg}}' --reports=n {files}
 
+[mypy]
+apt = mypy
+files = *.py
+types = text/x-python
+command = mypy --fast-parser {files}
+
 # TODO: hacking
 # TODO: flake8
 # TDOO: https://github.com/PyCQA/flake8-import-order
@@ -59,7 +65,6 @@ command = pylint3 --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}
 # TODO: twistedchecker
 # TODO: pymetrics
 # TODO: dodgy
-# TODO: mypy
 # TODO: prospector
 # TODO: pyroma
 # TODO: pylama #779449
