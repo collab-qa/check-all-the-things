@@ -55,7 +55,7 @@ command = pylint3 --rcfile=/dev/null --msg-template='{{path}}:{{line}}:{{column}
 # TODO: pylint-django
 # TODO: pylint-flask
 # TODO: frosted
-# TODO: pychecker
+# TODO: pychecker (dangerous)
 # TODO: twistedchecker
 # TODO: pymetrics
 # TODO: dodgy
