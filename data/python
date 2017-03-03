@@ -17,6 +17,13 @@ files = *.py
 types = text/x-python
 command = pep8 --ignore W191 {files}
 
+[pydocstyle]
+flags = style
+apt = pydocstyle
+files = *.py
+types = text/x-python
+command = pydocstyle .
+
 [site-packages]
 command = grep -rw site-packages .
 
@@ -84,7 +91,6 @@ command = pyroma3 -d .
 # TODO: python-debtcollector
 # TODO: python-afl
 # TODO: pycodestyle #816496
-# TODO: pydocstyle
 # TODO: python3-requirements-detector
 # TODO: https://github.com/jlachowski/clonedigger
 # TODO: https://github.com/rubik/xenon
