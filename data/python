@@ -71,6 +71,20 @@ apt = python-pyroma3
 files = ./setup.py
 command = pyroma3 -d .
 
+[python2-bandit]
+flags = fixme fixme-silent
+apt = python-bandit
+files = *.py
+types = text/x-python
+command = python2-bandit -r .
+
+[python3-bandit]
+flags = fixme fixme-silent
+apt = python3-bandit
+files = *.py
+types = text/x-python
+command = python3-bandit -r .
+
 # TODO: hacking
 # TODO: flake8
 # TDOO: https://github.com/PyCQA/flake8-import-order
@@ -87,7 +101,6 @@ command = pyroma3 -d .
 # TODO: prospector
 # TODO: pylama #779449
 # TODO: vulture
-# TODO: bandit
 # TODO: python-debtcollector
 # TODO: python-afl
 # TODO: pycodestyle #816496
