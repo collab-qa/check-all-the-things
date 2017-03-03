@@ -52,6 +52,18 @@ files = *.py
 types = text/x-python
 command = mypy --fast-parser {files}
 
+[pyroma]
+flags = dangerous fixme fixme-silent
+apt = python-pyroma
+files = ./setup.py
+command = pyroma -d .
+
+[pyroma3]
+flags = dangerous fixme fixme-silent
+apt = python-pyroma3
+files = ./setup.py
+command = pyroma3 -d .
+
 # TODO: hacking
 # TODO: flake8
 # TDOO: https://github.com/PyCQA/flake8-import-order
@@ -66,7 +78,6 @@ command = mypy --fast-parser {files}
 # TODO: pymetrics
 # TODO: dodgy
 # TODO: prospector
-# TODO: pyroma
 # TODO: pylama #779449
 # TODO: vulture
 # TODO: bandit
