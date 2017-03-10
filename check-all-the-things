@@ -405,23 +405,30 @@ class Check(object):
     def set_prereq(self, value):
         self.prereq = value
 
-    def _set_fcmd_(self, fcmd, type, test):
+    def _set_fcmd_(self, fcmd, types, tests):
         this = self.__dict__
-        if not this[type]:
+        wildcards = []
+        _tests = []
+        # Aggregate everything into one array since
+        # the find command works this way
+        for i, type in enumerate(types):
+            if this[type]:
+                wildcards += this[type]
+                _tests += len(this[type])*[tests[i]]
+        if not wildcards:
             return
-        elif len(this[type]) == 1:
-            [wildcard] = this[type]
-            fcmd += [test, shlex.quote(wildcard)]
+        elif len(wildcards) == 1:
+            [wildcard] = wildcards
+            fcmd += [_tests[0], shlex.quote(wildcard)]
         else:
             end = len(fcmd)
-            for wildcard in this[type]:
-                fcmd += ['-o', test, shlex.quote(wildcard)]
+            for i, wildcard in enumerate(wildcards):
+                fcmd += ['-o', _tests[i], shlex.quote(wildcard)]
             fcmd[end] = '\\('
             fcmd += ['\\)']
 
     def _set_fcmd(self, fcmd, type):
-        self._set_fcmd_(fcmd, type, '-iname')
-        self._set_fcmd_(fcmd, type + '_path', '-iwholename')
+        self._set_fcmd_(fcmd, [type, type + '_path'], ['-iname', '-iwholename'])
 
     def get_sh_cmd(self, njobs=1, types=False):
         kwargs = {
@@ -445,7 +452,7 @@ class Check(object):
             any = self.not_files or self.not_files_path or self.files or self.files_path
             if self.files_parent:
                 fcmd += ['..', '-maxdepth', '1', '-type', 'f']
-                self._set_fcmd_(fcmd, 'files_parent', '-iwholename')
+                self._set_fcmd_(fcmd, ['files_parent'], ['-iwholename'])
                 fcmd += ['-exec', cmd]
                 if any:
                     fcmd += [';', 'find', '.']
