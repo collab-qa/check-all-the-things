@@ -86,6 +86,7 @@ types = text/x-python
 command = python3-bandit -r .
 
 [dodgy]
+flags = fixme fixme-silent
 apt = dodgy
 types = text/*
 command = dodgy
