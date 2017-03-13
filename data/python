@@ -91,6 +91,11 @@ apt = dodgy
 types = text/*
 command = dodgy
 
+[vulture]
+apt = vulture
+files = *.py
+command = vulture .
+
 # TODO: hacking
 # TODO: flake8
 # TDOO: https://github.com/PyCQA/flake8-import-order
@@ -105,7 +110,6 @@ command = dodgy
 # TODO: pymetrics
 # TODO: prospector
 # TODO: pylama #779449
-# TODO: vulture
 # TODO: python-debtcollector
 # TODO: python-afl
 # TODO: pycodestyle #816496
