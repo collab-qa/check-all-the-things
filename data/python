@@ -85,6 +85,11 @@ files = *.py
 types = text/x-python
 command = python3-bandit -r .
 
+[dodgy]
+apt = dodgy
+types = text/*
+command = dodgy
+
 # TODO: hacking
 # TODO: flake8
 # TDOO: https://github.com/PyCQA/flake8-import-order
@@ -97,7 +102,6 @@ command = python3-bandit -r .
 # TODO: pychecker (dangerous)
 # TODO: twistedchecker
 # TODO: pymetrics
-# TODO: dodgy
 # TODO: prospector
 # TODO: pylama #779449
 # TODO: vulture
