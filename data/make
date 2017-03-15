@@ -6,7 +6,7 @@ command = make --question --makefile {file}
 flags = dangerous
 
 [make-phony]
-files = debian/rules
+files = GNUmakefile Makefile *.make *.mk
 types = text/x-makefile
 comment = common misspelling of .PHONY
 command = grep -Ew '[.]PHONEY?' {files}
