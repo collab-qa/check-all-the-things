@@ -1,12 +1,12 @@
 [make]
 apt = make
-files = GNUmakefile Makefile *.make *.mk
+files = GNUmakefile Makefile *.make *.mk ./debian/rules
 types = text/x-makefile
 command = make --question --makefile {file}
 flags = dangerous
 
 [make-phony]
-files = GNUmakefile Makefile *.make *.mk
+files = GNUmakefile Makefile *.make *.mk ./debian/rules
 types = text/x-makefile
 comment = common misspelling of .PHONY
 command = grep -Ew '[.]PHONEY?' {files}
