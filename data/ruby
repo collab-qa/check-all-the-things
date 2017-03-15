@@ -1,6 +1,15 @@
+[rubocop]
+flags = fixme fixme-silent
+apt = rubocop
+# TODO: update it before releases:
+# to_inspect function in TargetFinder class
+# in target_finder.rb file in rubocop
+files = *.rb
+types = text/x-ruby
+command = rubocop
+
 # TODO: roodi
 # TODO: ruby-lint https://github.com/YorickPeterse/ruby-lint
-# TODO: rubocop #745423
 # TODO: ruby-reek
 # TODO: http://ruby.sadi.st/
 # TODO: bundler audit
