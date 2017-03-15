@@ -8,7 +8,15 @@ files = *.rb
 types = text/x-ruby
 command = rubocop
 
-# TODO: roodi
+[roodi]
+flags = fixme fixme-silent
+apt = roodi
+# TODO: update it before releases:
+# collect_files function in Runner class
+# in runner.rb file in roodi
+files = *.rb
+command = roodi
+
 # TODO: ruby-lint https://github.com/YorickPeterse/ruby-lint
 # TODO: ruby-reek
 # TODO: http://ruby.sadi.st/
