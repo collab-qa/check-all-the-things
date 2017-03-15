@@ -30,41 +30,41 @@ flags = images
 comment = Check with upstream where the GIMP XCF source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -iF gimp {files}
+command = grep -HiF gimp {files}
 
 [bitmap-inkscape]
 flags = images
 comment = Check with upstream where the Inkscape SVG source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -iF inkscape {files}
+command = grep -HiF inkscape {files}
 
 [bitmap-synfig]
 flags = images
 comment = Check with upstream where the Synfig SIF source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -i 'SINFG|SYNFIG' {files}
+command = grep -Hi 'SINFG|SYNFIG' {files}
 
 [bitmap-povray]
 flags = images
 comment = Check with upstream where the POV-Ray POV source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -iF 'POV-Ray' {files}
+command = grep -HiF 'POV-Ray' {files}
 
 [bitmap-gnuplot]
 flags = images
 comment = Check with upstream where the gnuplot scripts are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -iF 'gnuplot' {files}
+command = grep -HiF 'gnuplot' {files}
 
 [bitmap-base64]
 flags = images
 files = *.xml *.html *.xhtml *.svg
 comment = Check with upstream why they are storing binary data in plain text form.
-command = grep -oP 'data:image/[a-z0-9]*;base64,.{{20}}' {files}
+command = grep -HoP 'data:image/[a-z0-9]*;base64,.{{20}}' {files}
 
 [cpuinfo]
 comment = Parsing /proc/cpuinfo is not portable at all, use /sys instead.

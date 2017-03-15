@@ -26,7 +26,7 @@ command = bls-standalone check --blhc=NO {files}
 
 [build-log-static-library]
 files = ../*.build
-command = grep '\.a\>' {files}
+command = grep -H '\.a\>' {files}
 comment =
  Please avoid the use of static libraries where possible
  https://wiki.debian.org/StaticLinking

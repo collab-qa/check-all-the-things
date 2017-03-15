@@ -33,13 +33,13 @@ command = grep -rw PYTHONPATH .
 [environ-home]
 files = *.py
 types = text/x-python
-command = grep 'environ *\[.HOME.\]' {files}
+command = grep -H 'environ *\[.HOME.\]' {files}
 
 [yaml-load]
 files = *.py
 types = text/x-python
 comment = These calls are potentially vulnerable to Python code injection
-command = grep -F 'yaml.load' {files}
+command = grep -HF 'yaml.load' {files}
 
 [pylint]
 apt = pylint

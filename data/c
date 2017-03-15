@@ -132,7 +132,7 @@ files =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
 types = text/x-c text/x-c++
-command = grep -wE 'PATH_MAX|MAXPATHLEN' {files}
+command = grep -HwE 'PATH_MAX|MAXPATHLEN' {files}
 comment =
  You should not assume that paths are at most PATH_MAX characters long.
  Some operating systems (e.g. Hurd) don't define PATH_MAX at all.

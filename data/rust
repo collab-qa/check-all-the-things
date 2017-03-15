@@ -1,6 +1,6 @@
 [rust-unsafe]
 files = *.rs
-command = grep -w unsafe {files}
+command = grep -Hw unsafe {files}
 
 # TODO: https://github.com/Manishearth/rust-clippy
 # TODO: https://github.com/Manishearth/rust-tenacious
