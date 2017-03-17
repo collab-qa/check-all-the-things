@@ -9,6 +9,10 @@ apt = lintex
 files = *.aux *.bbl *.blg *.dvi *.idx *.ilg *.ind *.lof *.log *.lot *.nav *.out *.pdf *.ps *.snm *.thm *.toc *.toc.old *.synctex.gz *.xyc
 command = lintex -r -o -p
 
-# TODO: chktex
+[chktex]
+apt = chktex
+files = *.tex
+types = text/x-tex
+command = chktex --quiet {files}
 
 # vim:ft=dosini
