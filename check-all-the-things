@@ -794,19 +794,19 @@ def parse_conf(checks={}, flags=set(), distro=None, release=None):
 
 
 def parse_file(checks, flags, path, overlay=False):
-        cp = configparser.ConfigParser(interpolation=None)
-        cp.read(path, encoding='UTF-8')
-        for name in cp.sections():
-            section = cp[name]
-            if name in checks:
-                if overlay:
-                    parse_section(section, checks[name])
-                else:
-                    raise RuntimeError('duplicate check name: ' + name)
+    cp = configparser.ConfigParser(interpolation=None)
+    cp.read(path, encoding='UTF-8')
+    for name in cp.sections():
+        section = cp[name]
+        if name in checks:
+            if overlay:
+                parse_section(section, checks[name])
             else:
-                checks[name] = parse_section(section)
-            checks[name].flags.update({os.path.basename(path)})
-            flags.update(checks[name].flags)
+                raise RuntimeError('duplicate check name: ' + name)
+        else:
+            checks[name] = parse_section(section)
+        checks[name].flags.update({os.path.basename(path)})
+        flags.update(checks[name].flags)
 
 
 def remark(remarks, name, reason):
@@ -906,9 +906,9 @@ def walk(typedb, checks, remarks, matching_checks, parent, top):
                                     matched_types[type].add(name)
             if not (parent or root_set.intersection(ignore_dirs)):
                 if ext and not matched_globs[ext]:
-                     remark(remarks, '*' + ext, 'no specific file name wildcard checks')
+                    remark(remarks, '*' + ext, 'no specific file name wildcard checks')
                 if not ext and base and not matched_names[base]:
-                     remark(remarks, base, 'no specific file name checks')
+                    remark(remarks, base, 'no specific file name checks')
                 if typedb and type != unknown and not matched_types[type]:
                     remark(remarks, type, 'no specific file type checks')
 
