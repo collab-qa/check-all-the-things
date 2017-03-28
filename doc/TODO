@@ -11,7 +11,7 @@ Places to find new checks:
 apt-file search --regex 'bin/.*(lint|check|valid|tidy|detect)'
 apt-cache search --names-only '(lint|check|valid|tidy|detect)'
 https://github.com/vim-syntastic/syntastic/tree/master/syntax_checkers
-https://git.fedorahosted.org/cgit/FedoraReview.git
+https://pagure.io/FedoraReview
 https://github.com/michenriksen/gitrob/blob/master/signatures.json
 https://docs.codeclimate.com/docs/list-of-engines
 https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis#C.2FC.2B.2B
