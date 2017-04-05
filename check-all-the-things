@@ -932,6 +932,18 @@ def network():
         return True
 
 
+def terminal_working():
+    if not sys.stdout.isatty():
+        return False
+    try:
+        master, slave = pty.openpty()
+        os.close(slave)
+        os.close(master)
+        return True
+    except OSError:
+        return False
+
+
 def main():
     (checks, flags) = parse_conf()
     all_checks = set(checks.keys())
@@ -1046,7 +1058,7 @@ def main():
     limit = options.checks_output_lines
     mime = options.mime
     method = options.spawn_method
-    terminal = sys.stdout.isatty()
+    terminal = terminal_working()
     last_interrupt = 0
     matching_checks = set()
     if magic and mime:
