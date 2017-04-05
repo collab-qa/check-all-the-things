@@ -116,8 +116,12 @@ if not datadir or not os.path.isdir(datadir):
                            'check-all-the-things', 'data')
 
 
-def erase_to_eol_cr():
-    sys.stdout.buffer.write(erase_line)
+def erase_to_eol_cr(size=0):
+    if erase_line:
+        sys.stdout.buffer.write(erase_line)
+    else:
+        width = get_columns()
+        print(' ' * (width - size), end='')
     print(end='\r')
     sys.stdout.flush()
 
@@ -129,7 +133,7 @@ def show_progress(cmd):
     if size > width:
         line = line[:width]
     print(line, end='')
-    erase_to_eol_cr()
+    erase_to_eol_cr(len(line))
 
 
 def show_header(header):
