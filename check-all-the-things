@@ -62,7 +62,7 @@ if sys.stdout.isatty():
     from curses import tigetstr, setupterm
     setupterm()
     erase_line = tigetstr('el')
-    reset_term = tigetstr('sgr0')
+    reset_term = tigetstr('sgr0') or tigetstr('oc') or tigetstr('op') or bytes()
 
 try:
     from shutil import which
