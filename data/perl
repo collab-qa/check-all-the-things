@@ -1,6 +1,7 @@
 [perl-syntax-check]
 apt = perl
 files = *.pl *.pm
+types = text/x-perl
 command = perl -wc {file} | grep -v ' syntax OK$'
 comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
 flags = dangerous fixme fixme-silent
@@ -8,6 +9,7 @@ flags = dangerous fixme fixme-silent
 [perl-b-lint]
 apt = perl, libb-lint-perl
 files = *.pl *.pm
+types = text/x-perl
 prereq = perl -t -MO=Lint /dev/null
 command = perl -MO=Lint {file} | grep -v ' syntax OK$'
 comment = Dangerous because it executes code in use statements and BEGIN, UNITCHECK and CHECK blocks
@@ -16,6 +18,7 @@ flags = dangerous fixme fixme-silent
 [perlcritic]
 flags = perl-bug-588017 fixme fixme-silent
 apt = libperl-critic-perl
+types = text/x-perl
 comment = May create/overwrite a perltidy.ERR file in the current dir (#834213)
 command = perlcritic -1 . 2>&1 | grep -vF 'No perl files were found.'
 
@@ -25,6 +28,7 @@ command = grep -rw PERLLIB .
 [podlint]
 apt = libpod-pom-perl
 files = *.pl *.pm
+types = text/x-perl
 command = podlint {file}
 
 [cpants-lint]
