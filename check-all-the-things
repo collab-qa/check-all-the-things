@@ -1120,6 +1120,7 @@ def main():
         else:
             class TextNotWrapper(object):
                 initial_indent = ''
+
                 def fill(self, line):
                     return self.initial_indent + line
             out = TextNotWrapper()
