@@ -1126,7 +1126,9 @@ def main():
         out.break_long_words = False
         out.break_on_hyphens = False
         if options.remarks_lines == 0:
-            print(header + ' ' + out.fill(', '.join(sorted(remarks))))
+            out.initial_indent = header + ' '
+            out.subsequent_indent = ' ' * len(out.initial_indent)
+            print(out.fill(', '.join(sorted(remarks))))
         else:
             print(header)
             if options.remarks_lines >= 1:
