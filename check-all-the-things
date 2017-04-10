@@ -1114,8 +1114,15 @@ def main():
         erase_to_eol_cr()
     if remarks:
         header = 'Remarks:'
-        out = TextWrapper()
-        out.width = get_columns()
+        if terminal:
+            out = TextWrapper(80)
+            out.width = get_columns()
+        else:
+            class TextNotWrapper(object):
+                initial_indent = ''
+                def fill(self, line):
+                    return self.initial_indent + line
+            out = TextNotWrapper()
         out.break_long_words = False
         out.break_on_hyphens = False
         if options.remarks_lines == 0:
