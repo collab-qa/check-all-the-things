@@ -90,7 +90,7 @@ files =
  *.h *.hh *.hxx *.hpp
 types = text/x-c text/x-c++
 comment = You should almost never use -m64 and -m32 when compiling.
-command = grep -rE -- '-m64|-m32' .
+command = grep -nHrE -- '-m64|-m32' .
 
 [cbmc]
 flags = todo
@@ -132,7 +132,7 @@ files =
  *.c *.cc *.cxx *.cpp
  *.h *.hh *.hxx *.hpp
 types = text/x-c text/x-c++
-command = grep -HwE 'PATH_MAX|MAXPATHLEN' {files}
+command = grep -nHwE 'PATH_MAX|MAXPATHLEN' {files}
 comment =
  You should not assume that paths are at most PATH_MAX characters long.
  Some operating systems (e.g. Hurd) don't define PATH_MAX at all.

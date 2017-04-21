@@ -5,19 +5,19 @@ command = blhc --all {files}
 
 [build-log-warnings]
 files = ../*.build
-command = grep -H -i warn {files}
+command = grep -nH -i warn {files}
 
 [build-log-w]
 files = ../*.build
-command = grep -H -w W {files}
+command = grep -nH -w W {files}
 
 [build-log-errors]
 files = ../*.build
-command = grep -H -i error {files}
+command = grep -nH -i error {files}
 
 [build-log-e]
 files = ../*.build
-command = grep -H -w E {files}
+command = grep -nH -w E {files}
 
 [bls-standalone]
 apt = bls-standalone
@@ -26,7 +26,7 @@ command = bls-standalone check --blhc=NO {files}
 
 [build-log-static-library]
 files = ../*.build
-command = grep -H '\.a\>' {files}
+command = grep -nH '\.a\>' {files}
 comment =
  Please avoid the use of static libraries where possible
  https://wiki.debian.org/StaticLinking

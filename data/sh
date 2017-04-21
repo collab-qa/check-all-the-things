@@ -23,9 +23,9 @@ command = bashate --ignore E002,E003 {files}
 flags = style
 
 [web-to-shell]
-command = grep -rE '(wget|curl).*\|( *sudo)? *(ba|z|)sh' .
+command = grep -nHrE '(wget|curl).*\|( *sudo)? *(ba|z|)sh' .
 
 [web-to-apt-key]
-command = grep -rE '(wget|curl).*\|( *sudo)? *apt-key' .
+command = grep -nHrE '(wget|curl).*\|( *sudo)? *apt-key' .
 
 # vim:ft=dosini

@@ -9,6 +9,6 @@ flags = dangerous
 files = GNUmakefile Makefile *.make *.mk ./debian/rules
 types = text/x-makefile
 comment = common misspelling of .PHONY
-command = grep -HEw '[.]PHONEY?' {files}
+command = grep -nHEw '[.]PHONEY?' {files}
 
 # vim:ft=dosini

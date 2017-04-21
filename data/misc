@@ -30,51 +30,51 @@ flags = images
 comment = Check with upstream where the GIMP XCF source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -HiF gimp {files}
+command = grep -nHiF gimp {files}
 
 [bitmap-inkscape]
 flags = images
 comment = Check with upstream where the Inkscape SVG source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -HiF inkscape {files}
+command = grep -nHiF inkscape {files}
 
 [bitmap-synfig]
 flags = images
 comment = Check with upstream where the Synfig SIF source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -Hi 'SINFG|SYNFIG' {files}
+command = grep -nHi 'SINFG|SYNFIG' {files}
 
 [bitmap-povray]
 flags = images
 comment = Check with upstream where the POV-Ray POV source files are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -HiF 'POV-Ray' {files}
+command = grep -nHiF 'POV-Ray' {files}
 
 [bitmap-gnuplot]
 flags = images
 comment = Check with upstream where the gnuplot scripts are.
 files = *.png *.gif *.jpg *.jpeg
 types = image/*
-command = grep -HiF 'gnuplot' {files}
+command = grep -nHiF 'gnuplot' {files}
 
 [bitmap-base64]
 flags = images
 files = *.xml *.html *.xhtml *.svg
 comment = Check with upstream why they are storing binary data in plain text form.
-command = grep -HoP 'data:image/[a-z0-9]*;base64,.{{20}}' {files}
+command = grep -nHoP 'data:image/[a-z0-9]*;base64,.{{20}}' {files}
 
 [cpuinfo]
 comment = Parsing /proc/cpuinfo is not portable at all, use /sys instead.
-command = grep -rF /proc/cpuinfo .
+command = grep -nHrF /proc/cpuinfo .
 
 [readme-install]
 comment = Users of binary packages do not need install instructions.
 files = *README*
 not-files = README.md README.rst README.install
-command = grep --ignore-case --fixed-strings --with-filename install {files}
+command = grep --ignore-case --fixed-strings --with-filename --line-number install {files}
 
 [autoupdate]
 flags = modify
@@ -95,7 +95,7 @@ types = inode/x-empty
 command = find . \( -name .git -o -name .svn -o -name .bzr -o -name CVS -o -name .hg -o -name _darcs -o -name _FOSSIL_ -o -name .sgdrawer -o -name .pc \) -prune -o -empty -print
 
 [todo]
-command = grep -riE 'fixme|todo|hack|xxx+|broken' .
+command = grep -nHriE 'fixme|todo|hack|xxx+|broken' .
 
 [isutf8]
 apt = moreutils
@@ -119,11 +119,11 @@ types = text/*
 command = isutf8 {files}
 
 [disabled-tests]
-command = grep -riEC1 '((check|test) *\|\| *true|-dh_auto_test)' .
+command = grep -nHriEC1 '((check|test) *\|\| *true|-dh_auto_test)' .
 
 [timeless]
 comment = Prevents reproducible builds: https://reproducible-builds.org/
-command = grep -rE '__DATE__|__TIME__|__TIMESTAMP__' .
+command = grep -nHrE '__DATE__|__TIME__|__TIMESTAMP__' .
 
 [project-flint]
 flags = todo
@@ -131,7 +131,7 @@ comment = #809042 https://github.com/pengwynn/flint
 
 [http]
 comment = check if these can be switched to https://
-command = grep -rF http: .
+command = grep -nHrF http: .
 
 [embed-readme]
 flags = embed
@@ -146,7 +146,7 @@ command = find . -type d -name 'vendor*' -o -iname '*rd*party' -o -iname 3rdp -o
 
 [mailto]
 comment = As per RFC 6068, there should be no slashes after "mailto:".
-command = grep -rF mailto:/ .
+command = grep -nHrF mailto:/ .
 
 # TODO: EC2_SECRET_KEY
 # TODO: curl -k --insecure

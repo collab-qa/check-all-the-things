@@ -25,21 +25,21 @@ types = text/x-python
 command = pydocstyle .
 
 [site-packages]
-command = grep -rw site-packages .
+command = grep -nHrw site-packages .
 
 [pythonpath]
-command = grep -rw PYTHONPATH .
+command = grep -nHrw PYTHONPATH .
 
 [environ-home]
 files = *.py
 types = text/x-python
-command = grep -H 'environ *\[.HOME.\]' {files}
+command = grep -nH 'environ *\[.HOME.\]' {files}
 
 [yaml-load]
 files = *.py
 types = text/x-python
 comment = These calls are potentially vulnerable to Python code injection
-command = grep -HF 'yaml.load' {files}
+command = grep -nHF 'yaml.load' {files}
 
 [pylint]
 apt = pylint
