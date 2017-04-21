@@ -122,5 +122,6 @@ command = vulture .
 # TODO: https://github.com/google/pytype
 # TODO: pep8-naming
 # TODO: https://github.com/mgedmin/check-manifest (dangerous)
+# TODO: https://github.com/python-security/pyt
 
 # vim:ft=dosini
