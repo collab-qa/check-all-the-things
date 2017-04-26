@@ -2,7 +2,7 @@ Things found on
 <https://wiki.debian.org/HowToPackageForDebian#Check_points_for_any_package>
 but not included here yet::
 
-   find ! -type d | xargs file  | grep ': *ELF ' | sed 's/: +*.*//' | xargs --no-run-if-empty eu-elflint --quiet --gnu-ld --strict
+   find ! -type d -print0 | xargs -0 file | grep ': *ELF ' | sed 's/: +*.*//' | xargs -d'\n' --no-run-if-empty eu-elflint --quiet --gnu-ld --strict
    grep -r 'PATH' .
    grep -r 'x86_64-linux-gnu' .
 
@@ -35,7 +35,7 @@ Only inform about a skipped check if there were actually matching files.
 
 A mechanism to specify the amount/pedanticness of the output.
 
-Support commands that must be run with `find | xargs` instead of `find -exec`
+Support commands that must be run with `find -print0 | xargs -0` instead of `find -exec`
 
 Sandboxing with kvmtool/bubblewrap/firejail/etc:
 

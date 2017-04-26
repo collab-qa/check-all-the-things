@@ -48,7 +48,7 @@ apt = unzip
 # curl -s http://fileformats.archiveteam.org/wiki/Category:ZIP_based_file_formats |
 # sed -n '/ bodycontent/,/\/bodycontent/p' |
 # sed -n 's_.*\(/wiki/[^"]*\).*_\1_p' |
-# xargs -n1 -i_ curl -s 'http://fileformats.archiveteam.org_?action=raw' |
+# xargs -d'\n' -n1 -i_ curl -s 'http://fileformats.archiveteam.org_?action=raw' |
 # grep extensions= |
 # sed 's_| *extensions *= *_ _;s_{{ext|\([^}]*\)}} *,* *_*.\1 _g;s_others__;s/ *$//'
 files =
