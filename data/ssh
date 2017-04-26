@@ -10,4 +10,12 @@ command = grep -nH --recursive --perl-regexp --files-with-matches '(?s)---- BEGI
 flags = keys
 command = grep -nH --recursive --perl-regexp --files-with-matches '(?s)-----BEGIN EC PRIVATE KEY-----.*-----END EC PRIVATE KEY-----' .
 
+[putty-private-key]
+flags = keys
+command = grep -rPzl '(?s)PuTTY-User-Key-File-[0-9]+: .*Private-Lines: ' .
+
+[openssh-private-key-rsa1]
+flags = keys
+command = grep -rl '^SSH PRIVATE KEY FILE FORMAT ' .
+
 # vim:ft=dosini
