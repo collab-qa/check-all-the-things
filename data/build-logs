@@ -5,19 +5,19 @@ command = blhc --all {files}
 
 [build-log-warnings]
 files = ../*.build
-command = grep -nH -i warn {files}
+command = grep -nHi warn {files}
 
 [build-log-w]
 files = ../*.build
-command = grep -nH -w W {files}
+command = grep -nHw W {files}
 
 [build-log-errors]
 files = ../*.build
-command = grep -nH -i error {files}
+command = grep -nHi error {files}
 
 [build-log-e]
 files = ../*.build
-command = grep -nH -w E {files}
+command = grep -nHw E {files}
 
 [bls-standalone]
 apt = bls-standalone

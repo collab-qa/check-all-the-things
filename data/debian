@@ -57,7 +57,7 @@ command = lintian4py {files}
 [upstream-metadata]
 command =
  test -d ./debian &&
- ! grep -s -q native debian/source/format &&
+ ! grep -sq native debian/source/format &&
  ! test -e debian/upstream/metadata &&
  echo 'Please add some upstream metadata: https://wiki.debian.org/UpstreamMetadata'
 

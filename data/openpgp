@@ -19,11 +19,11 @@ comment =
 
 [pgp-private-key]
 flags = keys
-command = grep -nH --recursive --perl-regexp --files-with-matches '(?s)-----BEGIN PGP PRIVATE KEY BLOCK-----.*-----END PGP PRIVATE KEY BLOCK-----' .
+command = grep -rPzl '(?s)-----BEGIN PGP PRIVATE KEY BLOCK-----.*-----END PGP PRIVATE KEY BLOCK-----' .
 
 [insecure-recv-keys]
 flags = keys
 comment = Only ever use the full fingerprint when downloading keys
-command = grep -nH --recursive --perl-regexp '\b(?:apt-key|gpg2?)\b.*--recv(-keys?)?\s+(0x)?[0-9a-fA-F]{{1-31}}\b'
+command = grep -nHrP '\b(?:apt-key|gpg2?)\b.*--recv(-keys?)?\s+(0x)?[0-9a-fA-F]{{1-31}}\b' .
 
 # vim:ft=dosini

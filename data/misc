@@ -14,11 +14,11 @@ command = suspicious-source
 
 [licensecheck-generated-files]
 apt = licensecheck | devscripts (<< 2.16.6~)
-command = licensecheck --check=. --recursive --copyright . | grep --text -F 'GENERATED FILE'
+command = licensecheck --check=. --recursive --copyright . | grep -aF 'GENERATED FILE'
 
 [licensecheck-incorrect-fsf-address]
 apt = licensecheck | devscripts (<< 2.16.6~)
-command = licensecheck --check=. --recursive --copyright . | grep --text -F 'with incorrect FSF address'
+command = licensecheck --check=. --recursive --copyright . | grep -aF 'with incorrect FSF address'
 
 [fdupes]
 flags = fixme fixme-ignore
@@ -74,7 +74,7 @@ command = grep -nHrF /proc/cpuinfo .
 comment = Users of binary packages do not need install instructions.
 files = *README*
 not-files = README.md README.rst README.install
-command = grep --ignore-case --fixed-strings --with-filename --line-number install {files}
+command = grep -nHiF install {files}
 
 [autoupdate]
 flags = modify
