@@ -1,3 +1,11 @@
+check-all-the-things (2017.01.15.1) unstable; urgency=high
+
+  * New release.
+    - The "Check Shiny Things More Securely" release
+    - Fix perlcritic to not execute code from the current dir
+
+ -- Paul Wise <pabs@debian.org>  Thu, 27 Apr 2017 20:34:00 +0800
+
 check-all-the-things (2017.01.15) unstable; urgency=high
 
   * New release.
