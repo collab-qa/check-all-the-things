@@ -17,7 +17,7 @@ flags = dangerous fixme fixme-silent
 flags = perl-bug-588017 fixme fixme-silent
 apt = libperl-critic-perl
 comment = May create/overwrite a perltidy.ERR file in the current dir (#834213)
-command = perlcritic -1 . 2>&1 | grep -vF 'No perl files were found.'
+command = perlcritic --noprofile -1 . 2>&1 | grep -vF 'No perl files were found.'
 
 [perllib]
 command = grep -rw PERLLIB .
