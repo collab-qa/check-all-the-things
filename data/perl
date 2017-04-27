@@ -25,7 +25,7 @@ types = text/x-perl
 comment =
  May create/overwrite a perltidy.ERR file in the current dir (#834213)
  To see full descriptions of each issue, add %d to the --verbose option value
-command = perlcritic -1 --verbose '%f:%l:%c: %m. %e. Near `%r` (Severity: %s)\n' . 2>&1 | grep -vF 'No perl files were found.'
+command = perlcritic --noprofile -1 --verbose '%f:%l:%c: %m. %e. Near `%r` (Severity: %s)\n' . 2>&1 | grep -vF 'No perl files were found.'
 
 [perllib]
 command = grep -nHrw PERLLIB .
