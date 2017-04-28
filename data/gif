@@ -7,3 +7,5 @@ apt = giflib-tools
 files = *.gif
 types = image/gif
 command = giffix {file}
+
+# vim:ft=dosini
