@@ -51,6 +51,7 @@ files =
  *.pcc
  *.hpp
 command = flawfinder -Q -c .
+flags = fixme fixme-silent
 
 [pmccabe]
 flags = complexity
