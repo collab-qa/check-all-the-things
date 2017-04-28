@@ -5,13 +5,14 @@ types = text/x-po
 command = msgfmt --check --check-compatibility --check-accelerators --output-file=/dev/null {file}
 
 [gettext-lint-checker]
+flags = fixme fixme-silent
 apt = gettext-lint
 files = *.po *.pot
 types = text/x-po
 command = POFileChecker {files}
 
 [gettext-lint-spell]
-flags = spelling
+flags = spelling fixme fixme-silent
 apt = gettext-lint
 files = *.po *.pot
 types = text/x-po
