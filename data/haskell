@@ -2,6 +2,7 @@
 apt = hlint
 files = *.hs
 command = hlint .
+flags = fixme fixme-silent
 
 [cabal]
 apt = cabal-install
