@@ -56,5 +56,7 @@ command = hardening-check --quiet {files}
 # TODO: http://udrepper.livejournal.com/11429.html
 # TODO: MALLOC_CHECK_=2 MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
 # TODO: fuzz
+# TODO: https://github.com/vmware/chap
+# TODO: http://search.cpan.org/~gnb/Devel-Plumber/
 
 # vim:ft=dosini
