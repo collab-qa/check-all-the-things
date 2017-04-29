@@ -1,7 +1,7 @@
 [appstreamcli-validate]
 apt = appstream
 files = *.metainfo.xml *.appdata.xml
-command = appstreamcli --pedantic validate {files}
+command = appstreamcli validate --pedantic {files}
 
 [appstream-util-validate]
 flags = network fixme fixme-silent
