@@ -6,7 +6,7 @@ command = grep -nHEC2 'cmd|open_port' {files}
 [erl-tidy]
 apt = erlang-syntax-tools, erlang-base
 files = *.erl
-command = erl -noshell -eval 'erl_tidy:dir(".", [{test, true}, {verbose, false}]).' -s init stop
+command = erl -noshell -eval 'erl_tidy:dir(".", [{{test, true}}, {{verbose, false}}]).' -s init stop
 
 [erlang-elvis]
 flags = todo
