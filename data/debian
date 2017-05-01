@@ -1,5 +1,5 @@
 [cme-check-dpkg]
-flags = perl-bug-588017
+flags = perl-bug-588017 network
 apt = cme | libconfig-model-perl (<< 2.063), libconfig-model-dpkg-perl
 files = ./debian/control ./debian/copyright
 command = cme check dpkg
