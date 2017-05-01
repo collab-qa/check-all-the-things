@@ -67,7 +67,7 @@ command = pyroma -d .
 
 [pyroma3]
 flags = dangerous fixme fixme-silent
-apt = python-pyroma3
+apt = python3-pyroma
 files = ./setup.py
 command = pyroma3 -d .
 

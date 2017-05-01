@@ -6,7 +6,7 @@ apt = rubocop
 # in target_finder.rb file in rubocop
 files = *.rb
 types = text/x-ruby
-command = rubocop
+command = rubocop --config /dev/null
 
 [roodi]
 flags = fixme fixme-silent
