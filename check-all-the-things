@@ -556,8 +556,10 @@ class Check(object):
     def is_flag_set(self, value):
         return value in self.flags
 
-    def do(self, name, jobs, types, run, hide, limit, method, terminal, remarks):
+    def do(self, name, jobs, types, run, hide, limit, method, terminal, remarks, strace):
         cmd = self.get_sh_cmd(njobs=jobs, types=types)
+        if strace is not None:
+            cmd = 'strace -o {dir}/{name} {cmd}'.format(dir=shlex.quote(strace), name=name, cmd=cmd)
         comment = self.comment
         manual = self.is_flag_set('manual')
         style = self.is_flag_set('style')
@@ -1017,6 +1019,7 @@ def main():
     ap.add_argument("--set-debian-substvars", help=argparse.SUPPRESS, action="store_true")
     ap.add_argument('--spawn-method', type=str, help=argparse.SUPPRESS,
                     default='auto', choices=['auto', 'none', 'pipe', 'pty', 'ptyprocess'])
+    ap.add_argument('--strace', metavar='DIR', help=argparse.SUPPRESS)
     ap.add_argument('--checks-output-lines', metavar='N',
                     help="output lines to allow for checks."
                          " checks using more lines are terminated,"
@@ -1057,6 +1060,7 @@ def main():
     limit = options.checks_output_lines
     mime = options.mime
     method = options.spawn_method
+    strace = options.strace
     terminal = terminal_working()
     last_interrupt = 0
     matching_checks = set()
@@ -1092,7 +1096,7 @@ def main():
                     sys.exit()
             try:
                 output = None
-                output = check.do(name, jobs, types, run, hide, limit, method, terminal, remarks)
+                output = check.do(name, jobs, types, run, hide, limit, method, terminal, remarks, strace)
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
                     if output:
