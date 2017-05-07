@@ -1072,7 +1072,7 @@ def main():
     types = bool(typedb)
     for name, check in sorted(checks.items()):
         next = False
-        if name not in matching_checks:
+        if name not in matching_checks and not check.disabled:
             next |= remark(remarks, name, 'no matching files')
         for reason in checks[name].disabled:
             next |= remark(remarks, name, reason)
