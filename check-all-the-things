@@ -559,7 +559,7 @@ class Check(object):
     def do(self, name, jobs, types, run, hide, limit, method, terminal, remarks, strace):
         cmd = self.get_sh_cmd(njobs=jobs, types=types)
         if strace is not None:
-            cmd = 'strace -o {dir}/{name} {cmd}'.format(dir=shlex.quote(strace), name=name, cmd=cmd)
+            cmd = 'strace -f -o {dir}/{name} {cmd}'.format(dir=shlex.quote(strace), name=name, cmd=cmd)
         comment = self.comment
         manual = self.is_flag_set('manual')
         style = self.is_flag_set('style')
