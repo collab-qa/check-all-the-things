@@ -435,12 +435,23 @@ class Check(object):
         self._set_fcmd_(fcmd, [type, type + '_path'], ['-iname', '-iwholename'])
 
     def get_sh_cmd(self, njobs=1, types=False):
+        pd = os.path.pardir
+        cwd = os.path.curdir
+        if self.is_flag_set('run-in-tmp-dir'):
+            pd = os.path.abspath(pd)
+            cwd = os.path.abspath(cwd)
+        pd = shlex.quote(pd)
+        cwd = shlex.quote(cwd)
         kwargs = {
+            'pd': pd,
+            'cwd': cwd,
             'files': '{} +',
             'file': '{} \\;',
             'njobs': njobs,
         }
         null_kwargs = {
+            'pd': '',
+            'cwd': '',
             'files': '',
             'file': '',
             'njobs': njobs,
@@ -455,13 +466,13 @@ class Check(object):
             fcmd = ['find']
             any = self.not_files or self.not_files_path or self.files or self.files_path
             if self.files_parent:
-                fcmd += ['..', '-maxdepth', '1', '-type', 'f']
+                fcmd += [pd, '-maxdepth', '1', '-type', 'f']
                 self._set_fcmd_(fcmd, ['files_parent'], ['-iwholename'])
                 fcmd += ['-exec', cmd]
                 if any:
-                    fcmd += [';', 'find', '.']
+                    fcmd += [';', 'find', cwd]
             else:
-                fcmd += ['.']
+                fcmd += [cwd]
             if self.not_dirs or self.not_dirs_path:
                 fcmd += ['-type', 'd']
                 self._set_fcmd(fcmd, 'not_dirs')
@@ -487,6 +498,8 @@ class Check(object):
             elif not self.files_parent or any:
                 fcmd += ['-exec', cmd]
             cmd = ' '.join(fcmd)
+        if self.is_flag_set('run-in-tmp-dir'):
+            cmd = '( d=$(mktemp -d) || exit 1 ; c () { rm -rf "$d"; } ; trap c EXIT ; cd "$d" || exit 1 ; ' + cmd + ' )'
         return cmd
 
     def meet_prereq(self):
