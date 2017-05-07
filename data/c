@@ -115,7 +115,7 @@ flags = complexity
 apt = complexity
 files = *.c
 types = text/x-c
-command = complexity {files}
+command = complexity --no-load-opts {files}
 
 [kwstyle]
 flags = manual
