@@ -1,5 +1,6 @@
 [ocaml-lintian]
-flags = perl-bug-588017
+flags = perl-bug-588017 dangerous
+comment = Dangerous because it executes shell commands in filenames
 apt = dh-ocaml, ocaml-nox
 files = *.cma
 command = ocaml-lintian {files}
