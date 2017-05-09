@@ -57,12 +57,20 @@ files =
 types = application/x-executable text/x-c++
 command = LeakCheck ./command && leak-analyze ./command ; rm -f leak.out
 
+[tmperamental]
+flags = dangerous manual
+comment =
+ Please check any installed programs respect TMPDIR
+ Dangerous because it executes binaries
+files = ./debian/*/bin/* ./debian/*/usr/bin/* ./debian/*/sbin/* ./debian/*/usr/sbin/* ./debian/*/usr/games/*
+types = application/x-executable
+command = tmperamental command args
+
 # TODO: abigail-tools
 # TODO: icheck
 # TODO: abicheck
 # TODO: valgrind
 # TODO: electric-fence
-# TODO: tmperamental (dangerous)
 # TODO: https://www.gnu.org/software/libc/manual/html_node/Heap-Consistency-Checking.html
 # TODO: http://udrepper.livejournal.com/11429.html
 # TODO: MALLOC_CHECK_=2 MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
