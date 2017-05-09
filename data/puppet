@@ -1,5 +1,5 @@
 [puppet-lint]
-flags = cfg-mgmt
+flags = cfg-mgmt run-in-tmp-dir
 apt = puppet-lint
 files = *.pp
 command = puppet-lint {files}
