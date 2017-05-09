@@ -3,8 +3,8 @@ Things found on
 but not included here yet::
 
    find ! -type d -print0 | xargs -0 file | grep ': *ELF ' | sed 's/: +*.*//' | xargs -d'\n' --no-run-if-empty eu-elflint --quiet --gnu-ld --strict
-   grep -r 'PATH' .
-   grep -r 'x86_64-linux-gnu' .
+   grep -r 'PATH' {cwd}
+   grep -r 'x86_64-linux-gnu' {cwd}
 
 Places to find new checks:
 
