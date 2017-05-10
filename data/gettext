@@ -12,11 +12,11 @@ types = text/x-po
 command = POFileChecker {files}
 
 [gettext-lint-spell]
-flags = spelling fixme fixme-silent
+flags = spelling fixme fixme-silent manual
 apt = gettext-lint, aspell
 files = *.po
 types = text/x-po
-command = POFileSpell {files}
+command = POFileSpell --command='aspell --encoding=UTF-8 --lang=<language> list' <files>
 
 [i18nspector]
 apt = i18nspector
