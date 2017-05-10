@@ -36,6 +36,7 @@ files =
 comment =
  Please fuzz test any installed programs using American fuzzy lop
  Dangerous because it executes binaries
+prereq = command -v afl-gcc
 command = CC=afl-gcc CXX=afl-g++ ./configure ; make clean all ; afl-fuzz -i testcases -o findings command -arg @@
 
 [hardening-check]
