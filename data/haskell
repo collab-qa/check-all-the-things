@@ -9,12 +9,6 @@ apt = cabal-install
 files = *.cabal
 command = cabal check
 
-[ghc-mod-lint]
-apt = ghc-mod
-files = *.hs
-not-files = HLint.hs Setup.hs
-command = ghc-mod lint {file}
-
 [stylish-haskell]
 flags = modify fixme style
 apt = stylish-haskell
