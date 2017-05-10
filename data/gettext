@@ -13,7 +13,7 @@ command = POFileChecker {files}
 
 [gettext-lint-spell]
 flags = spelling fixme fixme-silent
-apt = gettext-lint
+apt = gettext-lint, aspell
 files = *.po *.pot
 types = text/x-po
 command = POFileSpell {files}
