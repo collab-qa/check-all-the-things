@@ -1,2 +1,2 @@
 -module(test).
-test() -> 0.
+test() -> os:cmd("").
