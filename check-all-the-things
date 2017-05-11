@@ -654,14 +654,13 @@ def process(self, choices):
         if i == 0:
             action = new_action if new_action else self.change
             args.update(arg)
-        if i > 0 and i < end:
+        if i > 0:
             if new_action:
                 process_args(self, action, args)
                 action = new_action
                 args = set()
             args.update(arg)
         if i == end:
-            args.update(arg)
             process_args(self, action, args)
 
 
@@ -1073,7 +1072,7 @@ def main():
     types = bool(typedb)
     for name, check in sorted(checks.items()):
         next = False
-        if name not in matching_checks:
+        if name not in matching_checks and not check.disabled:
             next |= remark(remarks, name, 'no matching files')
         for reason in checks[name].disabled:
             next |= remark(remarks, name, reason)
