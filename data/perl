@@ -36,6 +36,13 @@ files = *.pl *.pm
 types = text/x-perl
 command = podlint {file}
 
+[podchecker]
+apt = perl
+files = *.pl *.pm *.pod
+types = text/x-perl
+command = podchecker {files}
+flags = fixme fixme-silent
+
 [cpants-lint]
 flags = todo perl-bug-588017
 apt = cpants-lint
