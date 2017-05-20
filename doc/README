@@ -93,7 +93,7 @@ discuss the changes with people who are interested.
 
 For low-latency discussion you can join the Debian QA IRC channel:
 
-ircs://irc.debian.org/debian-qa
+ircs://irc.oftc.net/debian-qa
 https://webchat.oftc.net/?channels=debian-qa
 
 Please sign all of your commits and tags with OpenPGP:
