@@ -1080,8 +1080,8 @@ def main():
         typedb.load()
     else:
         typedb = None
-    walk(typedb, checks, remarks, matching_checks, True, '..')
-    walk(typedb, checks, remarks, matching_checks, False, '.')
+    walk(typedb, checks, remarks, matching_checks, True, os.path.pardir)
+    walk(typedb, checks, remarks, matching_checks, False, os.path.curdir)
     if typedb:
         typedb.close()
     types = bool(typedb)
