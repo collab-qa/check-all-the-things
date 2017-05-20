@@ -10,12 +10,12 @@ files = *.py
 types = text/x-python
 command = pyflakes3 {files}
 
-[pep8]
+[pycodestyle]
 flags = style
-apt = pep8
+apt = pycodestyle
 files = *.py
 types = text/x-python
-command = pep8 --ignore W191 {files}
+command = pycodestyle --ignore W191 {files}
 
 [pydocstyle]
 flags = style
@@ -112,7 +112,6 @@ command = vulture .
 # TODO: pylama #779449
 # TODO: python-debtcollector
 # TODO: python-afl
-# TODO: pycodestyle #816496
 # TODO: python3-requirements-detector
 # TODO: https://github.com/jlachowski/clonedigger
 # TODO: https://github.com/rubik/xenon
