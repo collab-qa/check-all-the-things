@@ -5,3 +5,4 @@ files = *.py
 types = text/x-python
 command = pep8 --ignore W191 {files}
 
+# vim:ft=dosini
