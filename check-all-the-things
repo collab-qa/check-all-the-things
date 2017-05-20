@@ -500,6 +500,8 @@ class Check(object):
             cmd = ' '.join(fcmd)
         if self.is_flag_set('run-in-tmp-dir'):
             cmd = '( d=$(mktemp -d) || exit 1 ; c () { rm -rf "$d"; } ; trap c EXIT ; cd "$d" || exit 1 ; ' + cmd + ' )'
+        elif self.is_flag_set('run-in-root-dir'):
+            cmd = '( cd / || exit 1 ; ' + cmd + ' )'
         return cmd
 
     def meet_prereq(self):

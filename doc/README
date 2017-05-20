@@ -53,6 +53,12 @@ Please also verify that the check does not execute package code.
 * Lua
 * Python with `-c`, `-m` or `-` options.
 
+You can also flag the check 'run-in-root-dir' and then cats will
+automatically update the command to execute in a subshell and
+change to the root directory first. This flag can be used instead
+of 'run-in-tmp-dir' to create a simpler shell command when the
+tools used by the check are safe when in the root directory.
+
 When adding support for new checkers that are written in perl, please
 make sure that you mitigate the effects of Debian perl bug #588017 to
 ensure that the check does *not* execute package code. If you flag
