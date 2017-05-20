@@ -1,3 +1,67 @@
+check-all-the-things (2017.05.20) unstable; urgency=medium
+
+  * New release.
+    - The "Check Things Securely Yet Again" release
+    - Support BSD versions of the find command
+    - Support running in more types of terminals/places
+    - Support running commands in other dirs for safety
+    - Support properly disabling flags/checks
+    - Disable remarks about already disabled checks
+    - Update documentation, TODO items and URLs
+    - Print remarks more nicely in certain situations
+    - Print filenames and line numbers where possible
+    - Flag checks:
+      + dangerous - rpmlint ocaml-lintian
+      + run-in-tmp-dir - luacheck puppet-lint epubcheck erl-tidy
+      + fixme-silent - flawfinder gettext-lint-* luacheck hlint
+      + network - cme-check-dpkg
+      + manual - gettext-lint-spell
+    - Fix complexity - prevent arbitrary code execution
+    - Fix perlcritic - disable code execution, only run when perl present,
+                       increase verbosity to be more useful
+    - Fix clang-tidy regression from version 2016.06.29
+    - Fix zzuf - incorrect path matches
+    - Fix yamllint - incorrect find argument grouping
+    - Fix ELF & Perl checks - add MIME types
+    - Fix grep checks - use short options for portability
+    - Fix xapian-check - crash due to use of format strings
+    - Fix uudecode - include filenames in command-line
+    - Fix insecure-recv-keys - typo in regex
+    - Fix appstreamcli - unknown command-line option
+    - Fix m64-m32 - reduce false positives
+    - Fix gettext-lint-spell - add missing dependency, drop *.pot
+    - Fix afl - check it is installed properly
+    - Fix embed-dirs - add inc/ dirs for Perl packages
+    - Add podchecker - check Perl POD documentation
+    - Add pscan - check C printf format strings
+    - Add leaktracer - check programs for memory leaks
+    - Add tmperamental - check programs for tmpfile issues
+    - Add govet - report suspicious Go source code
+    - Add golint - report Go source code lint
+    - Add goimports - check missing/unused Go import lines
+    - Add rubocop - check Ruby code against Ruby Style Guide
+    - Add roodi - check Ruby code for design issues
+    - Add gendarme - check Mono/.NET ECMA CIL files
+    - Add make-phony - find misspelled .PHONY targets
+    - Add mypy - check Python static typing hints
+    - Add pyroma - check Python packaging quality
+    - Add bandit - check Python security quality
+    - Add dodgy - check dodgy lines in Python code
+    - Add vulture - check for dead Python code
+    - Add pycodestyle - check Python code style
+    - Add pydocstyle - check Python documentation style
+    - Add proselint - check for English prose issues
+    - Add chktex - check typographic errors in LaTeX docs
+    - Add fitscheck/wcslint/volint - FITS/VOTable files
+    - Add putty-private-key & openssh-private-key-rsa1
+    - Remove ghc-mod - just a wrapper for hlint
+    - TODO items for wtf flake8-plugins xpi-addons-linter
+      go-fix libdetectcoll sha1collisiondetection giffix
+      haxelint dockerlint dockerfile_lint dockerfile_checker
+      truffleHog pyt chap Devel::Plumber
+
+ -- Paul Wise <pabs@debian.org>  Sat, 20 May 2017 17:33:18 +0800
+
 check-all-the-things (2017.01.15) unstable; urgency=high
 
   * New release.
