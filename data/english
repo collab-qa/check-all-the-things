@@ -28,6 +28,7 @@ types = text/plain
 command = spellintian --picky {files}
 
 [proselint]
+flags = style
 apt = python3-proselint
 # TODO: update it before releases:
 # cat $(python3 -c 'import proselint.command_line as c; print(c.__file__)') | sed -n -e 's/^ *legal_extensions *= *//p' | sed -e 's/^\["/*/; s/"\]$//; s/", *"/ */g'
