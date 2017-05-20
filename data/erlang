@@ -4,6 +4,7 @@ comment = These calls are potentially vulnerable to shell metacharacter injectio
 command = grep -nHEC2 'cmd|open_port' {files}
 
 [erl-tidy]
+flags = run-in-tmp-dir
 apt = erlang-syntax-tools, erlang-base
 files = *.erl
 command = erl -noshell -eval 'erl_tidy:dir(".", [{{test, true}}, {{verbose, false}}]).' -s init stop
