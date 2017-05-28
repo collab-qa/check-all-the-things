@@ -88,6 +88,7 @@ except ImportError:
     argcomplete = None
 
     class ChoicesCompleter:
+
         def __init__(self, *args, **kwargs):
             pass
 
@@ -312,6 +313,7 @@ class UnmetPrereq(Exception):
 
 
 class Check(object):
+
     def __init__(self):
         self.apt = None
         types = set()
@@ -418,7 +420,7 @@ class Check(object):
         for i, type in enumerate(types):
             if this[type]:
                 wildcards += this[type]
-                _tests += len(this[type])*[tests[i]]
+                _tests += len(this[type]) * [tests[i]]
         if not wildcards:
             return
         elif len(wildcards) == 1:
@@ -648,7 +650,7 @@ def process(self, choices):
     args = set()
     if not choices:
         raise argparse.ArgumentError(self, self.missing_msg)
-    end = len(choices)-1
+    end = len(choices) - 1
     for i, choice in enumerate(choices):
         arg = None
         if choice.startswith('='):
@@ -785,6 +787,7 @@ class FlagSelectionAction(argparse.Action):
 
 
 class RangeCompleter(object):
+
     def __init__(self, start, end):
         self.choices = range(start, end + 1)
 
