@@ -69,7 +69,7 @@ try:
 except ImportError:
     # Python 3.2 compatibility:
     def which(cmd):
-        PATH = os.environ.get('PATH', '')
+        PATH = os.environ.get('PATH', os.defpath)
         PATH = PATH.split(os.pathsep)
         for dir in PATH:
             path = os.path.join(dir, cmd)
