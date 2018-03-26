@@ -1018,7 +1018,8 @@ def main():
                          " from the current directory."
                          " (equivalent: --flags +dangerous --flags +modify)",
                     type=str, default=argparse.SUPPRESS, dest=argparse.SUPPRESS,
-                    action=FlagSelectionAction, checks=checks, flags=flags, prepend_values=['+dangerous modify'])
+                    action=FlagSelectionAction, checks=checks, flags=flags, all=all_flags, disable=disable_flags,
+                    prepend_values=['+dangerous modify'])
     ap.add_argument('--interrupt', '-i', type=str,
                     help="when interrupted, quit or skip the current check",
                     default='skip', choices=['quit', 'exit', 'skip'])
