@@ -43,4 +43,4 @@ if embedding_restricted:
     print
     print '\n'.join(sorted(embedding_restricted))
     print
-    print 'https://www.microsoft.com/typography/otspec/os2.htm#fst'
+    print 'https://docs.microsoft.com/en-us/typography/opentype/spec/os2#fstype'
