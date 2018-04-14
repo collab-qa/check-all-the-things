@@ -10,8 +10,8 @@ Build-Depends:
  python-argcomplete,
  python3,
  python3-apt,
-Vcs-Git: https://anonscm.debian.org/git/collab-maint/check-all-the-things.git
-Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/check-all-the-things.git
+Vcs-Git: https://github.com/collab-qa/check-all-the-things.git
+Vcs-Browser: https://github.com/collab-qa/check-all-the-things
 
 Package: check-all-the-things
 Architecture: all

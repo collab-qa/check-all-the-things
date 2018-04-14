@@ -32,10 +32,9 @@ can be used when a tool knows how to check things in parallel.
 
 ## How to contribute
 
-If you have access to collab-maint, please commit trivial things such
-as typos, TODO entries or support for new checkers.
+The source code is hosted on GitHub:
 
-https://anonscm.debian.org/cgit/collab-maint/check-all-the-things.git
+https://github.com/collab-qa/check-all-the-things
 
 When adding support for new checkers, please ensure that you add the
 'dangerous' flag for checks that execute package code.
