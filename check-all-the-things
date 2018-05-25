@@ -318,7 +318,7 @@ class UnmetPrereq(Exception):
 class Check(object):
 
     def __init__(self):
-        self.apt = None
+        self.debian = None
         types = set()
         types.update('files not_files not_dirs'.split())
         for type in set(types):
@@ -334,8 +334,8 @@ class Check(object):
         self.prereq = None
         self.disabled = set()
 
-    def set_apt(self, value):
-        self.apt = value
+    def set_debian(self, value):
+        self.debian = value
 
     def _set_re_fn(self, this, type, affix=True):
         regexp = '|'.join(
@@ -851,17 +851,17 @@ def set_debian_substvars(checks):
     suggests = []
     for name, check in checks.items():
         try:
-            if check.apt:
-                apt_pkg.parse_depends(check.apt)
+            if check.debian:
+                apt_pkg.parse_depends(check.debian)
             else:
                 continue
         except ValueError:
-            print('ERROR: Could not parse deps for {}: {}'.format(name, check.apt), file=sys.stderr)
+            print('ERROR: Could not parse deps for {}: {}'.format(name, check.debian), file=sys.stderr)
             sys.exit(1)
         if not check.is_flag_set('todo') and not check.is_flag_set('apt-suggests'):
-            recommends.append(check.apt)
+            recommends.append(check.debian)
         else:
-            suggests.append(check.apt)
+            suggests.append(check.debian)
     recommends = ', '.join(sorted(recommends))
     suggests = ', '.join(sorted(suggests))
     with open('debian/check-all-the-things.substvars', 'a') as substvars:

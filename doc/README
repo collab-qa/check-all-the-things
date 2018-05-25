@@ -78,7 +78,7 @@ fixme-silent: when commands need an option to be more silent
 fixme-ignore: when commands need an option to ignore some paths
 
 When adding TODO entries, please add a new check config but set the flags
-field to todo and add any known hints in the apt/comment/command fields.
+field to todo and add any known hints in the debian/comment/command fields.
 
 When adding TODO entries for packages not in Debian, please either add
 the ITP bug number or a URL to upstream in the comment field.
