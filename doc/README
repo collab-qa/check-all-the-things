@@ -59,9 +59,9 @@ of 'run-in-tmp-dir' to create a simpler shell command when the
 tools used by the check are safe when in the root directory.
 
 When adding support for new checkers that are written in perl, please
-make sure that you mitigate the effects of Debian perl bug #588017 to
+make sure that you mitigate the effects of Perl including . in @INC to
 ensure that the check does *not* execute package code. If you flag
-the check perl-bug-588017 then cats will automatically prefix the
+the check perl-inc-cwd-bug then cats will automatically prefix the
 command with `env PERL5OPT=-m-lib=.`, which usually mitigates this.
 Please also verify that the check does not execute package code.
 

@@ -464,8 +464,10 @@ class Check(object):
         if not self.cmd:
             return
         cmd = self.cmd.format(**kwargs)
-        # FIXME: remove this once Debian bug #588017 is no longer relevant
-        if self.is_flag_set('perl-bug-588017'):
+        # FIXME: remove this once Perl no longer includes . in @INC by default
+        # https://rt.perl.org/Public/Bug/Display.html?id=127810
+        # https://bugs.debian.org/588017
+        if self.is_flag_set('perl-inc-cwd-bug'):
             cmd = 'env PERL5OPT=-m-lib=. ' + cmd
         if self.cmd_nargs > 0:
             fcmd = ['find']
