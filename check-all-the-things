@@ -923,7 +923,7 @@ def root_cmd(cmd):
         return None
 
 
-def install_apt(matching_checks, checks, get_deps):
+def install_apt(matching_checks, checks, get_deps, ignore_check):
     if os.geteuid() == 0:
         print('ERROR: Installing apt packages should not be done as root', file=sys.stderr)
         return 1
@@ -937,7 +937,7 @@ def install_apt(matching_checks, checks, get_deps):
     check_deps = []
     for name, check in checks.items():
         deps = get_deps(check)
-        if name not in matching_checks or check.disabled or not deps:
+        if name not in matching_checks or check.disabled or not deps or ignore_check(check):
             continue
         try:
             check.meet_prereq()
@@ -1012,8 +1012,12 @@ def get_deps_debian(check):
     return check.debian
 
 
+def ignore_check_debian(check):
+    return check.is_flag_set('todo') or check.is_flag_set('debian-suggests')
+
+
 def install_debian(matching_checks, checks):
-    return install_apt(matching_checks, checks, get_deps_debian)
+    return install_apt(matching_checks, checks, get_deps_debian, ignore_check_debian)
 
 
 def install(install_type, matching_checks, checks):
