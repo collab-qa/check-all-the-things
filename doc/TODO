@@ -14,7 +14,7 @@ https://github.com/vim-syntastic/syntastic/tree/master/syntax_checkers
 https://pagure.io/FedoraReview
 https://github.com/michenriksen/gitrob/blob/master/signatures.json
 https://docs.codeclimate.com/docs/list-of-engines
-https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis#C.2FC.2B.2B
+https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis
 https://github.com/mcandre/linters
 https://gitlab.com/linted/linted/tree/master/scripts
 https://support.codacy.com/hc/en-us/articles/207995005-Special-Thanks
@@ -34,7 +34,6 @@ https://github.com/mre/awesome-static-analysis
 https://github.com/dominikh/go-tools
 https://github.com/exakat/php-static-analysis-tools
 https://www.peerlyst.com/posts/a-list-of-static-analysis-tools-for-c-c-peerlyst
-http://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis
 
 A mechanisms for filtering output is needed.
 
