@@ -113,7 +113,7 @@ git tag -a -s check-all-the-things-$(date -u --iso-8601 | tr - .)
 
 You can use 'cats' as the abbreviation of check-all-the-things. Meow!
 
-## Bugs
+## Bugs in Debian BTS
 
 ITP bugs and bugs filed against other packages should be marked as
 affecting check-all-the-things and usertagged as below.
