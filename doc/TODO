@@ -34,6 +34,7 @@ https://github.com/mre/awesome-static-analysis
 https://github.com/dominikh/go-tools
 https://github.com/exakat/php-static-analysis-tools
 https://www.peerlyst.com/posts/a-list-of-static-analysis-tools-for-c-c-peerlyst
+https://github.com/w0rp/ale
 
 A mechanisms for filtering output is needed.
 
