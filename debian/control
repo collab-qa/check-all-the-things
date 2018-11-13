@@ -28,6 +28,7 @@ Recommends:
  ${cats:Recommends},
 Suggests:
  ${cats:Suggests},
+Homepage: https://github.com/collab-qa/check-all-the-things/tree/master/doc
 Description: check all of the things!
  This package will help you check all of the things.
  .
