@@ -74,8 +74,8 @@ field and add a comment with info about what needs to be fixed.
 
 Some common comments for fixme flags are available with additional flags:
 
-fixme-silent: when commands need an option to be more silent
-fixme-ignore: when commands need an option to ignore some paths
+* fixme-silent: when commands need an option to be more silent
+* fixme-ignore: when commands need an option to ignore some paths
 
 When adding TODO entries, please add a new check config but set the flags
 field to todo and add any known hints in the debian/comment/command fields.
@@ -92,8 +92,8 @@ discuss the changes with people who are interested.
 
 For low-latency discussion you can join the Debian QA IRC channel:
 
-ircs://irc.oftc.net/debian-qa
-https://webchat.oftc.net/?channels=debian-qa
+* ircs://irc.oftc.net/debian-qa
+* https://webchat.oftc.net/?channels=debian-qa
 
 Please sign all of your commits and tags with OpenPGP:
 
@@ -101,7 +101,7 @@ https://mikegerwitz.com/papers/git-horror-story
 
 Before releases, update lists of extensions copied from elsewhere:
 
-git grep -C1 TODO.*releases
+    git grep -C1 TODO.*releases
 
 Every release should proclaim to be the "Check all the things" release,
 but the phrase needs to be mutated for each release to a similar phrase.
@@ -109,7 +109,7 @@ but the phrase needs to be mutated for each release to a similar phrase.
 Tags should be created using this command and the tag annotation should
 be the release notes for this version, usually stuff from debian/changelog.
 
-git tag -a -s check-all-the-things-$(date -u --iso-8601 | tr - .)
+    git tag -a -s check-all-the-things-$(date -u --iso-8601 | tr - .)
 
 You can use 'cats' as the abbreviation of check-all-the-things. Meow!
 
@@ -122,25 +122,25 @@ The user for usertags is check-all-the-things@packages.debian.org
 
 These usertags should be used:
 
-new-check: for ITPs or bugs that block the addition of new checks
-new-issues: for requests to check new issues in particular checker tools
-noise: for bugs in particular checkers that make unnecessary noise
-false-positive: for false positives in particular checker tools
-file-detection: for issues related to choice of files to check
-rm-check: for bugs related to the removal of tools used by checks
+* new-check: for ITPs or bugs that block the addition of new checks
+* new-issues: for requests to check new issues in particular checker tools
+* noise: for bugs in particular checkers that make unnecessary noise
+* false-positive: for false positives in particular checker tools
+* file-detection: for issues related to choice of files to check
+* rm-check: for bugs related to the removal of tools used by checks
 
 Please feel free to add new usertags and document them here.
 
 For example:
 
-To: submit@bugs.debian.org
-
-User: check-all-the-things@packages.debian.org
-Usertags: new-check
-Control: affects -1 check-all-the-things
+    To: submit@bugs.debian.org
+    
+    User: check-all-the-things@packages.debian.org
+    Usertags: new-check
+    Control: affects -1 check-all-the-things
 
 To: control@bugs.debian.org
 
-user check-all-the-things@packages.debian.org
-usertags 123456 + new-check
-affects  123456 + check-all-the-things
+    user check-all-the-things@packages.debian.org
+    usertags 123456 + new-check
+    affects  123456 + check-all-the-things
