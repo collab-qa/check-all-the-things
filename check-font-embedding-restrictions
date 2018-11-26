@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 
 import fontforge
-import deb822
+import debian.deb822 as deb822
 import sys
 import os
 
