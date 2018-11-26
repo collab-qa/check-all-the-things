@@ -38,25 +38,15 @@ import signal
 import subprocess as ipc
 import string
 import sys
+
+if sys.version_info < (3, 4):
+    raise RuntimeError('Python >= 3.4 is required')
+
+from shutil import get_terminal_size, which
 from textwrap import TextWrapper
 
-try:
-    from shutil import get_terminal_size
-
-    def get_columns():
-        return get_terminal_size().columns
-except ImportError:
-    # Python 3.2 compatibility:
-    from fcntl import ioctl
-    from termios import TIOCGWINSZ
-    from struct import unpack
-
-    def get_columns():
-        try:
-            buf = ioctl(sys.stdout.fileno(), TIOCGWINSZ, ' ' * 4)
-            return unpack('hh', buf)[1]
-        except IOError:
-            return 80
+def get_columns():
+    return get_terminal_size().columns
 
 if sys.stdout.isatty():
     from curses import tigetstr, setupterm
@@ -64,40 +54,9 @@ if sys.stdout.isatty():
     erase_line = tigetstr('el')
     reset_term = tigetstr('sgr0') or tigetstr('oc') or tigetstr('op') or bytes()
 
-try:
-    from shutil import which
-except ImportError:
-    # Python 3.2 compatibility:
-    def which(cmd):
-        PATH = os.environ.get('PATH', os.defpath)
-        PATH = PATH.split(os.pathsep)
-        for dir in PATH:
-            path = os.path.join(dir, cmd)
-            if os.access(path, os.X_OK):
-                return path
-
-if not hasattr(shlex, 'quote'):
-    # Python 3.2 compatibility:
-    import pipes
-    shlex.quote = pipes.quote
-
 if not hasattr(signal, 'Signals'):
     # Python 3.4 compatibility:
-    try:
-        from enum import IntEnum
-    except ImportError:
-        # Python 3.3 compatibility:
-        def IntEnum(tname, values):
-            remove = ['SIGIOT', 'SIGCLD']
-            _Signals = {value: key for key, value in values if key not in remove}
-
-            def Signals(value):
-                class Signal(object):
-                    def __init__(self, name):
-                        self.name = name
-                return Signal(_Signals[value])
-            return Signals
-
+    from enum import IntEnum
     items = []
     for name, value in vars(signal).items():
         sig = name.startswith('SIG') and not name.startswith('SIG_')
@@ -548,14 +507,11 @@ class Check(object):
                 raise UnmetPrereq('command not found: ' + cmd)
         else:
             try:
-                # For Python 3.2 compatibility, open /dev/null manually instead
-                # of using subprocess.DEVNULL
-                with open(os.devnull, 'wb') as dev_null:
-                    ipc.check_call(
-                        ['sh', '-e', '-c', self.prereq],
-                        stdout=dev_null,
-                        stderr=dev_null,
-                    )
+                ipc.check_call(
+                    ['sh', '-e', '-c', self.prereq],
+                    stdout=ipc.DEVNULL,
+                    stderr=ipc.DEVNULL,
+                )
             except ipc.CalledProcessError:
                 raise UnmetPrereq('command failed: ' + self.prereq)
 
