@@ -20,6 +20,7 @@ Depends:
  ${misc:Depends},
 Recommends:
  apt (>= 1.4~beta3~),
+ file,
  python3-apt,
  python3-argcomplete,
  python3-magic,
