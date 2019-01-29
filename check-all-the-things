@@ -1215,9 +1215,13 @@ def main():
     terminal = terminal_working()
     last_interrupt = 0
     matching_checks = set()
-    if magic and mime:
-        typedb = magic.open(magic.MAGIC_MIME_TYPE)
-        typedb.load()
+    if mime:
+        if magic:
+            typedb = magic.open(magic.MAGIC_MIME_TYPE)
+            typedb.load()
+        else:
+            print('ERROR: MIME type checking requested but Python magic module not installed', file=sys.stderr)
+            sys.exit(1)
     else:
         typedb = None
     walk(typedb, checks, remarks, matching_checks, True, os.path.pardir)
