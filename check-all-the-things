@@ -1216,11 +1216,15 @@ def main():
     last_interrupt = 0
     matching_checks = set()
     if mime:
-        if magic:
+        filecmd = which('file')
+        if magic and filecmd:
             typedb = magic.open(magic.MAGIC_MIME_TYPE)
             typedb.load()
         else:
-            print('ERROR: MIME type checking requested but Python magic module not installed', file=sys.stderr)
+            if not filecmd:
+                print('ERROR: MIME type checking requested but file command not installed', file=sys.stderr)
+            if not magic:
+                print('ERROR: MIME type checking requested but Python magic module not installed', file=sys.stderr)
             sys.exit(1)
     else:
         typedb = None
