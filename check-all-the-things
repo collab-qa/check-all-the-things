@@ -2,7 +2,7 @@
 # PYTHON_ARGCOMPLETE_OK
 
 # Copyright 2014-2018 Jakub Wilk <jwilk@jwilk.net>
-# Copyright 2015-2018 Paul Wise <pabs@debian.org>
+# Copyright 2015-2019 Paul Wise <pabs@debian.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -314,8 +314,8 @@ class Check(object):
             self.__dict__[type] = None
             self.__dict__['_' + type + '_fn'] = None
         self.comment = None
-        self.cmd = None
-        self.cmd_nargs = None
+        self.cmds = []
+        self.cmds_nargs = []
         self.flags = set()
         self.prereq = None
         self.disabled = set()
@@ -383,7 +383,13 @@ class Check(object):
         self.comment = value.strip()
 
     def set_command(self, value):
-        self.cmd = cmd = value.strip()
+        cmds = [item.strip() for item in value]
+        self.cmds = [cmd for cmd in cmds if cmd]
+        self.cmds_nargs = []
+        for cmd in cmds:
+            self.add_command_nargs(cmd)
+
+    def add_command_nargs(self, cmd):
         fields = {
             field
             for text, field, fmt, conv
@@ -392,7 +398,7 @@ class Check(object):
         nargs = 1 * ('file' in fields) + 2 * ('files' in fields)
         if nargs >= 3:
             raise RuntimeError('invalid command specification: ' + cmd)
-        self.cmd_nargs = nargs
+        self.cmds_nargs.append(nargs)
 
     def set_flags(self, value):
         self.flags = set(value.split())
@@ -425,7 +431,7 @@ class Check(object):
     def _set_fcmd(self, fcmd, type):
         self._set_fcmd_(fcmd, [type, type + '_path'], ['-iname', '-iwholename'])
 
-    def get_sh_cmd(self, njobs=1, types=False):
+    def get_sh_cmd(self, this_cmd, nargs, njobs=1, types=False):
         pd = os.path.pardir
         cwd = os.path.curdir
         if self.is_flag_set('run-in-tmp-dir'):
@@ -447,15 +453,15 @@ class Check(object):
             'file': '',
             'njobs': njobs,
         }
-        if not self.cmd:
+        if not this_cmd:
             return
-        cmd = self.cmd.format(**kwargs)
+        cmd = this_cmd.format(**kwargs)
         # FIXME: remove this once Perl no longer includes . in @INC by default
         # https://rt.perl.org/Public/Bug/Display.html?id=127810
         # https://bugs.debian.org/588017
         if self.is_flag_set('perl-inc-cwd-bug'):
             cmd = 'env PERL5OPT=-m-lib=. ' + cmd
-        if self.cmd_nargs > 0:
+        if nargs > 0:
             fcmd = ['find']
             any = self.not_files or self.not_files_path or self.files or self.files_path
             if self.files_parent:
@@ -485,9 +491,9 @@ class Check(object):
                 tfcmd += '''-exec sh -c 'file --mime-type -r0 "$1" | cut -d "" -f 2 | grep -qP "^: '''
                 tfcmd += self._types_re
                 tfcmd += '''$" && printf "%s\\0" "$1"' sh {} \\; | xargs -0'''
-                if self.cmd_nargs == 1:
+                if nargs == 1:
                     tfcmd += 'n1'
-                fcmd += [tfcmd, self.cmd.format(**null_kwargs)]
+                fcmd += [tfcmd, this_cmd.format(**null_kwargs)]
             elif not self.files_parent or any:
                 fcmd += ['-exec', cmd]
             cmd = ' '.join(fcmd)
@@ -499,9 +505,9 @@ class Check(object):
 
     def meet_prereq(self):
         if self.prereq is None:
-            if not self.cmd:
+            if not self.cmds:
                 return
-            cmdline = shlex.split(self.cmd)
+            cmdline = shlex.split(self.cmds[0])
             cmd = cmdline[0]
             if cmd == 'cat':
                 cmd = cmdline[cmdline.index('|') + 1]
@@ -562,7 +568,6 @@ class Check(object):
         return value in self.flags
 
     def do(self, name, jobs, types, run, hide, limit, method, terminal, remarks):
-        cmd = self.get_sh_cmd(njobs=jobs, types=types)
         comment = self.comment
         manual = self.is_flag_set('manual')
         style = self.is_flag_set('style')
@@ -572,12 +577,8 @@ class Check(object):
         fixme_ignore = fixme and self.is_flag_set('fixme-ignore')
         todo = self.is_flag_set('todo')
         embed = self.is_flag_set('embed')
-        run = cmd and run and not manual and not todo
-        hide = hide and run
         trim = limit > 0
-        supervise = hide or trim
-        if method == 'auto':
-            method = spawn_choice(supervise, terminal)
+        hide = hide or len(self.cmds) > 1
         header = ''
         footer = ('...',)
         if manual and not todo:
@@ -603,20 +604,39 @@ class Check(object):
         if embed and not todo:
             header += '# Please remove any embedded copies from the upstream VCS and tarballs.\n'
             header += '# https://wiki.debian.org/EmbeddedCodeCopies\n'
-        if cmd:
-            prompt = '# $ ' if manual or todo else '$ '
-            header += prompt + cmd
-        if run:
-            output, trimmed = spawn(terminal, method, cmd, hide, header, footer, limit)
-            if not output and hide:
-                remark(remarks, name, 'no output')
-            if trim and trimmed:
-                remark(remarks, name, 'trimmed')
+
+        # Needed to create a new variable scope
+        def do_cmd(cmd, nargs, run, hide, method, header):
+            cmd = self.get_sh_cmd(cmd, nargs, njobs=jobs, types=types)
+            run = cmd and run and not manual and not todo
+            hide = hide and run
+            supervise = hide or trim
+            if method == 'auto':
+                method = spawn_choice(supervise, terminal)
+            if cmd:
+                prompt = '# $ ' if manual or todo else '$ '
+                header += prompt + cmd
+            if run:
+                output, trimmed = spawn(terminal, method, cmd, hide, header, footer, limit)
+            else:
+                if terminal:
+                    erase_to_eol_cr()
+                output = show_header(header)
+                trimmed = False
+            return output, trimmed, hide
+
+        for i, cmd in enumerate(self.cmds):
+            output, trimmed, hidden = do_cmd(cmd, self.cmds_nargs[i], run, hide, method, header)
+            if output:
+                if trim and trimmed:
+                    remark(remarks, name, 'trimmed')
+                if run:
+                    return output
         else:
-            if terminal:
-                erase_to_eol_cr()
-            output = show_header(header)
-        return output
+            output = None
+            hidden = False
+        if not output and hidden:
+            remark(remarks, name, 'no output')
 
 
 class Formatter(argparse.ArgumentDefaultsHelpFormatter):
@@ -783,11 +803,68 @@ class RangeCompleter(object):
         return (str(c) for c in self.choices if str(c).startswith(prefix))
 
 
-def parse_section(section, check=None):
+class OrderedDictOfLists(collections.OrderedDict):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__indices__ = collections.defaultdict(int)
+        self.__return_item_lists__ = collections.defaultdict(bool)
+
+    # This is needed so that configparser updates the correct list items
+    def __setitem__(self, key, value):
+        if not super().__contains__(key):
+            super().__setitem__(key, [])
+        items = super().__getitem__(key)
+        if isinstance(value, list):
+            items.append(value)
+        elif isinstance(value, str):
+            try:
+                items[self.__indices__[key]] = value
+            except IndexError:
+                self.__return_item_lists__[key] = True
+                items.append(value)
+            self.__indices__[key] += 1
+        else:
+            super().__setitem__(key, value)
+
+    # This is needed so that configparser appends to the right list
+    def __getitem__(self, key):
+        result = super().__getitem__(key)
+        if isinstance(result, list) and not self.__return_item_lists__[key] and self.__reading__:
+            result = result[-1]
+        return result
+
+    # This is needed to catch duplicate sections
+    def __contains__(self, item):
+        contains = super().__contains__(item)
+        if self.__reading__ and contains:
+            raise configparser.DuplicateSectionError(item, self.__path__)
+        return contains
+
+    def items(self):
+        result = super().items()
+        if result:
+            items = []
+            for key, val in result:
+                if isinstance(val, list):
+                    for value in val:
+                        items.append((key, value))
+                else:
+                    items.append((key, val))
+            result = items
+        return result
+
+
+def parse_section(path, section, check=None):
     if not check:
         check = Check()
     for key, value in section.items():
         key = key.replace('-', '_')
+        if key != 'command':
+            if len(value) > 1:
+                raise configparser.DuplicateOptionError(section.name, key, path)
+            else:
+                [value] = value
         getattr(check, 'set_' + key)(value)
     return check
 
@@ -803,17 +880,20 @@ def parse_conf(checks={}, flags=set(), distro=None, release=None):
 
 
 def parse_file(checks, flags, path, overlay=False):
-    cp = configparser.ConfigParser(interpolation=None)
+    attrs = {'__path__': path, '__reading__': True}
+    cls = type('OrderedDictOfListsForPath', (OrderedDictOfLists,), attrs)
+    cp = configparser.ConfigParser(interpolation=None, strict=False, dict_type=cls)
     cp.read(path, encoding='UTF-8')
+    cls.__reading__ = False
     for name in cp.sections():
         section = cp[name]
         if name in checks:
             if overlay:
-                parse_section(section, checks[name])
+                parse_section(path, section, checks[name])
             else:
                 raise RuntimeError('duplicate check name: ' + name)
         else:
-            checks[name] = parse_section(section)
+            checks[name] = parse_section(path, section)
         checks[name].flags.update({os.path.splitext(os.path.basename(path))[0]})
         flags.update(checks[name].flags)
 

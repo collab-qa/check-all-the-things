@@ -69,6 +69,16 @@ When adding support for new checkers, please ensure that you use {file}
 for checkers that take only one argument and that you use {files} for
 checkers that take more than one argument.
 
+When adding support for new checkers that have multiple verbosity levels,
+please add one command for each verbosity level in order of increasing
+verbosity and then cats will run them in increasing verbosity order,
+ending at the first command that produces any output. Since each additional
+verbosity level means more resource usage, it is a good idea to limit the
+amount of commands present based on the resource usage of each command.
+So resource-intensive checks should have fewer commands and cheaper checks
+are able to have more. Keeping the amount of commands under 10 is a
+reasonable rule of thumb.
+
 When the support for a check is suboptimal, you can add fixme to the flags
 field and add a comment with info about what needs to be fixed.
 
