@@ -567,7 +567,7 @@ class Check(object):
     def is_flag_set(self, value):
         return value in self.flags
 
-    def do(self, name, jobs, types, run, hide, limit, method, terminal, remarks):
+    def do(self, name, jobs, types, run, verbosity, hide, limit, method, terminal, remarks):
         comment = self.comment
         manual = self.is_flag_set('manual')
         style = self.is_flag_set('style')
@@ -625,7 +625,13 @@ class Check(object):
                 trimmed = False
             return output, trimmed, hide
 
+        if verbosity < 0:
+            cmds_start = max(0, len(self.cmds) + verbosity)
+        else:
+            cmds_start = min(verbosity, len(self.cmds) - 1)
         for i, cmd in enumerate(self.cmds):
+            if i < cmds_start:
+                continue
             output, trimmed, hidden = do_cmd(cmd, self.cmds_nargs[i], run, hide, method, header)
             if output:
                 if trim and trimmed:
@@ -1248,6 +1254,14 @@ def main():
     ap.add_argument('--commands', type=str,
                     help="what to do with the commands for the chosen set of hooks",
                     default='run', choices=['run', 'show'])
+    ap.add_argument('--command-verbosity', metavar='N', type=int,
+                    help="which command number to start at for each check,"
+                         " command verbosity starts terse at zero"
+                         " and increases with each level but"
+                         " most commands have few levels."
+                         " verbosity -1 means the most verbose command"
+                         " and increases in terseness at more negative levels",
+                    default=0).completer = RangeCompleter(0, 10)
     ap.add_argument("--set-debian-substvars", help=argparse.SUPPRESS, action="store_true")
     ap.add_argument('--spawn-method', type=str, help=argparse.SUPPRESS,
                     default='auto', choices=['auto', 'none', 'pipe', 'pty', 'ptyprocess'])
@@ -1290,6 +1304,7 @@ def main():
         options.jobs = multiprocessing.cpu_count()
     jobs = options.jobs
     run = options.commands == 'run'
+    verbosity = options.command_verbosity
     hide = options.silent_checks == 'hide'
     limit = options.checks_output_lines
     mime = options.mime
@@ -1348,7 +1363,7 @@ def main():
                     sys.exit()
             try:
                 output = None
-                output = check.do(name, jobs, types, run, hide, limit, method, terminal, remarks)
+                output = check.do(name, jobs, types, run, verbosity, hide, limit, method, terminal, remarks)
             except KeyboardInterrupt:
                 if options.interrupt in {'exit', 'quit'} or (time.time() - last_interrupt) < options.interrupt_period:
                     if output:
