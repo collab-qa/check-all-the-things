@@ -45,8 +45,10 @@ if sys.version_info < (3, 4):
 from shutil import get_terminal_size, which
 from textwrap import TextWrapper
 
+
 def get_columns():
     return get_terminal_size().columns
+
 
 if sys.stdout.isatty():
     from curses import tigetstr, setupterm
