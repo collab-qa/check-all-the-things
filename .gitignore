@@ -1,3 +1,4 @@
+debian/.debhelper/
 debian/check-all-the-things.bash-completion
 debian/check-all-the-things.debhelper.log
 debian/check-all-the-things.substvars
