@@ -17,6 +17,6 @@ override_dh_auto_build:
 		--name="Check all of the things!" \
 		./$P \
 		> $P.1
-	register-python-argcomplete check-all-the-things > debian/$P.bash-completion
+	register-python-argcomplete3 check-all-the-things > debian/$P.bash-completion
 	sed -i s/_python_argcomplete/_check_all_the_things_argcomplete/ debian/$P.bash-completion
 	sed -i 's/$$1/check-all-the-things/' debian/$P.bash-completion
