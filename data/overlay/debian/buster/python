@@ -1,0 +1,3 @@
+[font-embedding-restrictions]
+debian = python, python-fontforge, python-debian
+command = python check-font-embedding-restrictions {files}
