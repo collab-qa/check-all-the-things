@@ -432,6 +432,7 @@ class Check(object):
         self._set_fcmd_(fcmd, [type, type + '_path'], ['-iname', '-iwholename'])
 
     def get_sh_cmd(self, this_cmd, nargs, njobs=1, types=False):
+        srcdir = os.path.dirname(__file__)
         pd = os.path.pardir
         cwd = os.path.curdir
         if self.is_flag_set('run-in-tmp-dir'):
@@ -439,7 +440,9 @@ class Check(object):
             cwd = os.path.abspath(cwd)
         pd = shlex.quote(pd)
         cwd = shlex.quote(cwd)
+        srcdir = shlex.quote(srcdir)
         kwargs = {
+            'srcdir': srcdir,
             'pd': pd,
             'cwd': cwd,
             'files': '{} +',
@@ -447,6 +450,7 @@ class Check(object):
             'njobs': njobs,
         }
         null_kwargs = {
+            'srcdir': '',
             'pd': '',
             'cwd': '',
             'files': '',
@@ -508,7 +512,8 @@ class Check(object):
             if not self.cmds:
                 return
             cmdline = shlex.split(self.cmds[0])
-            cmd = cmdline[0]
+            srcdir = os.path.dirname(__file__)
+            cmd = cmdline[0].format(srcdir=srcdir)
             if cmd == 'cat':
                 cmd = cmdline[cmdline.index('|') + 1]
             if not which(cmd) and not self.is_flag_set('todo'):
