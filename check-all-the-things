@@ -1278,7 +1278,7 @@ def main():
                     default=None, choices=['debian'])
     ap.add_argument('--release', '-r', type=str,
                     help="enable check overlay for distribution release",
-                    default=None, choices=['jessie'])
+                    default=None, choices=['jessie', 'stretch', 'buster'])
     mime_help = (" matching files based on MIME type."
                  " MIME checking is slow and"
                  " makes more complicated commands.")
