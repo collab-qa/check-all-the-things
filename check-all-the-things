@@ -449,14 +449,6 @@ class Check(object):
             'file': '{} \\;',
             'njobs': njobs,
         }
-        null_kwargs = {
-            'srcdir': '',
-            'pd': '',
-            'cwd': '',
-            'files': '',
-            'file': '',
-            'njobs': njobs,
-        }
         if not this_cmd:
             return
         cmd = this_cmd.format(**kwargs)
@@ -497,7 +489,8 @@ class Check(object):
                 tfcmd += '''$" && printf "%s\\0" "$1"' sh {} \\; | xargs -0'''
                 if nargs == 1:
                     tfcmd += 'n1'
-                fcmd += [tfcmd, this_cmd.format(**null_kwargs)]
+                kwargs_nofiles = dict(kwargs, file='', files='')
+                fcmd += [tfcmd, this_cmd.format(**kwargs_nofiles)]
             elif not self.files_parent or any:
                 fcmd += ['-exec', cmd]
             cmd = ' '.join(fcmd)
