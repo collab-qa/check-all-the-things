@@ -35,6 +35,7 @@ https://github.com/dominikh/go-tools
 https://github.com/exakat/php-static-analysis-tools
 https://www.peerlyst.com/posts/a-list-of-static-analysis-tools-for-c-c-peerlyst
 https://github.com/w0rp/ale
+https://github.com/github/super-linter#supported-linters
 
 A mechanisms for filtering output is needed.
 
