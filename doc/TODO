@@ -11,6 +11,7 @@ Places to find new checks:
 apt-file search --regex 'bin/.*(lint|check|valid|tidy|detect)'
 apt-cache search --names-only '(lint|check|valid|tidy|detect)'
 https://github.com/vim-syntastic/syntastic/tree/master/syntax_checkers
+https://github.com/Chiel92/vim-autoformat#default-formatprograms
 https://pagure.io/FedoraReview
 https://github.com/michenriksen/gitrob/blob/master/signatures.json
 https://docs.codeclimate.com/docs/list-of-engines
@@ -28,14 +29,30 @@ https://atomlinter.github.io/
 https://github.com/coala/coala-bears/tree/master/bears
 https://github.com/coala/bear-docs
 https://github.com/alecthomas/gometalinter
+https://golangci-lint.run/usage/linters/
 https://github.com/jayclassless/tidypy
 https://metacpan.org/release/Code-TidyAll
 https://github.com/analysis-tools-dev/static-analysis
+https://github.com/analysis-tools-dev/dynamic-analysis
 https://github.com/dominikh/go-tools
 https://github.com/exakat/php-static-analysis-tools
 https://www.peerlyst.com/posts/a-list-of-static-analysis-tools-for-c-c-peerlyst
 https://github.com/dense-analysis/ale
 https://github.com/github/super-linter#supported-linters
+https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis
+https://github.com/wala/WALA/wiki/WALA-Based-Tools
+https://github.com/google/styleguide
+https://github.com/alfredodeza/khuno.vim
+https://lwn.net/Articles/692054/
+https://lwn.net/Articles/822969/
+https://github.com/yugr/debian_pkg_test
+https://littlemaninmyhead.wordpress.com/2019/08/04/dont-underestimate-grep-based-code-scanning/
+https://docs.gitlab.com/ce/user/application_security/sast/
+https://github.com/c-oberle/clone-detection-tools
+https://danger.systems/
+https://github.com/cmeissner/puppet-git-hooks
+https://github.com/anchor/git-vogue
+https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard
 
 A mechanisms for filtering output is needed.
 
