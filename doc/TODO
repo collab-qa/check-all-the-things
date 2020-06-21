@@ -30,11 +30,11 @@ https://github.com/coala/bear-docs
 https://github.com/alecthomas/gometalinter
 https://github.com/jayclassless/tidypy
 https://metacpan.org/release/Code-TidyAll
-https://github.com/mre/awesome-static-analysis
+https://github.com/analysis-tools-dev/static-analysis
 https://github.com/dominikh/go-tools
 https://github.com/exakat/php-static-analysis-tools
 https://www.peerlyst.com/posts/a-list-of-static-analysis-tools-for-c-c-peerlyst
-https://github.com/w0rp/ale
+https://github.com/dense-analysis/ale
 https://github.com/github/super-linter#supported-linters
 
 A mechanisms for filtering output is needed.
