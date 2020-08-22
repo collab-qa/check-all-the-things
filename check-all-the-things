@@ -451,7 +451,7 @@ class Check(object):
         }
         if not this_cmd:
             return
-        cmd = this_cmd.format(**kwargs)
+        cmd = this_cmd.format_map(kwargs)
         # FIXME: remove this once Perl no longer includes . in @INC by default
         # https://rt.perl.org/Public/Bug/Display.html?id=127810
         # https://bugs.debian.org/588017
@@ -490,7 +490,7 @@ class Check(object):
                 if nargs == 1:
                     tfcmd += 'n1'
                 kwargs_nofiles = dict(kwargs, file='', files='')
-                fcmd += [tfcmd, this_cmd.format(**kwargs_nofiles)]
+                fcmd += [tfcmd, this_cmd.format_map(kwargs_nofiles)]
             elif not self.files_parent or any:
                 fcmd += ['-exec', cmd]
             cmd = ' '.join(fcmd)
