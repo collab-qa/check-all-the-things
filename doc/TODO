@@ -12,6 +12,7 @@ apt-file search --regex 'bin/.*(lint|check|valid|tidy|detect)'
 apt-cache search --names-only '(lint|check|valid|tidy|detect)'
 https://github.com/vim-syntastic/syntastic/tree/master/syntax_checkers
 https://github.com/Chiel92/vim-autoformat#default-formatprograms
+https://github.com/hjwylde/omnifmt/tree/master/docs/example-configs/
 https://pagure.io/FedoraReview
 https://github.com/michenriksen/gitrob/blob/master/signatures.json
 https://docs.codeclimate.com/docs/list-of-engines
@@ -25,6 +26,8 @@ https://git.launchpad.net/ubuntu-security-tools/tree/audits
 https://github.com/sk-/git-lint
 https://prospector.readthedocs.io/en/master/supported_tools.html
 http://www.flycheck.org/en/latest/languages.html
+https://www.emacswiki.org/emacs/FlyMake
+https://www.illusori.co.uk/projects/emacs-flymake/
 https://atomlinter.github.io/
 https://github.com/coala/coala-bears/tree/master/bears
 https://github.com/coala/bear-docs
@@ -53,6 +56,32 @@ https://danger.systems/
 https://github.com/cmeissner/puppet-git-hooks
 https://github.com/anchor/git-vogue
 https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard
+http://pre-commit.com/
+https://github.com/Arkweid/lefthook
+https://github.com/typicode/husky
+https://github.com/sds/overcommit
+https://github.com/houseabsolute/precious
+https://metacpan.org/release/Code-TidyAll
+https://github.com/okonet/lint-staged
+https://www.sonarqube.org/
+https://github.com/zulip/zulint
+https://comby.dev/
+https://samate.nist.gov/index.php/Source_Code_Security_Analyzers.html
+https://owasp.org/www-community/Source_Code_Analysis_Tools
+https://github.com/devsecops/awesome-devsecops
+https://github.com/TaptuIT/awesome-devsecops
+https://github.com/kai5263499/awesome-container-security
+https://awesome-safety-critical.readthedocs.io/en/latest/
+https://firefox-source-docs.mozilla.org/code-quality/lint/
+https://qa.debian.org/daca/
+https://github.com/Ericsson/codechecker/blob/master/docs/supported_code_analyzers.md
+https://nvuillam.github.io/mega-linter/
+https://dprint.dev/plugins/
+nanorc linter
+https://github.com/coinbase/salus#supported-scanners
+https://github.com/thought-machine/dracon
+https://github.com/DefectDojo/django-DefectDojo/tree/master/dojo/tools/
+https://go.libhunt.com/go-tools-alternatives
 
 A mechanisms for filtering output is needed.
 
