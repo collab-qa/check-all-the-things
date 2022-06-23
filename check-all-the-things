@@ -27,7 +27,6 @@ import collections
 import configparser
 import fnmatch
 import glob
-import multiprocessing
 import os
 import re
 import pty
@@ -1180,6 +1179,15 @@ def terminal_working():
         return False
 
 
+def get_cpu_count():
+    try:
+        sched_getaffinity = os.sched_getaffinity
+    except AttributeError:
+        return os.cpu_count() or 1
+    else:
+        return len(sched_getaffinity(0))
+
+
 def main():
     (checks, flags) = parse_conf()
     all_checks = set(checks.keys())
@@ -1214,7 +1222,7 @@ def main():
     )
     ap.add_argument('--jobs', '-j', metavar='N', type=int, nargs='?',
                     help="passed to tools that can parallelize their checks",
-                    default=1).completer = RangeCompleter(1, multiprocessing.cpu_count())
+                    default=1).completer = RangeCompleter(1, get_cpu_count())
     ap.add_argument('--checks', '-c', metavar='selectors', nargs=1,
                     help="alter the set of checks to be run based on check names"
                          " (example: = cppcheck + lintian duck - duck)",
@@ -1299,7 +1307,7 @@ def main():
         set_debian_substvars(checks)
         sys.exit()
     if options.jobs is None:
-        options.jobs = multiprocessing.cpu_count()
+        options.jobs = get_cpu_count()
     jobs = options.jobs
     run = options.commands == 'run'
     verbosity = options.command_verbosity
