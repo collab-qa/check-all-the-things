@@ -108,6 +108,7 @@ For low-latency discussion you can join the Debian QA IRC channel:
 Please sign all of your commits and tags with OpenPGP:
 
 https://mikegerwitz.com/papers/git-horror-story
+https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work#_everyone_must_sign
 
 Before releases, update lists of extensions copied from elsewhere:
 
