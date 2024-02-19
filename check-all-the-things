@@ -541,7 +541,7 @@ class Check(object):
         return False
 
     def is_dir_matching(self, path):
-        dir = os.path.split(path)[-1]
+        dir = os.path.basename(path)
         if self._not_dirs_fn and self._not_dirs_fn(dir):
             return True
         if self._not_dirs_path_fn and self._not_dirs_path_fn(path):
@@ -1098,7 +1098,7 @@ def walk(typedb, checks, remarks, matching_checks, parent, top):
             del dirs[:]
         else:
             if root not in ignore_checks:
-                up = os.path.split(root)[0]
+                up = os.path.dirname(root)
                 ignore_checks[root] = set(ignore_checks[up])
             for name, check in checks.items():
                 if name in ignore_checks[root]:
