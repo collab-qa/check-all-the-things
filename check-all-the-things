@@ -28,15 +28,15 @@ import configparser
 import fnmatch
 import glob
 import os
-import re
 import pty
+import re
 import shlex
-import stat
-import time
 import signal
-import subprocess as ipc
+import stat
 import string
+import subprocess as ipc
 import sys
+import time
 
 if sys.version_info < (3, 4):
     raise RuntimeError('Python >= 3.4 is required')
