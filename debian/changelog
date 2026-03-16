@@ -1,3 +1,10 @@
+check-all-the-things (2017.05.20+nmu1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Drop python2 support; Closes: #942918, #938986
+
+ -- Sandro Tosi <morph@debian.org>  Sat, 07 Dec 2019 17:37:15 -0500
+
 check-all-the-things (2017.05.20) unstable; urgency=medium
 
   * New release.
